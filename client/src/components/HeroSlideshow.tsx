@@ -1,67 +1,51 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import mini from "@/assets/slideminigreen-694d12aeada25.webp";
 import dotMatrixRed from "@/assets/slidedotmatrixred-694d1258ad727.webp";
 import calendarRed from "@/assets/slidecalendarred-694d1256bfe67.webp";
 
 const slides = [
-  {
-    alt: "Mini LED Clock (Green) — Brim Clocks",
-    src: mini,
-    width: 577,
-    height: 325,
-  },
-  {
-    alt: "Dot Matrix Clock (Red) — Brim Clocks",
-    src: dotMatrixRed,
-  },
-  {
-    alt: "Calendar Clock (Red) — Brim Clocks",
-    src: calendarRed,
-  },
+  { alt: "Mini LED Clock (Green)", src: mini },
+  { alt: "Dot Matrix Clock (Red)", src: dotMatrixRed },
+  { alt: "Calendar Clock (Red)", src: calendarRed },
 ];
 
 const HeroSlideshow = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Auto-slide with cleanup
   useEffect(() => {
-    const timer = setInterval(() => {
+    timeoutRef.current = setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 3000);
-
-    return () => clearInterval(timer);
-  }, []);
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [currentSlide]);
 
   return (
     <section className="relative min-h-[75svh] md:min-h-[100svh] w-full overflow-hidden bg-background pt-16 md:pt-24">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-muted/20 via-background to-background" />
 
-      <div className="absolute inset-x-0 top-24 bottom-28 md:top-20 md:bottom-24 flex items-center justify-center z-10">
-        <div className="relative w-[80%] h-full flex items-center justify-center">
-          {slides.map((slide, index) => (
-            <motion.div
-              key={index}
-              className={`absolute inset-0 mx-auto w-full h-full max-h-[60svh] md:max-h-none flex items-center justify-center transition-opacity duration-1000 ease-in-out ${index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-                }`}
-              animate={index === currentSlide ? { y: [0, -15, 0] } : {}}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <img
-                src={slide.src}
-                alt={slide.alt}
-                width={slide.width}
-                height={slide.height}
-                fetchPriority={index === 0 ? "high" : undefined}
-                className={`h-full w-full object-contain md:object-cover ${"desktopObjectPositionClass" in slide ? slide.desktopObjectPositionClass : ""} drop-shadow-2xl`}
-                loading={index === 0 ? "eager" : "lazy"}
-                decoding="async"
-                fetchPriority={index === 0 ? "high" : "auto"}
-              />
-            </motion.div>
-          ))}
-        </div>
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={currentSlide}
+            src={slides[currentSlide].src}
+            alt={slides[currentSlide].alt}
+            className="h-full w-full object-contain md:object-cover drop-shadow-lg"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            loading="lazy"
+            decoding="async"
+          />
+        </AnimatePresence>
       </div>
 
+      {/* Explore Collection Button */}
       <div className="pointer-events-none absolute bottom-6 inset-x-0 z-30 sm:bottom-12 flex justify-center">
         <a
           href="#products"
@@ -72,16 +56,16 @@ const HeroSlideshow = () => {
         </a>
       </div>
 
+      {/* Navigation Dots */}
       <div className="absolute bottom-8 right-4 z-30 hidden gap-2 sm:bottom-12 sm:right-12 sm:flex sm:gap-3">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
             aria-label={`Go to slide ${index + 1}`}
-            className={`h-0.5 transition-all duration-300 ${index === currentSlide
-              ? "w-10 bg-primary"
-              : "w-6 bg-muted-foreground/50 hover:bg-muted-foreground"
-              }`}
+            className={`h-0.5 transition-all duration-300 ${
+              index === currentSlide ? "w-10 bg-primary" : "w-6 bg-muted-foreground/50 hover:bg-muted-foreground"
+            }`}
           />
         ))}
       </div>
