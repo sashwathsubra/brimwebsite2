@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import mini from "@/assets/slideminigreen-694d12aeada25.webp";
 import dotMatrixRed from "@/assets/slidedotmatrixred-694d1258ad727.webp";
 import calendarRed from "@/assets/slidecalendarred-694d1256bfe67.webp";
-import multiCalendarGreen from "@/assets/slidemutlicalendargreen-694d12b087e67.webp";
-import multicolorCalendar from "@/assets/slidemulticolorcalendar-694d12aedd48f.webp";
 
 const slides = [
   {
@@ -21,14 +19,6 @@ const slides = [
     alt: "Calendar Clock (Red) — Brim Clocks",
     src: calendarRed,
   },
-  {
-    alt: "Multi Calendar Clock (Green) — Brim Clocks",
-    src: multiCalendarGreen,
-  },
-  {
-    alt: "Multicolor Calendar Clock — Brim Clocks",
-    src: multicolorCalendar,
-  },
 ];
 
 const HeroSlideshow = () => {
@@ -44,10 +34,8 @@ const HeroSlideshow = () => {
 
   return (
     <section className="relative min-h-[75svh] md:min-h-[100svh] w-full overflow-hidden bg-background pt-16 md:pt-24">
-      {/* Background glow for better visibility of dark clocks */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-muted/20 via-background to-background" />
 
-      {/* Main Image Container with fixed aspect ratio - Constrained vertically to avoid overlap */}
       <div className="absolute inset-x-0 top-24 bottom-28 md:top-20 md:bottom-24 flex items-center justify-center z-10">
         <div className="relative w-[80%] h-full flex items-center justify-center">
           {slides.map((slide, index) => (
@@ -74,9 +62,6 @@ const HeroSlideshow = () => {
         </div>
       </div>
 
-
-
-      {/* Bottom-center Explore button overlay */}
       <div className="pointer-events-none absolute bottom-6 inset-x-0 z-30 sm:bottom-12 flex justify-center">
         <a
           href="#products"
@@ -87,7 +72,6 @@ const HeroSlideshow = () => {
         </a>
       </div>
 
-      {/* Slide indicators */}
       <div className="absolute bottom-8 right-4 z-30 hidden gap-2 sm:bottom-12 sm:right-12 sm:flex sm:gap-3">
         {slides.map((_, index) => (
           <button
