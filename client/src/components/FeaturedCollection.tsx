@@ -31,6 +31,9 @@ const imageSources: Record<string, { png?: string; jpeg?: string; webp?: string[
 type ProductColor = "red" | "green" | "multicolor";
 type ProductDensity = "Thin" | "Thick";
 
+// ------------------------
+// Full place words list
+// ------------------------
 const placeWordList = [
   "home",
   "office",
@@ -49,16 +52,22 @@ const placeWordList = [
   "hotel",
   "factory",
   "warehouse",
+  "hall",
+  "halls",
+  "reception",
+  "auditorium",
 ] as const;
 
 const placeWordSet = new Set<string>(placeWordList.map((w) => w.toLowerCase()));
 const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi");
 
+// ------------------------
+// Highlight place words blue and capitalize
+// ------------------------
 function renderFeatureText(feature: string, options?: { highlightPlaces?: boolean }) {
   const highlightPlaces = options?.highlightPlaces ?? true;
   return feature.split(placeWordSplitRegex).map((part, index) => {
     if (placeWordSet.has(part.toLowerCase())) {
-      // Capitalize first letter and make always blue
       const capitalized = part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
       return (
         <span
@@ -73,6 +82,9 @@ function renderFeatureText(feature: string, options?: { highlightPlaces?: boolea
   });
 }
 
+// ------------------------
+// Products Collection
+// ------------------------
 type ProductItem = {
   images: string[];
   name: string;
@@ -223,7 +235,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for factory, temple, church, mosque, auditorium.",
+      "Suitable for factory, temple, church, mosque, auditorium",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
       "Wall mountable / hanging",
