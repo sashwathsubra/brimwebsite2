@@ -1,4 +1,7 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+// Import all your images
 import dot_single_red from "@/assets/new_dot_single.jpeg";
 import dot_single_green from "@/assets/new_dot_single_green.jpeg";
 import dot_double_red from "@/assets/new_dot_double.jpeg";
@@ -16,225 +19,290 @@ import miniled_red from "@/assets/miniled_red.jpeg";
 import miniled_green from "@/assets/minled_green.jpeg";
 import jumbolednew from "@/assets/jumbolednew.jpeg";
 
-import { useCallback, useEffect, useState } from "react";
-import { type CarouselApi, Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-
-type ProductColor = 'red' | 'green' | 'multicolor';
-type ProductDensity = 'Thin' | 'Thick';
-
-interface ProductItem {
-  name: string;
-  size: string;
-  features: string[];
+// Product type
+type ProductItem = {
   images: string[];
+  name: string;
+  price: string;
+  category: string;
+  features?: string[];
+  size?: string;
+  hasDualColor?: boolean;
+  hasTriColor?: boolean;
   greenImages?: string[];
   multiColorImages?: string[];
-  hasDualColor?: boolean;
-}
+};
 
-const products: ProductItem[] = [
+// Collections (7 clocks)
+const collections: ProductItem[] = [
   {
-    name: "Red Dot Matrix Clock",
-    size: "Size: 13\" x 4.5\" (33cm x 11.5cm)",
-    features: ["Single Colour (Red)", "Dual Font Support", "High Visibility Display", "USB Powered"],
+    images: [miniled_red],
+    name: "Mini Clock Red",
+    price: "",
+    category: "",
+    features: [
+      "Suitable for home, office, executive cabin",
+      "Glassy finish ABS plastic case",
+      "1 inch seven segment LED display",
+      "Epson RTC and Nuvoton microcontroller",
+      "Built in battery memory backup for 5 years & above",
+      "User can select seconds blinking option",
+      "Wall mountable/table top",
+      "5V power supply included",
+      "More than 7 years durable with out maintenance",
+    ],
+    size: "Clock size: 14cm length, 6.5cm height and 3.5cm width",
+  },
+  {
+    images: [miniled_green],
+    name: "Mini Clock Green",
+    price: "",
+    category: "",
+    features: [
+      "Suitable for home, office, executive cabin",
+      "Glassy finish ABS plastic case",
+      "1 inch seven segment LED display",
+      "Epson RTC and Nuvoton microcontroller",
+      "Built in battery memory backup for 5 years & above",
+      "User can select seconds blinking option",
+      "Wall mountable/table top",
+      "5V power supply included",
+      "More than 7 years durable with out maintenance",
+    ],
+    size: "Clock size: 14cm Length, 6.5cm height and 3.5cm width",
+  },
+  {
     images: [dot_single_red, dot_double_red],
-    hasDualColor: true,
+    name: "Red Dot Matrix Clock",
+    price: "",
+    category: "",
+    features: [
+      "Suitable for home, office, executive cabin",
+      "7x30 LED dot matrix",
+      "Epson RTC and Nuvoton microcontroller",
+      "User can select font",
+      "Built-in battery backup for 7 years and above",
+      "Wall mountable / table top",
+      "5V power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 26cm length, 8 cm height",
   },
   {
-    name: "Dual Colour Matrix Clock",
-    size: "Size: 13\" x 4.5\" (33cm x 11.5cm)",
-    features: ["Dual Colour (Red & Green)", "Switchable Display Mode", "Dual Font Support", "USB Powered"],
     images: [dot_single_red, dot_double_red, dot_single_green, dot_double_green],
+    name: "Dual Colour Matrix Clock",
+    price: "",
+    category: "",
     hasDualColor: true,
+    features: [
+      "Suitable for home, office, executive cabin",
+      "7x30 LED dot matrix",
+      "Epson RTC and Nuvoton microcontroller",
+      "User can select font",
+      "User can select colour",
+      "Built-in battery backup for 7 years and above",
+      "Wall mountable / table top",
+      "5V power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 26cm length, 8 cm height",
+    greenImages: [dot_single_green, dot_double_green],
   },
   {
-    name: "Multi Colour Calender Clock",
-    size: "Size: 15\" x 7\" (38cm x 18cm)",
-    features: ["7 Multi Colour Display", "Full Date & Day Display", "Temperature Sensor", "Alarm Function"],
     images: [new_calender_red_1],
-    greenImages: [multicolor_green, multicolor_green_2],
-    multiColorImages: [multicolor_red, multicolor_red_2, multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4],
+    name: "Calendar Clock",
+    price: "",
+    category: "",
+    features: [
+      "Suitable for executive cabin, home halls, office reception",
+      "14x56 3mm dot matrix calendar clock",
+      "Epson RTC and Nuvoton microcontroller",
+      "Built-in battery backup for 7 years and above",
+      "Wall mountable / table top",
+      "5V power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 26 cm length, 8 cm height.",
+  },
+  {
+    images: [multicolor_red, multicolor_red_2],
+    name: "Multi Colour Calender Clock",
+    price: "",
+    category: "",
     hasDualColor: true,
+    hasTriColor: true,
+    greenImages: [multicolor_green, multicolor_green_2],
+    multiColorImages: [multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4],
+    features: [
+      "Suitable for executive cabin, home halls, office reception",
+      "14x56 3mm dot matrix calendar clock",
+      "Epson RTC and Nuvoton microcontroller",
+      "Built-in battery backup for 7 years and above",
+      "Wall mountable / table top",
+      "5V power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 26 cm length, 8 cm height.",
   },
   {
-    name: "Mini LED Clock",
-    size: "Size: 10\" x 3.5\" (25cm x 9cm)",
-    features: ["Compact Design", "Red & Green Options", "Crystal Clear Digits", "Table/Wall Mount"],
-    images: [miniled_red, miniled_green],
-  },
-  {
-    name: "Jumbo LED Clock",
-    size: "Size: 18\" x 7.5\" (45cm x 19cm)",
-    features: ["Extra Large Display", "Ideal for Large Halls", "Brightness Control", "Remote Operated"],
     images: [jumbolednew],
-  }
+    name: "Jumbo Clock",
+    price: "",
+    category: "",
+    features: [
+      "Suitable for factory, temple, church, mosque, auditorium.",
+      "Epson RTC and Nuvoton microcontroller",
+      "Built-in battery backup for 7 years and above",
+      "Wall mountable / hanging",
+      "12v power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 90cm length, 30cm height",
+  },
 ];
 
-const ProductImages = ({ images, scrollToIndex, badge }: { images: string[]; scrollToIndex?: number; badge?: React.ReactNode }) => {
-  const [api, setApi] = useState<CarouselApi>();
+// ProductImages component with auto-rotate every 3s
+const ProductImages = ({
+  images,
+  badge,
+}: {
+  images: string[];
+  badge?: React.ReactNode;
+}) => {
+  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
-    if (!api || scrollToIndex === undefined) return;
-    api.scrollTo(scrollToIndex);
-  }, [api, scrollToIndex]);
+    const interval = setInterval(() => {
+      setSelected((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-zinc-900/50 border border-white/5">
-      <Carousel setApi={setApi} className="w-full">
-        <CarouselContent>
-          {images.map((src, index) => (
-            <CarouselItem key={index}>
-              <div className="relative aspect-[16/10] sm:aspect-[16/9] md:aspect-[4/3] lg:aspect-[16/10] overflow-hidden">
-                <img
-                  src={src}
-                  alt="Product view"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-      {badge && <div className="absolute left-4 top-4 z-10">{badge}</div>}
+    <div className="relative overflow-hidden">
+      <div className="relative h-64 sm:h-72 md:h-80 w-full flex items-center justify-center bg-white">
+        <img
+          src={images[selected]}
+          alt={`image-${selected + 1}`}
+          className="max-h-full max-w-full object-contain transition-transform duration-700"
+        />
+        {badge && (
+          <div className="absolute top-3 right-3 z-20">{badge}</div>
+        )}
+      </div>
     </div>
   );
 };
 
+// ProductCard component
 const ProductCard = ({ item }: { item: ProductItem }) => {
-  const [color, setColor] = useState<ProductColor>('red');
-  const [density, setDensity] = useState<ProductDensity>('Thin');
   const phone = "919445887243";
 
-  // --- AUTO-ROTATE LOGIC: 1 SECOND ---
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (item.name === "Dual Colour Matrix Clock") {
-        setDensity(d => {
-          if (d === "Thin") return "Thick";
-          setColor(c => c === "red" ? "green" : "red");
-          return "Thin";
-        });
-      } else if (item.name === "Red Dot Matrix Clock") {
-        setDensity(d => d === "Thin" ? "Thick" : "Thin");
-      } else if (item.name === "Multi Colour Calender Clock") {
-        setColor(c => {
-          if (c === "red") return "green";
-          if (c === "green") return "multicolor";
-          return "red";
-        });
-      } else if (item.name === "Mini LED Clock") {
-        setColor(c => c === "red" ? "green" : "red");
-      }
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [item.name]);
-
-  let currentImages = item.images;
-  let scrollToIndex = 0;
-
-  if (item.name === "Multi Colour Calender Clock") {
-    currentImages = [...(item.images || []), ...(item.greenImages || []), ...(item.multiColorImages || [])];
-    if (color === 'green') scrollToIndex = (item.images?.length || 0);
-    else if (color === 'multicolor') scrollToIndex = (item.images?.length || 0) + (item.greenImages?.length || 0);
-  } else if (item.name === "Red Dot Matrix Clock") {
-    scrollToIndex = density === "Thick" ? 1 : 0;
-  } else if (item.name === "Dual Colour Matrix Clock") {
-    const colorOffset = color === "green" ? 2 : 0;
-    const densityOffset = density === "Thick" ? 1 : 0;
-    scrollToIndex = colorOffset + densityOffset;
-  } else if (item.name === "Mini LED Clock") {
-    scrollToIndex = color === "green" ? 1 : 0;
-  }
+  const buildWhatsAppUrl = (product: string) =>
+    `https://wa.me/${phone}?text=${encodeURIComponent(
+      `Hello! I'm interested in ordering the ${product}. Please provide more details.`
+    )}`;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      id={item.name.toLowerCase().replace(/\s+/g, '-')}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      className="group h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-3xl md:p-10 overflow-hidden border border-white/10"
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
     >
-      <div className="relative w-full md:w-1/2 flex-shrink-0">
+      <motion.div
+        className="relative w-full md:w-1/2 flex-shrink-0"
+        whileHover={{ scale: 1.02, y: -5 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      >
         <ProductImages
-          images={currentImages}
-          scrollToIndex={scrollToIndex}
+          images={
+            item.multiColorImages
+              ? [...item.images, ...(item.greenImages ?? []), ...item.multiColorImages]
+              : item.greenImages
+              ? [...item.images, ...item.greenImages]
+              : item.images
+          }
           badge={
-            <div className="flex flex-col gap-2">
-              <div className="bg-black/70 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full shadow-2xl">
-                <span className="text-[10px] font-bold text-amber-400 uppercase tracking-[0.2em]">Auto-Display</span>
+            item.name === "Dual Colour Matrix Clock" || item.name === "Multi Colour Calender Clock" ? (
+              <div className="bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full">
+                <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">
+                  2 Colors in 1 Clock
+                </span>
               </div>
-            </div>
+            ) : null
           }
         />
-      </div>
+      </motion.div>
 
-      <div className="flex flex-col flex-grow w-full md:w-1/2 p-6 sm:p-8 md:p-0">
-        <div className="mb-6">
-          <h3 className="mb-2 font-body font-bold text-3xl sm:text-4xl text-white text-center md:text-left tracking-tight">
-            {item.name}
-          </h3>
-          <div className="inline-flex items-center justify-center md:justify-start w-full md:w-auto">
-            <span className="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-sm font-medium text-gray-400">
-              {item.size}
-            </span>
+      <div className="flex flex-col flex-grow w-full md:w-1/2 p-4 sm:p-5 md:p-0 md:pl-6 select-none">
+        <motion.h3
+          layout
+          className="mb-3 font-body font-semibold text-3xl text-gray-100 transition-colors group-hover:text-amber-400 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg"
+        >
+          {item.name}
+        </motion.h3>
+        {item.price && (
+          <p className="font-body text-2xl text-amber-400 text-center md:text-left mb-4 tracking-wide font-medium">{item.price}</p>
+        )}
+        {item.size && (
+          <div className="inline-block max-w-full break-words rounded-lg bg-white/10 border border-white/10 px-4 py-2 text-sm sm:text-base font-semibold text-gray-100 text-center md:text-left tracking-wide leading-relaxed backdrop-blur-sm shadow-sm mb-8">
+            {item.size}
           </div>
-        </div>
+        )}
 
-        {/* FEATURE LIST */}
-        <div className="space-y-4 mb-10">
-          {item.features.map((feature, i) => (
-            <motion.div 
-              key={i}
+        <ul className="mt-2 list-none space-y-2 text-center md:text-left text-gray-300 mb-6">
+          {item.features?.map((feature, i) => (
+            <motion.li
               initial={{ opacity: 0, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="flex items-center gap-4 text-gray-300"
+              key={i}
+              className={`group font-body flex items-center justify-center md:justify-start gap-3 ${i === 0
+                ? "text-xl sm:text-2xl text-amber-300 font-semibold drop-shadow-[0_2px_12px_rgba(251,191,36,0.25)]"
+                : "text-lg text-gray-200"
+                }`}
             >
-              <div className="h-1.5 w-1.5 rounded-full bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]" />
-              <span className="text-lg font-medium tracking-wide">{feature}</span>
-            </motion.div>
+              <span className={`w-1 h-1 rounded-full hidden md:block transition-colors duration-200 ${i === 0 ? "bg-primary/60 group-hover:bg-teal-300" : "bg-primary/60"}`} />
+              <span>{feature}</span>
+            </motion.li>
           ))}
-        </div>
+        </ul>
 
-        <div className="flex flex-col sm:flex-row items-center gap-4">
-          <a
-            href={`https://wa.me/${phone}?text=Enquiry about ${item.name}`}
-            target="_blank"
-            className="w-full sm:w-auto flex items-center justify-center gap-3 bg-white text-black px-10 py-4 font-bold text-xs uppercase tracking-[0.25em] rounded-xl hover:bg-amber-400 transition-all duration-300 transform hover:-translate-y-1 shadow-xl"
+        <a
+          href={buildWhatsAppUrl(item.name)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative flex w-full md:w-auto md:inline-flex items-center justify-center gap-3 bg-zinc-900 border border-white/10 px-8 py-3.5 font-body font-bold text-xs uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-zinc-800 rounded-lg shadow-lg"
+        >
+          <motion.svg
+            initial={{ rotate: 0 }}
+            whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+            viewBox="0 0 16 16" className="h-4 w-4 text-green-500" fill="currentColor" aria-hidden="true"
           >
-            Enquire Now
-          </a>
-        </div>
+            <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.926a7.85 7.85 0 0 0-2.327-5.602z" />
+          </motion.svg>
+          Order on WhatsApp
+        </a>
       </div>
     </motion.div>
   );
 };
 
+// FeaturedCollection
 const FeaturedCollection = () => {
   return (
-    <section id="products" className="bg-black px-4 py-24 sm:px-6 md:py-32 overflow-hidden">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-20 text-center relative">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 0.1, scale: 1.2 }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12vw] font-black text-white pointer-events-none uppercase tracking-widest whitespace-nowrap"
-          >
-            Collection
-          </motion.div>
-          <p className="mb-4 font-body text-sm font-bold tracking-[0.4em] text-amber-500 uppercase">
-            Premium Timepieces
-          </p>
-          <h2 className="font-body font-bold text-5xl sm:text-6xl md:text-7xl text-white tracking-tighter">
-            Featured <span className="text-zinc-500">Clocks</span>
-          </h2>
-        </div>
+    <section className="space-y-16 py-12 px-4 md:px-12">
+      <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-100 mb-8 drop-shadow-lg">
+        Featured Clocks
+      </h2>
 
-        <div className="flex flex-col gap-12 sm:gap-20 md:gap-32">
-          {products.map((product, index) => (
-            <ProductCard key={index} item={product} />
-          ))}
-        </div>
+      <div className="space-y-12">
+        {collections.map((item) => (
+          <ProductCard key={item.name} item={item} />
+        ))}
       </div>
     </section>
   );
