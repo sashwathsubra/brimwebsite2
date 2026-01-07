@@ -58,16 +58,14 @@ function renderFeatureText(feature: string, options?: { highlightPlaces?: boolea
   const highlightPlaces = options?.highlightPlaces ?? true;
   return feature.split(placeWordSplitRegex).map((part, index) => {
     if (placeWordSet.has(part.toLowerCase())) {
+      // Capitalize first letter and make always blue
+      const capitalized = part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
       return (
         <span
           key={`${index}-${part}`}
-          className={
-            highlightPlaces
-              ? "inline-block text-[1.06em] font-semibold transition-colors duration-200 hover:text-teal-300 hover:drop-shadow-[0_2px_12px_rgba(45,212,191,0.35)] group-hover:text-teal-300 group-hover:drop-shadow-[0_2px_12px_rgba(45,212,191,0.25)]"
-              : "inline-block text-[1.06em] font-semibold"
-          }
+          className={highlightPlaces ? "inline-block text-[1.06em] font-semibold text-teal-400" : "inline-block text-[1.06em] font-semibold"}
         >
-          {part}
+          {capitalized}
         </span>
       );
     }
@@ -108,7 +106,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable with out maintenance",
     ],
-    size: "Clock size: 14cm length, 6.5cm height and 3.5cm width",
+    size: "Clock size: 14 cm Height x 6.5 cm Width",
   },
   {
     images: [miniled_green],
@@ -126,7 +124,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable with out maintenance",
     ],
-    size: "Clock size: 14cm Length, 6.5cm height and 3.5cm width",
+    size: "Clock size: 14 cm Height x 6.5 cm Width",
   },
   {
     images: [dot_single_red, dot_double_red],
@@ -143,7 +141,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 26cm length, 8 cm height",
+    size: "Clock size: 26 cm Height x 8 cm Width",
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
       red: {
@@ -169,7 +167,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 26cm length, 8 cm height",
+    size: "Clock size: 26 cm Height x 8 cm Width",
     greenImages: [dot_single_green, dot_double_green],
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
@@ -197,7 +195,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 26 cm length, 8 cm height.",
+    size: "Clock size: 26 cm Height x 8 cm Width",
   },
   {
     images: [multicolor_red, multicolor_red_2],
@@ -217,7 +215,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 26 cm length, 8 cm height.",
+    size: "Clock size: 26 cm Height x 8 cm Width",
   },
   {
     images: [jumbolednew],
@@ -232,7 +230,7 @@ const collections: ProductItem[] = [
       "12v power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 90cm length, 30cm height",
+    size: "Clock size: 90 cm Height x 30 cm Width",
   },
 ];
 
@@ -243,7 +241,6 @@ const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [selected, setSelected] = useState(0);
 
-  // auto-rotate every 3s
   useEffect(() => {
     if (!api || images.length <= 1) return;
     const interval = setInterval(() => {
