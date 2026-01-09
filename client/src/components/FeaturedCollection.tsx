@@ -26,58 +26,28 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-const imageSources: Record<
-  string,
-  { png?: string; jpeg?: string; webp?: string[]; avif?: string[]; alt: string }
-> = {};
-
 type ProductColor = "red" | "green" | "multicolor";
 type ProductDensity = "Thin" | "Thick";
 
 // ------------------------
-// Full place words list
+// Place words
 // ------------------------
 const placeWordList = [
-  "home",
-  "office",
-  "executive",
-  "cabin",
-  "mosque",
-  "temple",
-  "church",
-  "hospital",
-  "clinic",
-  "school",
-  "college",
-  "showroom",
-  "shop",
-  "restaurant",
-  "hotel",
-  "factory",
-  "warehouse",
-  "hall",
-  "halls",
-  "reception",
-  "auditorium",
+  "home","office","executive","cabin","mosque","temple","church","hospital",
+  "clinic","school","college","showroom","shop","restaurant","hotel",
+  "factory","warehouse","hall","halls","reception","auditorium",
 ] as const;
 
-const placeWordSet = new Set<string>(
-  placeWordList.map((w) => w.toLowerCase())
-);
-const placeWordSplitRegex = new RegExp(
-  `\\b(${placeWordList.join("|")})\\b`,
-  "gi"
-);
+const placeWordSet = new Set<string>(placeWordList.map((w) => w.toLowerCase()));
+const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi");
 
 // ------------------------
-// Highlight place words blue and wrap properly
+// Render features
 // ------------------------
 function renderFeatureText(feature: string) {
   return feature.split(placeWordSplitRegex).map((part, index) => {
     if (placeWordSet.has(part.toLowerCase())) {
-      const capitalized =
-        part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
-
+      const capitalized = part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
       return (
         <span
           key={`${index}-${part}`}
@@ -87,17 +57,12 @@ function renderFeatureText(feature: string) {
         </span>
       );
     }
-
-    return (
-      <span key={`${index}-${part}`} className="whitespace-normal break-words">
-        {part}
-      </span>
-    );
+    return <span key={`${index}-${part}`} className="whitespace-normal break-words">{part}</span>;
   });
 }
 
 // ------------------------
-// Products Collection
+// Products
 // ------------------------
 type ProductItem = {
   images: string[];
@@ -112,9 +77,7 @@ type ProductItem = {
   multiColorImages?: string[];
   sizeOptions?: Partial<Record<ProductColor, string[]>>;
   densityOptions?: ProductDensity[];
-  colorDensityImages?: Partial<
-    Record<Exclude<ProductColor, "multicolor">, Record<ProductDensity, string[]>>
-  >;
+  colorDensityImages?: Partial<Record<Exclude<ProductColor, "multicolor">, Record<ProductDensity, string[]>>>;
 };
 
 const collections: ProductItem[] = [
@@ -136,7 +99,6 @@ const collections: ProductItem[] = [
     ],
     size: "Clock size: 14 cm Height x 6.5 cm Width",
   },
-
   {
     images: [miniled_green],
     name: "Mini Clock Green",
@@ -155,7 +117,6 @@ const collections: ProductItem[] = [
     ],
     size: "Clock size: 14 cm Height x 6.5 cm Width",
   },
-
   {
     images: [dot_single_red, dot_double_red],
     name: "Red Dot Matrix Clock",
@@ -174,20 +135,11 @@ const collections: ProductItem[] = [
     size: "Clock size: 26 cm Height x 8 cm Width",
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
-      red: {
-        Thin: [dot_single_red],
-        Thick: [dot_double_red],
-      },
+      red: { Thin: [dot_single_red], Thick: [dot_double_red] },
     },
   },
-
   {
-    images: [
-      dot_single_red,
-      dot_double_red,
-      dot_single_green,
-      dot_double_green,
-    ],
+    images: [dot_single_red, dot_double_red, dot_single_green, dot_double_green],
     name: "Dual Colour Matrix Clock",
     price: "",
     category: "",
@@ -207,17 +159,10 @@ const collections: ProductItem[] = [
     greenImages: [dot_single_green, dot_double_green],
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
-      red: {
-        Thin: [dot_single_red],
-        Thick: [dot_double_red],
-      },
-      green: {
-        Thin: [dot_single_green],
-        Thick: [dot_double_green],
-      },
+      red: { Thin: [dot_single_red], Thick: [dot_double_red] },
+      green: { Thin: [dot_single_green], Thick: [dot_double_green] },
     },
   },
-
   {
     images: [new_calender_red_1],
     name: "Calendar Clock",
@@ -234,7 +179,6 @@ const collections: ProductItem[] = [
     ],
     size: "Clock size: 26 cm Height x 8 cm Width",
   },
-
   {
     images: [multicolor_red, multicolor_red_2],
     name: "Multi Colour Calender Clock",
@@ -244,10 +188,7 @@ const collections: ProductItem[] = [
     hasTriColor: true,
     greenImages: [multicolor_green, multicolor_green_2],
     multiColorImages: [
-      multicolor_dual,
-      multicolor_dual_2,
-      multicolor_dual_3,
-      multicolor_dual_4,
+      multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4
     ],
     features: [
       "Suitable for executive cabin, home halls, office reception",
@@ -260,7 +201,6 @@ const collections: ProductItem[] = [
     ],
     size: "Clock size: 26 cm Height x 8 cm Width",
   },
-
   {
     images: [jumbolednew],
     name: "Jumbo Clock",
@@ -308,21 +248,21 @@ const ProductImages = ({ images }: { images: string[] }) => {
         <CarouselContent>
           {images.map((src, i) => (
             <CarouselItem key={i}>
-              <div className="relative w-full flex justify-center items-center bg-white p-4 rounded-xl">
+              <div className="relative w-full flex justify-center items-center bg-white p-2 md:p-4 rounded-xl">
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
-                  className="max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  className="max-h-[300px] md:max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-
         {images.length > 1 && (
           <>
-            <CarouselPrevious className="absolute top-1/2 left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
-            <CarouselNext className="absolute top-1/2 right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
+            <CarouselPrevious className="absolute top-1/2 left-2 md:left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
+            <CarouselNext className="absolute top-1/2 right-2 md:right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
           </>
         )}
       </Carousel>
@@ -335,11 +275,8 @@ const ProductImages = ({ images }: { images: string[] }) => {
 // ----------------------------
 const ProductCard = ({ item }: { item: ProductItem }) => {
   const phone = "919445887243";
-
   const buildWhatsAppUrl = (product: string) =>
-    `https://wa.me/${phone}?text=${encodeURIComponent(
-      `Hello! I'm interested in ordering the ${product}. Please provide more details.`
-    )}`;
+    `https://wa.me/${phone}?text=${encodeURIComponent(`Hello! I'm interested in ordering the ${product}. Please provide more details.`)}`;
 
   let currentImages = item.images ?? [];
   const isMultiColourCalendar = item.name === "Multi Colour Calender Clock";
@@ -347,12 +284,9 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
   const isDualColourMatrix = item.name === "Dual Colour Matrix Clock";
 
   if (isMultiColourCalendar)
-    currentImages = [
-      ...(item.images ?? []),
-      ...(item.greenImages ?? []),
-      ...(item.multiColorImages ?? []),
-    ];
-  else if (isRedDotMatrix || isDualColourMatrix) currentImages = item.images ?? [];
+    currentImages = [...(item.images ?? []), ...(item.greenImages ?? []), ...(item.multiColorImages ?? [])];
+  else if (isRedDotMatrix || isDualColourMatrix)
+    currentImages = item.images ?? [];
 
   const displayedFeatures = item.features;
 
@@ -363,80 +297,49 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-6 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
+      className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
     >
       {/* Left: Images */}
-      <motion.div
-        className="relative w-full md:w-1/2 flex-shrink-0"
-        whileHover={{ scale: 1.02, y: -5 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
+      <motion.div className="relative w-full md:w-1/2 flex-shrink-0" whileHover={{ scale: 1.02, y: -5 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: "easeOut" }}>
           <ProductImages images={currentImages} />
         </motion.div>
       </motion.div>
 
       {/* Right: Content */}
-      <div className="flex flex-col flex-grow w-full md:w-1/2 p-4 sm:p-5 md:p-0 md:pl-6 select-none">
-        <motion.h3
-          layout
-          className="mb-3 font-body font-semibold text-3xl text-gray-100 transition-colors group-hover:text-amber-400 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg"
-        >
+      <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
+        <motion.h3 layout className="mb-3 font-body font-semibold text-3xl text-gray-100 transition-colors group-hover:text-amber-400 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg">
           {item.name}
         </motion.h3>
-        <p className="font-body text-2xl text-amber-400 text-center md:text-left mb-4 tracking-wide font-medium">
-          {item.price}
-        </p>
+        <p className="font-body text-2xl text-amber-400 text-center md:text-left mb-4 tracking-wide font-medium">{item.price}</p>
         {item.size && (
           <div className="inline-block max-w-full break-words rounded-lg bg-white/10 border border-white/10 px-4 py-2 text-sm sm:text-base font-semibold text-gray-100 text-center md:text-left tracking-wide leading-relaxed backdrop-blur-sm shadow-sm mb-6">
             {item.size}
           </div>
         )}
 
-        {/* ================= DESKTOP FEATURES ================= */}
+        {/* Desktop features */}
         <ul className="hidden md:block mt-2 list-none space-y-2 text-left text-gray-300 mb-6">
           {displayedFeatures?.map((feature, i) => (
-            <motion.li
-              key={i}
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="relative pl-5 font-body text-[1.05em] leading-tight"
-            >
+            <motion.li key={i} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} className="relative pl-5 font-body text-[1.05em] leading-tight">
               <span className="absolute left-0 top-1 font-bold text-amber-400">•</span>
               {renderFeatureText(feature)}
             </motion.li>
           ))}
         </ul>
 
-        {/* ================= MOBILE FEATURES ================= */}
+        {/* Mobile features */}
         <ul className="block md:hidden mt-4 space-y-3 text-gray-300 mb-6">
           {displayedFeatures?.map((feature, i) => (
-            <motion.li
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
-              className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 font-body text-[1em] leading-snug"
-            >
+            <motion.li key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 font-body text-[1em] leading-snug">
               {renderFeatureText(feature)}
             </motion.li>
           ))}
         </ul>
 
-        {/* WhatsApp Contact Button */}
+        {/* WhatsApp */}
         <div className="mt-auto flex justify-center md:justify-start">
-          <a
-            href={buildWhatsAppUrl(item.name)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-green-500/70 hover:bg-green-500/90 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition-colors text-lg"
-          >
+          <a href={buildWhatsAppUrl(item.name)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-green-500/70 hover:bg-green-500/90 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition-colors text-lg">
             Contact on WhatsApp
           </a>
         </div>
