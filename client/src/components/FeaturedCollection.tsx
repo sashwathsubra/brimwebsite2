@@ -70,7 +70,7 @@ const placeWordSplitRegex = new RegExp(
 );
 
 // ------------------------
-// FIXED: Highlight place words (NO overflow on mobile)
+// Highlight place words blue and wrap properly
 // ------------------------
 function renderFeatureText(feature: string) {
   return feature.split(placeWordSplitRegex).map((part, index) => {
@@ -283,6 +283,7 @@ const collections: ProductItem[] = [
 // ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
+  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
     if (!api || images.length <= 1) return;
@@ -292,6 +293,14 @@ const ProductImages = ({ images }: { images: string[] }) => {
     }, 3000);
     return () => clearInterval(interval);
   }, [api, images.length]);
+
+  useEffect(() => {
+    if (!api) return;
+    const onSelect = () => setSelected(api.selectedScrollSnap());
+    onSelect();
+    api.on("select", onSelect);
+    return () => api.off("select", onSelect);
+  }, [api]);
 
   return (
     <div className="relative w-full">
@@ -303,7 +312,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
-                  className="max-h-[320px] w-auto object-contain rounded-xl"
+                  className="max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
             </CarouselItem>
@@ -312,8 +321,8 @@ const ProductImages = ({ images }: { images: string[] }) => {
 
         {images.length > 1 && (
           <>
-            <CarouselPrevious className="absolute top-1/2 left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white hover:bg-black/50" />
-            <CarouselNext className="absolute top-1/2 right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white hover:bg-black/50" />
+            <CarouselPrevious className="absolute top-1/2 left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
+            <CarouselNext className="absolute top-1/2 right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
           </>
         )}
       </Carousel>
@@ -332,36 +341,105 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       `Hello! I'm interested in ordering the ${product}. Please provide more details.`
     )}`;
 
+  let currentImages = item.images ?? [];
+  const isMultiColourCalendar = item.name === "Multi Colour Calender Clock";
+  const isRedDotMatrix = item.name === "Red Dot Matrix Clock";
+  const isDualColourMatrix = item.name === "Dual Colour Matrix Clock";
+
+  if (isMultiColourCalendar)
+    currentImages = [
+      ...(item.images ?? []),
+      ...(item.greenImages ?? []),
+      ...(item.multiColorImages ?? []),
+    ];
+  else if (isRedDotMatrix || isDualColourMatrix) currentImages = item.images ?? [];
+
+  const displayedFeatures = item.features;
+
   return (
     <motion.div
-      className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-6 md:p-10 overflow-hidden border border-white/5"
+      id={item.name.toLowerCase().replace(/\s+/g, "-")}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-6 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
     >
-      <div className="w-full md:w-1/2">
-        <ProductImages images={item.images} />
-      </div>
+      {/* Left: Images */}
+      <motion.div
+        className="relative w-full md:w-1/2 flex-shrink-0"
+        whileHover={{ scale: 1.02, y: -5 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <ProductImages images={currentImages} />
+        </motion.div>
+      </motion.div>
 
-      <div className="flex flex-col flex-grow w-full md:w-1/2 md:pl-6">
-        <h3 className="mb-4 font-semibold text-3xl md:text-4xl text-gray-100 text-center md:text-left">
+      {/* Right: Content */}
+      <div className="flex flex-col flex-grow w-full md:w-1/2 p-4 sm:p-5 md:p-0 md:pl-6 select-none">
+        <motion.h3
+          layout
+          className="mb-3 font-body font-semibold text-3xl text-gray-100 transition-colors group-hover:text-amber-400 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg"
+        >
           {item.name}
-        </h3>
-
+        </motion.h3>
+        <p className="font-body text-2xl text-amber-400 text-center md:text-left mb-4 tracking-wide font-medium">
+          {item.price}
+        </p>
         {item.size && (
-          <div className="mb-6 rounded-lg bg-white/10 px-4 py-2 text-sm sm:text-base font-semibold text-gray-100">
+          <div className="inline-block max-w-full break-words rounded-lg bg-white/10 border border-white/10 px-4 py-2 text-sm sm:text-base font-semibold text-gray-100 text-center md:text-left tracking-wide leading-relaxed backdrop-blur-sm shadow-sm mb-6">
             {item.size}
           </div>
         )}
 
-        <ul className="space-y-2 text-gray-300 mb-6">
-          {item.features?.map((feature, i) => (
-            <li
+        {/* ================= DESKTOP FEATURES ================= */}
+        <ul className="hidden md:block mt-2 list-none space-y-2 text-left text-gray-300 mb-6">
+          {displayedFeatures?.map((feature, i) => (
+            <motion.li
               key={i}
-              className="flex flex-wrap items-start gap-2 text-[1.05em] leading-tight"
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="relative pl-5 font-body text-[1.05em] leading-tight"
             >
-              <span className="font-bold text-amber-400 mt-1">•</span>
+              <span className="absolute left-0 top-1 font-bold text-amber-400">•</span>
               {renderFeatureText(feature)}
-            </li>
+            </motion.li>
           ))}
         </ul>
+
+        {/* ================= MOBILE FEATURES ================= */}
+        <ul className="block md:hidden mt-4 space-y-3 text-gray-300 mb-6">
+          {displayedFeatures?.map((feature, i) => (
+            <motion.li
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+              className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 font-body text-[1em] leading-snug"
+            >
+              {renderFeatureText(feature)}
+            </motion.li>
+          ))}
+        </ul>
+
+        {/* WhatsApp Contact Button */}
+        <div className="mt-auto flex justify-center md:justify-start">
+          <a
+            href={buildWhatsAppUrl(item.name)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-green-500/70 hover:bg-green-500/90 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition-colors text-lg"
+          >
+            Contact on WhatsApp
+          </a>
+        </div>
       </div>
     </motion.div>
   );
