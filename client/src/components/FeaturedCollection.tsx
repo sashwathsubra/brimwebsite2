@@ -269,10 +269,18 @@ const ProductImages = ({ images }: { images: string[] }) => {
             </CarouselItem>
           ))}
         </CarouselContent>
+
         {images.length > 1 && (
           <>
-            <CarouselPrevious className="absolute top-1/2 left-2 md:left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
-            <CarouselNext className="absolute top-1/2 right-2 md:right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
+            {/* Previous button - black circle, no arrow */}
+            <CarouselPrevious className="absolute top-1/2 left-2 md:left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 flex items-center justify-center hover:bg-black/50">
+              {/* empty children to remove default arrow */}
+            </CarouselPrevious>
+
+            {/* Next button - black circle, no arrow */}
+            <CarouselNext className="absolute top-1/2 right-2 md:right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 flex items-center justify-center hover:bg-black/50">
+              {/* empty children to remove default arrow */}
+            </CarouselNext>
           </>
         )}
       </Carousel>
@@ -365,7 +373,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
-        {/* WhatsApp Button — KEPT */}
+        {/* WhatsApp Button */}
         <div className="mt-auto flex justify-center md:justify-start">
           <a
             href={buildWhatsAppUrl(item.name)}
