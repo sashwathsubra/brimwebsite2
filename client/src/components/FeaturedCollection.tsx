@@ -48,7 +48,6 @@ const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi
 // Render features
 // ------------------------
 function renderFeatureText(feature: string) {
-  // Highlight entire string if it starts with "Suitable for"
   if (feature.toLowerCase().startsWith("suitable for")) {
     return (
       <span className="font-semibold text-teal-400 whitespace-normal break-words">
@@ -57,7 +56,6 @@ function renderFeatureText(feature: string) {
     );
   }
 
-  // Otherwise, highlight only place words
   return feature.split(placeWordSplitRegex).map((part, index) => {
     const cleanPart = part.replace(/[,.:;!?]/g, "").toLowerCase();
     if (placeWordSet.has(cleanPart)) {
@@ -244,6 +242,7 @@ const collections: ProductItem[] = [
 // ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
+  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
     if (!api || images.length <= 1) return;
@@ -254,18 +253,26 @@ const ProductImages = ({ images }: { images: string[] }) => {
     return () => clearInterval(interval);
   }, [api, images.length]);
 
+  useEffect(() => {
+    if (!api) return;
+    const onSelect = () => setSelected(api.selectedScrollSnap());
+    onSelect();
+    api.on("select", onSelect);
+    return () => api.off("select", onSelect);
+  }, [api]);
+
   return (
-    <div className="relative w-full flex justify-center -mx-4 md:mx-0">
+    <div className="relative w-full -mx-4 md:mx-0 flex justify-center">
       <Carousel opts={{ loop: images.length > 1 }} setApi={setApi}>
         <CarouselContent className="flex justify-center md:justify-start">
           {images.map((src, i) => (
             <CarouselItem key={i} className="w-full">
-              <div className="w-full md:w-[480px] aspect-[16/10] flex items-center justify-center bg-white rounded-xl overflow-hidden p-6">
+              <div className="w-full md:w-[480px] aspect-[16/10] flex items-center justify-center bg-white rounded-xl overflow-hidden">
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="lazy"
-                  className="max-h-full max-w-full object-contain"
+                  className="h-auto max-h-[90%] object-center"
                 />
               </div>
             </CarouselItem>
