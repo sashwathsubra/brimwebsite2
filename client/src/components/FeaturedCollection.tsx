@@ -22,8 +22,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 // ------------------------
@@ -209,7 +207,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 26 cm Height x 8 cm Width",
+    size: "Clock size: 65 cm Height x 8 cm Width",
   },
   {
     images: [jumbolednew],
@@ -233,48 +231,34 @@ const collections: ProductItem[] = [
 // ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
-  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
     if (!api || images.length <= 1) return;
     const interval = setInterval(() => {
       const nextIndex = (api.selectedScrollSnap() + 1) % images.length;
       api.scrollTo(nextIndex);
-    }, 3000);
+    }, 1000); // auto-rotate every 1 sec
     return () => clearInterval(interval);
   }, [api, images.length]);
 
-  useEffect(() => {
-    if (!api) return;
-    const onSelect = () => setSelected(api.selectedScrollSnap());
-    onSelect();
-    api.on("select", onSelect);
-    return () => api.off("select", onSelect);
-  }, [api]);
-
   return (
-    <div className="relative w-full -mx-4 md:mx-0 flex justify-center">
+    <div className="relative w-full flex justify-center">
       <Carousel opts={{ loop: images.length > 1 }} setApi={setApi}>
-        <CarouselContent className="flex justify-center md:justify-start">
+        <CarouselContent className="flex justify-center md:justify-center">
           {images.map((src, i) => (
-            <CarouselItem key={i} className="w-auto">
-              <div className="relative flex justify-center items-center bg-white p-0 md:p-4 rounded-xl">
+            <CarouselItem key={i} className="w-auto flex justify-center">
+              <div className="relative flex justify-center items-center bg-white p-2 rounded-xl">
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="lazy"
-                  className="max-h-[340px] md:max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-105 mx-auto"
+                  className="w-[300px] h-[300px] object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        {images.length > 1 && (
-          <>
-            <CarouselPrevious className="absolute top-1/2 left-2 md:left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
-            <CarouselNext className="absolute top-1/2 right-2 md:right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
-          </>
-        )}
+        {/* Removed arrows */}
       </Carousel>
     </div>
   );
@@ -365,7 +349,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
-        {/* WhatsApp Button — KEPT */}
+        {/* WhatsApp Button */}
         <div className="mt-auto flex justify-center md:justify-start">
           <a
             href={buildWhatsAppUrl(item.name)}
