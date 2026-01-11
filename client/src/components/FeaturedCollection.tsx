@@ -48,6 +48,7 @@ const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi
 // Render features
 // ------------------------
 function renderFeatureText(feature: string) {
+  // Highlight entire string if it starts with "Suitable for"
   if (feature.toLowerCase().startsWith("suitable for")) {
     return (
       <span className="font-semibold text-teal-400 whitespace-normal break-words">
@@ -55,6 +56,8 @@ function renderFeatureText(feature: string) {
       </span>
     );
   }
+
+  // Otherwise, highlight only place words
   return feature.split(placeWordSplitRegex).map((part, index) => {
     const cleanPart = part.replace(/[,.:;!?]/g, "").toLowerCase();
     if (placeWordSet.has(cleanPart)) {
@@ -257,13 +260,12 @@ const ProductImages = ({ images }: { images: string[] }) => {
         <CarouselContent className="flex justify-center md:justify-start">
           {images.map((src, i) => (
             <CarouselItem key={i} className="w-full">
-              {/* ALL images get same size as Red Dot Matrix Clock */}
-              <div className="w-full md:w-[480px] aspect-[16/10] flex items-center justify-center overflow-hidden rounded-xl bg-white/5">
+              <div className="w-full md:w-[480px] aspect-[16/10] flex items-center justify-center bg-white rounded-xl overflow-hidden p-6">
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="lazy"
-                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                  className="max-h-full max-w-full object-contain"
                 />
               </div>
             </CarouselItem>
