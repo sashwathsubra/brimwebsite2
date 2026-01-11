@@ -305,7 +305,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
     >
       {/* Left: Images */}
       <motion.div
-        className="relative w-full md:w-1/2 flex-shrink-0 mx-auto md:mx-0"
+        className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center"
         whileHover={{ scale: 1.02, y: -5 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
