@@ -12,7 +12,7 @@ import multicolor_dual from "@/assets/new_multicolour_dual.jpeg";
 import multicolor_dual_2 from "@/assets/new_multicolour_dual2.png";
 import multicolor_dual_3 from "@/assets/new_multicolour_dual3.png";
 import multicolor_dual_4 from "@/assets/new_multicolour_dual4.png";
-import miniled_red from "@/assets/minled_red.jpeg";
+import miniled_red from "@/assets/miniled_red.jpeg";
 import miniled_green from "@/assets/minled_green.jpeg";
 import jumbolednew from "@/assets/jumbolednew.jpeg";
 
@@ -269,7 +269,12 @@ const ProductImages = ({ images }: { images: string[] }) => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        {/* arrows removed */}
+        {images.length > 1 && (
+          <>
+            <CarouselPrevious className="absolute top-1/2 left-2 md:left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
+            <CarouselNext className="absolute top-1/2 right-2 md:right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
+          </>
+        )}
       </Carousel>
     </div>
   );
