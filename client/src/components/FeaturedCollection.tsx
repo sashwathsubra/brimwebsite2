@@ -258,16 +258,13 @@ const ProductImages = ({ images }: { images: string[] }) => {
         <CarouselContent>
           {images.map((src, i) => (
             <CarouselItem key={i}>
-              <div className="relative w-full flex justify-center items-center md:p-4 p-0 bg-white rounded-xl">
-                {/* MOBILE CENTERING FIX */}
-                <div className="flex justify-center items-center w-full h-full">
-                  <img
-                    src={src}
-                    alt={`product-${i + 1}`}
-                    loading="lazy"
-                    className="max-h-[340px] md:max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
+              <div className="relative w-full flex justify-center items-center bg-white p-0 md:p-4 rounded-xl">
+                <img
+                  src={src}
+                  alt={`product-${i + 1}`}
+                  loading="lazy"
+                  className="max-h-[340px] md:max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
             </CarouselItem>
           ))}
