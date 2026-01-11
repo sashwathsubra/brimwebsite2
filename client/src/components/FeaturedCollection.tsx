@@ -50,8 +50,10 @@ const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi
 function renderFeatureText(feature: string) {
   return feature.split(placeWordSplitRegex).map((part, index) => {
     // Remove trailing punctuation for matching
-    const cleanPart = part.replace(/[,.:;!?]/g, "");
-    if (placeWordSet.has(cleanPart.toLowerCase())) {
+    const cleanPart = part.replace(/[,.:;!?]/g, "").toLowerCase();
+
+    // Highlight if it's in placeWordSet OR if it's 'etc'
+    if (placeWordSet.has(cleanPart) || cleanPart === "etc") {
       return (
         <span
           key={`${index}-${part}`}
@@ -61,6 +63,7 @@ function renderFeatureText(feature: string) {
         </span>
       );
     }
+
     return (
       <span key={`${index}-${part}`} className="whitespace-normal break-words">
         {part}
@@ -68,7 +71,6 @@ function renderFeatureText(feature: string) {
     );
   });
 }
-
 
 // ------------------------
 // Product Item Type
@@ -275,14 +277,11 @@ const ProductImages = ({ images }: { images: string[] }) => {
 
         {images.length > 1 && (
           <>
-            {/* Previous button - black circle, no arrow */}
             <CarouselPrevious className="absolute top-1/2 left-2 md:left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 flex items-center justify-center hover:bg-black/50">
-              {null} {/* override default arrow */}
+              {null}
             </CarouselPrevious>
-
-            {/* Next button - black circle, no arrow */}
             <CarouselNext className="absolute top-1/2 right-2 md:right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 flex items-center justify-center hover:bg-black/50">
-              {null} {/* override default arrow */}
+              {null}
             </CarouselNext>
           </>
         )}
@@ -314,7 +313,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5 -mt-8 md:mt-0"
     >
-      {/* Left: Images */}
       <motion.div
         className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center"
         whileHover={{ scale: 1.02, y: -5 }}
@@ -330,7 +328,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
         </motion.div>
       </motion.div>
 
-      {/* Right: Content */}
       <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
         <motion.h3
           layout
@@ -345,7 +342,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           </div>
         )}
 
-        {/* Desktop features */}
         <ul className="hidden md:block mt-2 list-none space-y-2 text-left text-gray-300 mb-6">
           {item.features?.map((feature, i) => (
             <motion.li
@@ -361,7 +357,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
-        {/* Mobile features */}
         <ul className="block md:hidden mt-4 space-y-3 text-gray-300 mb-6">
           {item.features?.map((feature, i) => (
             <motion.li
@@ -376,7 +371,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
-        {/* WhatsApp Button */}
         <div className="mt-auto flex justify-center md:justify-start">
           <a
             href={buildWhatsAppUrl(item.name)}
