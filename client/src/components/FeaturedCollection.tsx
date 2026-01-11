@@ -231,8 +231,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
   useEffect(() => {
     if (!api || images.length <= 1) return;
     const interval = setInterval(() => {
-      const nextIndex = (api.selectedScrollSnap() + 1) % images.length;
-      api.scrollTo(nextIndex);
+      api.scrollTo((api.selectedScrollSnap() + 1) % images.length);
     }, 3000);
     return () => clearInterval(interval);
   }, [api, images.length]);
@@ -282,7 +281,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5 -mt-8 md:mt-0"
     >
-      {/* Left: Images */}
       <motion.div
         className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center"
         whileHover={{ scale: 1.02, y: -5 }}
@@ -298,7 +296,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
         </motion.div>
       </motion.div>
 
-      {/* Right: Content */}
       <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
         <motion.h3
           layout
@@ -313,7 +310,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           </div>
         )}
 
-        {/* Desktop features */}
         <ul className="hidden md:block mt-2 list-none space-y-2 text-left text-gray-300 mb-6">
           {item.features?.map((feature, i) => (
             <motion.li
@@ -329,7 +325,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
-        {/* Mobile features */}
         <ul className="block md:hidden mt-4 space-y-3 text-gray-300 mb-6">
           {item.features?.map((feature, i) => (
             <motion.li
@@ -344,7 +339,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
-        {/* WhatsApp Button */}
         <div className="mt-auto flex justify-center md:justify-start">
           <a
             href={buildWhatsAppUrl(item.name)}
