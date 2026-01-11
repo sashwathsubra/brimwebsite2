@@ -1,98 +1,39 @@
 import * as React from "react";
-import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
-import { cn } from "@/lib/utils";
 
-type CarouselApi = UseEmblaCarouselType[1];
-type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
-type CarouselOptions = UseCarouselParameters[0];
-type CarouselPlugin = UseCarouselParameters[1];
-
-type CarouselProps = {
-  opts?: CarouselOptions;
-  plugins?: CarouselPlugin;
-  orientation?: "horizontal" | "vertical";
-  setApi?: (api: CarouselApi) => void;
+type AutoCarouselProps = {
+  children: React.ReactNode[];
+  interval?: number; // milliseconds
+  className?: string;
 };
 
-type CarouselContextProps = {
-  carouselRef: ReturnType<typeof useEmblaCarousel>[0];
-  api: ReturnType<typeof useEmblaCarousel>[1];
-} & CarouselProps;
+export const AutoCarousel: React.FC<AutoCarouselProps> = ({ children, interval = 3000, className }) => {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const count = children.length;
 
-const CarouselContext = React.createContext<CarouselContextProps | null>(null);
+  // Auto-scroll effect
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % count); // loop back to first
+    }, interval);
+    return () => clearInterval(timer);
+  }, [count, interval]);
 
-function useCarousel() {
-  const context = React.useContext(CarouselContext);
-  if (!context) throw new Error("useCarousel must be used within a <Carousel />");
-  return context;
-}
-
-const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & CarouselProps>(
-  ({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }, ref) => {
-    const [carouselRef, api] = useEmblaCarousel(
-      {
-        ...opts,
-        axis: orientation === "horizontal" ? "x" : "y",
-        loop: true, // infinite loop
-      },
-      plugins,
-    );
-
-    // Auto-scroll every 3 seconds
-    React.useEffect(() => {
-      if (!api) return;
-      const interval = setInterval(() => {
-        api.scrollNext();
-      }, 3000);
-      return () => clearInterval(interval);
-    }, [api]);
-
-    // Expose API if needed
-    React.useEffect(() => {
-      if (api && setApi) setApi(api);
-    }, [api, setApi]);
-
-    return (
-      <CarouselContext.Provider value={{ carouselRef, api, orientation, opts, plugins }}>
-        <div ref={ref} className={cn("relative", className)} role="region" aria-roledescription="carousel" {...props}>
-          {children}
-        </div>
-      </CarouselContext.Provider>
-    );
-  },
-);
-Carousel.displayName = "Carousel";
-
-const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
-    const { carouselRef, orientation } = useCarousel();
-    return (
-      <div ref={carouselRef} className="overflow-hidden">
-        <div
-          ref={ref}
-          className={cn("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)}
-          {...props}
-        />
-      </div>
-    );
-  },
-);
-CarouselContent.displayName = "CarouselContent";
-
-const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
-    const { orientation } = useCarousel();
-    return (
+  return (
+    <div className={`overflow-hidden relative ${className}`}>
       <div
-        ref={ref}
-        role="group"
-        aria-roledescription="slide"
-        className={cn("min-w-0 shrink-0 grow-0 basis-full", orientation === "horizontal" ? "pl-4" : "pt-4", className)}
-        {...props}
-      />
-    );
-  },
-);
-CarouselItem.displayName = "CarouselItem";
-
-export { type CarouselApi, Carousel, CarouselContent, CarouselItem };
+        style={{
+          display: "flex",
+          transition: "transform 0.5s ease-in-out",
+          transform: `translateX(-${currentIndex * 100}%)`,
+          width: `${count * 100}%`,
+        }}
+      >
+        {children.map((child, idx) => (
+          <div key={idx} style={{ flex: "0 0 100%" }}>
+            {child}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
