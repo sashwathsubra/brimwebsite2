@@ -255,7 +255,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
   return (
     <div className="relative w-full -mx-4 md:mx-0">
       <Carousel opts={{ loop: images.length > 1 }} setApi={setApi}>
-        <CarouselContent>
+        <CarouselContent className="flex justify-center md:justify-start">
           {images.map((src, i) => (
             <CarouselItem key={i}>
               <div className="relative w-full flex justify-center items-center bg-white p-0 md:p-4 rounded-xl">
