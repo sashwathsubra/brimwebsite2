@@ -95,7 +95,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin, etc...",
+      "Suitable for home, office, executive cabin",
       "Glassy finish ABS plastic case",
       "1 inch seven segment LED display",
       "Epson RTC and Nuvoton microcontroller",
@@ -113,7 +113,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin, etc...",
+      "Suitable for home, office, executive cabin",
       "Glassy finish ABS plastic case",
       "1 inch seven segment LED display",
       "Epson RTC and Nuvoton microcontroller",
@@ -131,7 +131,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin, etc...",
+      "Suitable for home, office, executive cabin",
       "7x30 LED dot matrix",
       "Epson RTC and Nuvoton microcontroller",
       "User can select font",
@@ -153,7 +153,7 @@ const collections: ProductItem[] = [
     category: "",
     hasDualColor: true,
     features: [
-      "Suitable for home, office, executive cabin, etc...",
+      "Suitable for home, office, executive cabin",
       "7x30 LED dot matrix",
       "Epson RTC and Nuvoton microcontroller",
       "User can select font",
@@ -177,7 +177,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for executive cabin, home halls, office reception, etc...",
+      "Suitable for executive cabin, home halls, office reception",
       "14x56 3mm dot matrix calendar clock",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
@@ -199,7 +199,7 @@ const collections: ProductItem[] = [
       multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4,
     ],
     features: [
-      "Suitable for executive cabin, home halls, office reception, etc...",
+      "Suitable for executive cabin, home halls, office reception",
       "14x56 3mm dot matrix calendar clock",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
@@ -215,7 +215,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for factory, temple, church, mosque, auditorium, etc...",
+      "Suitable for factory, temple, church, mosque, auditorium",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
       "Wall mountable / hanging",
@@ -247,14 +247,19 @@ const ProductImages = ({ images }: { images: string[] }) => {
         <CarouselContent className="flex justify-center md:justify-center">
           {images.map((src, i) => (
             <CarouselItem key={i} className="w-auto flex justify-center">
-              <div className="relative flex justify-center items-center bg-white p-2 rounded-xl">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="relative flex justify-center items-center bg-white p-2 md:p-4 rounded-xl w-[320px] md:w-[360px] h-[180px] md:h-[220px]"
+              >
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="lazy"
-                  className="w-[300px] md:w-[320px] h-[180px] md:h-[200px] object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-contain rounded-xl"
                 />
-              </div>
+              </motion.div>
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -292,13 +297,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
         whileHover={{ scale: 1.02, y: -5 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <ProductImages images={currentImages} />
-        </motion.div>
+        <ProductImages images={currentImages} />
       </motion.div>
 
       {/* Right: Content */}
