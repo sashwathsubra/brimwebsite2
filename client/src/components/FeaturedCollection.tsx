@@ -49,13 +49,15 @@ const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi
 // ------------------------
 function renderFeatureText(feature: string) {
   return feature.split(placeWordSplitRegex).map((part, index) => {
-    if (placeWordSet.has(part.toLowerCase())) {
+    // Remove trailing punctuation for matching
+    const cleanPart = part.replace(/[,.:;!?]/g, "");
+    if (placeWordSet.has(cleanPart.toLowerCase())) {
       return (
         <span
           key={`${index}-${part}`}
           className="font-semibold text-teal-400 whitespace-normal break-words"
         >
-          {part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()}
+          {part.charAt(0).toUpperCase() + part.slice(1)}
         </span>
       );
     }
@@ -66,6 +68,7 @@ function renderFeatureText(feature: string) {
     );
   });
 }
+
 
 // ------------------------
 // Product Item Type
