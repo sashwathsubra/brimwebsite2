@@ -274,12 +274,12 @@ const ProductImages = ({ images }: { images: string[] }) => {
           <>
             {/* Previous button - black circle, no arrow */}
             <CarouselPrevious className="absolute top-1/2 left-2 md:left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 flex items-center justify-center hover:bg-black/50">
-              {/* empty children to remove default arrow */}
+              {null} {/* override default arrow */}
             </CarouselPrevious>
 
             {/* Next button - black circle, no arrow */}
             <CarouselNext className="absolute top-1/2 right-2 md:right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 flex items-center justify-center hover:bg-black/50">
-              {/* empty children to remove default arrow */}
+              {null} {/* override default arrow */}
             </CarouselNext>
           </>
         )}
