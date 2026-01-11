@@ -97,7 +97,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin",
+      "Suitable for home, office, executive cabin, etc...",
       "Glassy finish ABS plastic case",
       "1 inch seven segment LED display",
       "Epson RTC and Nuvoton microcontroller",
@@ -115,7 +115,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin",
+      "Suitable for home, office, executive cabin, etc...",
       "Glassy finish ABS plastic case",
       "1 inch seven segment LED display",
       "Epson RTC and Nuvoton microcontroller",
@@ -133,7 +133,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin",
+      "Suitable for home, office, executive cabin, etc...",
       "7x30 LED dot matrix",
       "Epson RTC and Nuvoton microcontroller",
       "User can select font",
@@ -155,7 +155,7 @@ const collections: ProductItem[] = [
     category: "",
     hasDualColor: true,
     features: [
-      "Suitable for home, office, executive cabin",
+      "Suitable for home, office, executive cabin, etc...",
       "7x30 LED dot matrix",
       "Epson RTC and Nuvoton microcontroller",
       "User can select font",
@@ -179,7 +179,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for executive cabin, home halls, office reception",
+      "Suitable for executive cabin, home halls, office reception, etc...",
       "14x56 3mm dot matrix calendar clock",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
@@ -201,7 +201,7 @@ const collections: ProductItem[] = [
       multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4,
     ],
     features: [
-      "Suitable for executive cabin, home halls, office reception",
+      "Suitable for executive cabin, home halls, office reception, etc...",
       "14x56 3mm dot matrix calendar clock",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
@@ -217,7 +217,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for factory, temple, church, mosque, auditorium",
+      "Suitable for factory, temple, church, mosque, auditorium, etc...",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
       "Wall mountable / hanging",
