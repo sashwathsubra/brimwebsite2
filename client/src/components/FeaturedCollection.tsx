@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import dot_single_red from "@/assets/new_dot_single.jpeg";
 import dot_single_green from "@/assets/new_dot_single_green.jpeg";
 import dot_double_red from "@/assets/new_dot_double.jpeg";
-import dot_double_green from "@/assets/new_dot_double_green.jpeg";
+import dot_double_green from "@/assets/new_double_green.jpeg";
 import new_calender_red_1 from "@/assets/new_calender_red_1.jpeg";
 import multicolor_red from "@/assets/new_multi_colour_red.jpeg";
 import multicolor_red_2 from "@/assets/new_multicolour_red2.png";
@@ -73,8 +73,8 @@ function renderFeatureText(feature: string) {
 type ProductItem = {
   images: string[];
   name: string;
-  price: string;
-  category: string;
+  price?: string;
+  category?: string;
   features?: string[];
   size?: string;
   hasDualColor?: boolean;
@@ -94,8 +94,6 @@ const collections: ProductItem[] = [
   {
     images: [miniled_red],
     name: "Mini Clock Red",
-    price: "",
-    category: "",
     features: [
       "Suitable for home, office, executive cabin",
       "Glassy finish ABS plastic case",
@@ -112,8 +110,6 @@ const collections: ProductItem[] = [
   {
     images: [miniled_green],
     name: "Mini Clock Green",
-    price: "",
-    category: "",
     features: [
       "Suitable for home, office, executive cabin",
       "Glassy finish ABS plastic case",
@@ -130,8 +126,6 @@ const collections: ProductItem[] = [
   {
     images: [dot_single_red, dot_double_red],
     name: "Red Dot Matrix Clock",
-    price: "",
-    category: "",
     features: [
       "Suitable for home, office, executive cabin",
       "7x30 LED dot matrix",
@@ -144,16 +138,11 @@ const collections: ProductItem[] = [
     ],
     size: "Clock size: 26 cm Height x 8 cm Width",
     densityOptions: ["Thin", "Thick"],
-    colorDensityImages: {
-      red: { Thin: [dot_single_red], Thick: [dot_double_red] },
-    },
+    colorDensityImages: { red: { Thin: [dot_single_red], Thick: [dot_double_red] } },
   },
   {
     images: [dot_single_red, dot_double_red, dot_single_green, dot_double_green],
     name: "Dual Colour Matrix Clock",
-    price: "",
-    category: "",
-    hasDualColor: true,
     features: [
       "Suitable for home, office, executive cabin",
       "7x30 LED dot matrix",
@@ -166,6 +155,7 @@ const collections: ProductItem[] = [
       "More than 7 years durable without maintenance",
     ],
     size: "Clock size: 26 cm Height x 8 cm Width",
+    hasDualColor: true,
     greenImages: [dot_single_green, dot_double_green],
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
@@ -176,8 +166,6 @@ const collections: ProductItem[] = [
   {
     images: [new_calender_red_1],
     name: "Calendar Clock",
-    price: "",
-    category: "",
     features: [
       "Suitable for executive cabin, home halls, office reception",
       "14x56 3mm dot matrix calendar clock",
@@ -192,14 +180,6 @@ const collections: ProductItem[] = [
   {
     images: [multicolor_red, multicolor_red_2],
     name: "Multi Colour Calender Clock",
-    price: "",
-    category: "",
-    hasDualColor: true,
-    hasTriColor: true,
-    greenImages: [multicolor_green, multicolor_green_2],
-    multiColorImages: [
-      multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4,
-    ],
     features: [
       "Suitable for executive cabin, home halls, office reception",
       "14x56 3mm dot matrix calendar clock",
@@ -210,12 +190,14 @@ const collections: ProductItem[] = [
       "More than 7 years durable without maintenance",
     ],
     size: "Clock size: 26 cm Height x 8 cm Width",
+    hasDualColor: true,
+    hasTriColor: true,
+    greenImages: [multicolor_green, multicolor_green_2],
+    multiColorImages: [multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4],
   },
   {
     images: [jumbolednew],
     name: "Jumbo Clock",
-    price: "",
-    category: "",
     features: [
       "Suitable for factory, temple, church, mosque, auditorium",
       "Epson RTC and Nuvoton microcontroller",
@@ -233,7 +215,6 @@ const collections: ProductItem[] = [
 // ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
-  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
     if (!api || images.length <= 1) return;
@@ -244,16 +225,8 @@ const ProductImages = ({ images }: { images: string[] }) => {
     return () => clearInterval(interval);
   }, [api, images.length]);
 
-  useEffect(() => {
-    if (!api) return;
-    const onSelect = () => setSelected(api.selectedScrollSnap());
-    onSelect();
-    api.on("select", onSelect);
-    return () => api.off("select", onSelect);
-  }, [api]);
-
   return (
-    <div className="relative w-full -mx-4 md:mx-0">
+    <div className="relative w-full -mx-4 md:mx-0 flex justify-center">
       <Carousel opts={{ loop: images.length > 1 }} setApi={setApi}>
         <CarouselContent>
           {images.map((src, i) => (
@@ -263,7 +236,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="lazy"
-                  className="max-h-[340px] md:max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  className="max-h-[340px] md:max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-105 mx-auto"
                 />
               </div>
             </CarouselItem>
@@ -303,9 +276,9 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5 -mt-8 md:mt-0"
     >
-      {/* Left: Images */}
+      {/* Images */}
       <motion.div
-        className="relative w-full md:w-1/2 flex-shrink-0"
+        className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center items-center"
         whileHover={{ scale: 1.02, y: -5 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
@@ -319,7 +292,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
         </motion.div>
       </motion.div>
 
-      {/* Right: Content */}
+      {/* Content */}
       <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
         <motion.h3
           layout
@@ -365,7 +338,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
-        {/* WhatsApp Button — KEPT */}
+        {/* WhatsApp Button */}
         <div className="mt-auto flex justify-center md:justify-start">
           <a
             href={buildWhatsAppUrl(item.name)}
@@ -382,9 +355,9 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
 };
 
 // ----------------------------
-// Products Page
+// Featured Collection Page
 // ----------------------------
-export default function Products() {
+export default function FeaturedCollection() {
   return (
     <div className="space-y-8 md:space-y-16 px-4 md:px-12 lg:px-24">
       {collections.map((item, i) => (
