@@ -151,7 +151,9 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
 CarouselItem.displayName = "CarouselItem";
 
 // ----------------------
-// NOTE: CarouselPrevious & CarouselNext are REMOVED
+// Keep exports for backward compatibility, but empty components
 // ----------------------
+const CarouselPrevious: React.FC = () => null;
+const CarouselNext: React.FC = () => null;
 
-export { type CarouselApi, Carousel, CarouselContent, CarouselItem };
+export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext };
