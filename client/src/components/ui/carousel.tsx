@@ -16,18 +16,16 @@ type CarouselProps = {
 
 type CarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0];
-  api: ReturnType<typeof useEmblaCarousel>[1];
-} & CarouselProps;
+  api: CarouselApi | null;
+  opts?: CarouselOptions;
+  orientation: "horizontal" | "vertical";
+};
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
 
 function useCarousel() {
   const context = React.useContext(CarouselContext);
-
-  if (!context) {
-    throw new Error("useCarousel must be used within a <Carousel />");
-  }
-
+  if (!context) throw new Error("useCarousel must be used within a <Carousel />");
   return context;
 }
 
@@ -38,12 +36,11 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
       },
-      plugins,
+      plugins
     );
 
     React.useEffect(() => {
-      if (!api || !setApi) return;
-      setApi(api);
+      if (setApi && api) setApi(api);
     }, [api, setApi]);
 
     return (
@@ -60,14 +57,13 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
         </div>
       </CarouselContext.Provider>
     );
-  },
+  }
 );
 Carousel.displayName = "Carousel";
 
 const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     const { carouselRef, orientation } = useCarousel();
-
     return (
       <div ref={carouselRef} className="overflow-hidden">
         <div
@@ -77,14 +73,13 @@ const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
         />
       </div>
     );
-  },
+  }
 );
 CarouselContent.displayName = "CarouselContent";
 
 const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     const { orientation } = useCarousel();
-
     return (
       <div
         ref={ref}
@@ -94,7 +89,7 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
         {...props}
       />
     );
-  },
+  }
 );
 CarouselItem.displayName = "CarouselItem";
 
