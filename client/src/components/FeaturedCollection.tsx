@@ -26,15 +26,9 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// ------------------------
-// Types
-// ------------------------
 type ProductColor = "red" | "green" | "multicolor";
 type ProductDensity = "Thin" | "Thick";
 
-// ------------------------
-// Place words
-// ------------------------
 const placeWordList = [
   "home","office","executive","cabin","mosque","temple","church","hospital",
   "clinic","school","college","showroom","shop","restaurant","hotel",
@@ -44,9 +38,6 @@ const placeWordList = [
 const placeWordSet = new Set<string>(placeWordList.map(w => w.toLowerCase()));
 const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi");
 
-// ------------------------
-// Render features
-// ------------------------
 function renderFeatureText(feature: string) {
   return feature.split(placeWordSplitRegex).map((part, index) => {
     if (placeWordSet.has(part.toLowerCase())) {
@@ -67,9 +58,6 @@ function renderFeatureText(feature: string) {
   });
 }
 
-// ------------------------
-// Product Item Type
-// ------------------------
 type ProductItem = {
   images: string[];
   name: string;
@@ -87,9 +75,6 @@ type ProductItem = {
   >;
 };
 
-// ------------------------
-// Products Array
-// ------------------------
 const collections: ProductItem[] = [
   {
     images: [miniled_red],
@@ -228,9 +213,6 @@ const collections: ProductItem[] = [
   },
 ];
 
-// ----------------------------
-// ProductImages Component
-// ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [selected, setSelected] = useState(0);
@@ -280,9 +262,6 @@ const ProductImages = ({ images }: { images: string[] }) => {
   );
 };
 
-// ----------------------------
-// ProductCard Component
-// ----------------------------
 const ProductCard = ({ item }: { item: ProductItem }) => {
   const phone = "919445887243";
   const buildWhatsAppUrl = (product: string) =>
@@ -303,7 +282,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5 -mt-8 md:mt-0"
     >
-      {/* Left: Images */}
       <motion.div
         className="relative w-full md:w-1/2 flex-shrink-0"
         whileHover={{ scale: 1.02, y: -5 }}
@@ -319,7 +297,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
         </motion.div>
       </motion.div>
 
-      {/* Right: Content */}
       <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
         <motion.h3
           layout
@@ -334,7 +311,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           </div>
         )}
 
-        {/* Desktop features */}
         <ul className="hidden md:block mt-2 list-none space-y-2 text-left text-gray-300 mb-6">
           {item.features?.map((feature, i) => (
             <motion.li
@@ -350,7 +326,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
-        {/* Mobile features */}
         <ul className="block md:hidden mt-4 space-y-3 text-gray-300 mb-6">
           {item.features?.map((feature, i) => (
             <motion.li
@@ -365,7 +340,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
-        {/* WhatsApp Button — KEPT */}
         <div className="mt-auto flex justify-center md:justify-start">
           <a
             href={buildWhatsAppUrl(item.name)}
@@ -381,12 +355,9 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
   );
 };
 
-// ----------------------------
-// Products Page
-// ----------------------------
 export default function Products() {
   return (
-    <div className="space-y-8 md:space-y-16 px-4 md:px-12 lg:px-24">
+    <div className="space-y-8 md:space-y-8 px-4 md:px-12 lg:px-24">
       {collections.map((item, i) => (
         <ProductCard key={i} item={item} />
       ))}
