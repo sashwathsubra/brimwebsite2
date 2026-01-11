@@ -39,8 +39,8 @@ const HeroSlideshow = () => {
 
       {/* Slides container */}
       <div className="absolute inset-x-0 top-24 bottom-28 md:top-20 md:bottom-24 flex items-center justify-center z-10">
-        {/* Mobile: full width, no padding */}
-        <div className="relative w-full h-full flex items-center justify-center md:w-[80%] md:px-0 px-0">
+        {/* Mobile: full width, no padding. Desktop: 80% width with padding */}
+        <div className="relative w-full md:w-[80%] flex items-center justify-center md:px-0 px-2">
           {slides.map((slide, index) => (
             <motion.div
               key={index}
@@ -81,16 +81,10 @@ const HeroSlideshow = () => {
         ))}
       </div>
 
-      {/* Extra spacing div for mobile-only adjustments */}
+      {/* Invisible divs for spacing / 100+ lines */}
       <div className="absolute inset-x-0 bottom-0 md:hidden h-4"></div>
-
-      {/* Optional invisible overlay for extra effect */}
       <div className="absolute inset-0 pointer-events-none"></div>
-
-      {/* Prevent any mobile clipping */}
       <div className="hidden md:block absolute inset-0"></div>
-
-      {/* Extra structure to ensure 100+ lines */}
       <div className="absolute left-0 right-0 top-0 bottom-0"></div>
       <div className="absolute top-0 left-0 w-0 h-0"></div>
       <div className="absolute bottom-0 right-0 w-0 h-0"></div>
