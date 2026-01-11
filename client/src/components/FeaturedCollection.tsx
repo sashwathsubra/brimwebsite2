@@ -48,12 +48,19 @@ const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi
 // Render features
 // ------------------------
 function renderFeatureText(feature: string) {
-  return feature.split(placeWordSplitRegex).map((part, index) => {
-    // Remove trailing punctuation for matching
-    const cleanPart = part.replace(/[,.:;!?]/g, "").toLowerCase();
+  // Highlight entire string if it starts with "Suitable for"
+  if (feature.toLowerCase().startsWith("suitable for")) {
+    return (
+      <span className="font-semibold text-teal-400 whitespace-normal break-words">
+        {feature}
+      </span>
+    );
+  }
 
-    // Highlight if it's in placeWordSet OR if it's 'etc'
-    if (placeWordSet.has(cleanPart) || cleanPart === "etc") {
+  // Otherwise, highlight only place words
+  return feature.split(placeWordSplitRegex).map((part, index) => {
+    const cleanPart = part.replace(/[,.:;!?]/g, "").toLowerCase();
+    if (placeWordSet.has(cleanPart)) {
       return (
         <span
           key={`${index}-${part}`}
@@ -63,7 +70,6 @@ function renderFeatureText(feature: string) {
         </span>
       );
     }
-
     return (
       <span key={`${index}-${part}`} className="whitespace-normal break-words">
         {part}
