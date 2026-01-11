@@ -95,7 +95,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin",
+      "Suitable for home, office, executive cabin, etc...",
       "Glassy finish ABS plastic case",
       "1 inch seven segment LED display",
       "Epson RTC and Nuvoton microcontroller",
@@ -113,7 +113,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin",
+      "Suitable for home, office, executive cabin, etc...",
       "Glassy finish ABS plastic case",
       "1 inch seven segment LED display",
       "Epson RTC and Nuvoton microcontroller",
@@ -131,7 +131,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin",
+      "Suitable for home, office, executive cabin, etc...",
       "7x30 LED dot matrix",
       "Epson RTC and Nuvoton microcontroller",
       "User can select font",
@@ -153,7 +153,7 @@ const collections: ProductItem[] = [
     category: "",
     hasDualColor: true,
     features: [
-      "Suitable for home, office, executive cabin",
+      "Suitable for home, office, executive cabin, etc...",
       "7x30 LED dot matrix",
       "Epson RTC and Nuvoton microcontroller",
       "User can select font",
@@ -177,7 +177,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for executive cabin, home halls, office reception",
+      "Suitable for executive cabin, home halls, office reception, etc...",
       "14x56 3mm dot matrix calendar clock",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
@@ -199,7 +199,7 @@ const collections: ProductItem[] = [
       multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4,
     ],
     features: [
-      "Suitable for executive cabin, home halls, office reception",
+      "Suitable for executive cabin, home halls, office reception, etc...",
       "14x56 3mm dot matrix calendar clock",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
@@ -215,7 +215,7 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for factory, temple, church, mosque, auditorium",
+      "Suitable for factory, temple, church, mosque, auditorium, etc...",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
       "Wall mountable / hanging",
@@ -237,7 +237,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
     const interval = setInterval(() => {
       const nextIndex = (api.selectedScrollSnap() + 1) % images.length;
       api.scrollTo(nextIndex);
-    }, 1000); // auto-rotate every 1 sec
+    }, 1000);
     return () => clearInterval(interval);
   }, [api, images.length]);
 
@@ -252,13 +252,12 @@ const ProductImages = ({ images }: { images: string[] }) => {
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="lazy"
-                  className="w-[300px] h-[300px] object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  className="w-[300px] md:w-[320px] h-[180px] md:h-[200px] object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        {/* Removed arrows */}
       </Carousel>
     </div>
   );
@@ -294,9 +293,8 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <ProductImages images={currentImages} />
