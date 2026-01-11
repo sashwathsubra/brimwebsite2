@@ -1,19 +1,20 @@
 import * as React from "react";
 
-type AutoCarouselProps = {
-  children: React.ReactNode[];
-  interval?: number; // milliseconds
+type CarouselProps = {
+  children: React.ReactNode;
+  interval?: number; // ms
   className?: string;
 };
 
-export const AutoCarousel: React.FC<AutoCarouselProps> = ({ children, interval = 3000, className }) => {
+const Carousel: React.FC<CarouselProps> = ({ children, interval = 3000, className }) => {
+  const slides = React.Children.toArray(children);
+  const count = slides.length;
   const [currentIndex, setCurrentIndex] = React.useState(0);
-  const count = children.length;
 
-  // Auto-scroll effect
   React.useEffect(() => {
+    if (count <= 1) return;
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % count); // loop back to first
+      setCurrentIndex((prev) => (prev + 1) % count);
     }, interval);
     return () => clearInterval(timer);
   }, [count, interval]);
@@ -28,7 +29,7 @@ export const AutoCarousel: React.FC<AutoCarouselProps> = ({ children, interval =
           width: `${count * 100}%`,
         }}
       >
-        {children.map((child, idx) => (
+        {slides.map((child, idx) => (
           <div key={idx} style={{ flex: "0 0 100%" }}>
             {child}
           </div>
@@ -37,3 +38,5 @@ export const AutoCarousel: React.FC<AutoCarouselProps> = ({ children, interval =
     </div>
   );
 };
+
+export default Carousel;
