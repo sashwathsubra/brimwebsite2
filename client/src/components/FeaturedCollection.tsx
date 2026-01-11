@@ -308,8 +308,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
         className="relative w-full md:w-1/2 flex-shrink-0 mx-auto md:mx-0"
         whileHover={{ scale: 1.02, y: -5 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
->
-
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
