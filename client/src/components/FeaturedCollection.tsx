@@ -12,7 +12,7 @@ import multicolor_dual from "@/assets/new_multicolour_dual.jpeg";
 import multicolor_dual_2 from "@/assets/new_multicolour_dual2.png";
 import multicolor_dual_3 from "@/assets/new_multicolour_dual3.png";
 import multicolor_dual_4 from "@/assets/new_multicolour_dual4.png";
-import miniled_red from "@/assets/miniled_red.jpeg";
+import miniled_red from "@/assets/minled_red.jpeg";
 import miniled_green from "@/assets/minled_green.jpeg";
 import jumbolednew from "@/assets/jumbolednew.jpeg";
 
@@ -22,6 +22,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 // ------------------------
@@ -231,35 +233,43 @@ const collections: ProductItem[] = [
 // ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
+  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
     if (!api || images.length <= 1) return;
     const interval = setInterval(() => {
       const nextIndex = (api.selectedScrollSnap() + 1) % images.length;
       api.scrollTo(nextIndex);
-    }, 1000); // rotate every 1 sec
+    }, 3000);
     return () => clearInterval(interval);
   }, [api, images.length]);
 
+  useEffect(() => {
+    if (!api) return;
+    const onSelect = () => setSelected(api.selectedScrollSnap());
+    onSelect();
+    api.on("select", onSelect);
+    return () => api.off("select", onSelect);
+  }, [api]);
+
   return (
-    <div className="relative w-full flex justify-center">
+    <div className="relative w-full -mx-4 md:mx-0 flex justify-center">
       <Carousel opts={{ loop: images.length > 1 }} setApi={setApi}>
-        <CarouselContent className="flex justify-center md:justify-center gap-4">
+        <CarouselContent className="flex justify-center md:justify-start">
           {images.map((src, i) => (
-            <CarouselItem key={i} className="flex justify-center w-full">
-              <div
-                className="relative flex justify-center items-center w-full md:w-[400px] h-[200px] md:h-[220px] bg-white/5 rounded-xl overflow-hidden"
-              >
+            <CarouselItem key={i} className="w-auto">
+              <div className="relative flex justify-center items-center bg-white p-0 md:p-4 rounded-xl">
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="lazy"
-                  className="w-full h-full object-contain transition-transform duration-700 ease-out"
+                  className="max-h-[340px] md:max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-105 mx-auto"
                 />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
+        {/* arrows removed */}
       </Carousel>
     </div>
   );
@@ -294,7 +304,14 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
         whileHover={{ scale: 1.02, y: -5 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
-        <ProductImages images={currentImages} />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <ProductImages images={currentImages} />
+        </motion.div>
       </motion.div>
 
       {/* Right: Content */}
@@ -343,7 +360,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
-        {/* WhatsApp Button */}
+        {/* WhatsApp Button — KEPT */}
         <div className="mt-auto flex justify-center md:justify-start">
           <a
             href={buildWhatsAppUrl(item.name)}
