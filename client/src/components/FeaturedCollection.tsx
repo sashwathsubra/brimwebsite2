@@ -237,29 +237,26 @@ const ProductImages = ({ images }: { images: string[] }) => {
     const interval = setInterval(() => {
       const nextIndex = (api.selectedScrollSnap() + 1) % images.length;
       api.scrollTo(nextIndex);
-    }, 1000);
+    }, 1000); // rotate every 1 sec
     return () => clearInterval(interval);
   }, [api, images.length]);
 
   return (
     <div className="relative w-full flex justify-center">
       <Carousel opts={{ loop: images.length > 1 }} setApi={setApi}>
-        <CarouselContent className="flex justify-center md:justify-center">
+        <CarouselContent className="flex justify-center md:justify-center gap-4">
           {images.map((src, i) => (
-            <CarouselItem key={i} className="w-auto flex justify-center">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="relative flex justify-center items-center bg-white p-2 md:p-4 rounded-xl w-[320px] md:w-[360px] h-[180px] md:h-[220px]"
+            <CarouselItem key={i} className="flex justify-center w-full">
+              <div
+                className="relative flex justify-center items-center w-full md:w-[400px] h-[200px] md:h-[220px] bg-white/5 rounded-xl overflow-hidden"
               >
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="lazy"
-                  className="w-full h-full object-contain rounded-xl"
+                  className="w-full h-full object-contain transition-transform duration-700 ease-out"
                 />
-              </motion.div>
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
