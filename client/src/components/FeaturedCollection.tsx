@@ -12,7 +12,7 @@ import multicolor_dual from "@/assets/new_multicolour_dual.jpeg";
 import multicolor_dual_2 from "@/assets/new_multicolour_dual2.png";
 import multicolor_dual_3 from "@/assets/new_multicolour_dual3.png";
 import multicolor_dual_4 from "@/assets/new_multicolour_dual4.png";
-import miniled_red from "@/assets/miniled_red.jpeg";
+import miniled_red from "@/assets/minled_red.jpeg";
 import miniled_green from "@/assets/minled_green.jpeg";
 import jumbolednew from "@/assets/jumbolednew.jpeg";
 
@@ -22,8 +22,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 // ------------------------
@@ -33,7 +31,7 @@ type ProductColor = "red" | "green" | "multicolor";
 type ProductDensity = "Thin" | "Thick";
 
 // ------------------------
-// Place words
+// Place words for highlighting
 // ------------------------
 const placeWordList = [
   "home","office","executive","cabin","mosque","temple","church","hospital",
@@ -45,7 +43,7 @@ const placeWordSet = new Set<string>(placeWordList.map(w => w.toLowerCase()));
 const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi");
 
 // ------------------------
-// Render features
+// Feature text renderer
 // ------------------------
 function renderFeatureText(feature: string) {
   return feature.split(placeWordSplitRegex).map((part, index) => {
@@ -59,16 +57,12 @@ function renderFeatureText(feature: string) {
         </span>
       );
     }
-    return (
-      <span key={`${index}-${part}`} className="whitespace-normal break-words">
-        {part}
-      </span>
-    );
+    return <span key={`${index}-${part}`} className="whitespace-normal break-words">{part}</span>;
   });
 }
 
 // ------------------------
-// Product Item Type
+// Product type
 // ------------------------
 type ProductItem = {
   images: string[];
@@ -88,7 +82,7 @@ type ProductItem = {
 };
 
 // ------------------------
-// Products Array
+// Product list
 // ------------------------
 const collections: ProductItem[] = [
   {
@@ -233,7 +227,6 @@ const collections: ProductItem[] = [
 // ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
-  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
     if (!api || images.length <= 1) return;
@@ -243,14 +236,6 @@ const ProductImages = ({ images }: { images: string[] }) => {
     }, 3000);
     return () => clearInterval(interval);
   }, [api, images.length]);
-
-  useEffect(() => {
-    if (!api) return;
-    const onSelect = () => setSelected(api.selectedScrollSnap());
-    onSelect();
-    api.on("select", onSelect);
-    return () => api.off("select", onSelect);
-  }, [api]);
 
   return (
     <div className="relative w-full -mx-4 md:mx-0 flex justify-center">
@@ -269,12 +254,6 @@ const ProductImages = ({ images }: { images: string[] }) => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        {images.length > 1 && (
-          <>
-            <CarouselPrevious className="absolute top-1/2 left-2 md:left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
-            <CarouselNext className="absolute top-1/2 right-2 md:right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50" />
-          </>
-        )}
       </Carousel>
     </div>
   );
@@ -365,7 +344,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
-        {/* WhatsApp Button — KEPT */}
+        {/* WhatsApp Button */}
         <div className="mt-auto flex justify-center md:justify-start">
           <a
             href={buildWhatsAppUrl(item.name)}
