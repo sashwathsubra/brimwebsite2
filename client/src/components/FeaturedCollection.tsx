@@ -48,6 +48,7 @@ const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi
 // Render features
 // ------------------------
 function renderFeatureText(feature: string) {
+  // Highlight entire string if it starts with "Suitable for"
   if (feature.toLowerCase().startsWith("suitable for")) {
     return (
       <span className="font-semibold text-teal-400 whitespace-normal break-words">
@@ -56,6 +57,7 @@ function renderFeatureText(feature: string) {
     );
   }
 
+  // Otherwise, highlight only place words
   return feature.split(placeWordSplitRegex).map((part, index) => {
     const cleanPart = part.replace(/[,.:;!?]/g, "").toLowerCase();
     if (placeWordSet.has(cleanPart)) {
@@ -266,13 +268,13 @@ const ProductImages = ({ images }: { images: string[] }) => {
       <Carousel opts={{ loop: images.length > 1 }} setApi={setApi}>
         <CarouselContent className="flex justify-center md:justify-start">
           {images.map((src, i) => (
-            <CarouselItem key={i} className="w-full">
-              <div className="w-full md:w-[480px] aspect-[16/10] flex items-center justify-center bg-white rounded-xl overflow-hidden">
+            <CarouselItem key={i} className="w-auto">
+              <div className="relative flex justify-center items-center bg-white p-0 md:p-4 rounded-xl">
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="lazy"
-                  className="h-auto max-h-[90%] object-center"
+                  className="max-h-[340px] md:max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-105 mx-auto"
                 />
               </div>
             </CarouselItem>
