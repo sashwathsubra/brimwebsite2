@@ -1,6 +1,3 @@
-// ------------------------
-// featurecollection.tsx
-// ------------------------
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
@@ -8,7 +5,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from "./carousel"; // make sure this points to your carousel file
+} from "@/components/ui/carousel";
 
 import dot_single_red from "@/assets/new_dot_single.jpeg";
 import dot_single_green from "@/assets/new_dot_single_green.jpeg";
@@ -232,7 +229,7 @@ const collections: ProductItem[] = [
 ];
 
 // ----------------------------
-// ProductImages Component (Fixed)
+// ProductImages Component (Smooth Fixed)
 // ----------------------------
 const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
@@ -245,14 +242,10 @@ const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean 
   // Smooth auto-scroll
   useEffect(() => {
     if (!api || images.length <= 1) return;
-
-    let index = 0;
     const interval = setInterval(() => {
-      if (!api) return;
-      index = (index + 1) % images.length; // loop index
-      api.scrollTo(index, true); // smooth scroll to slide
+      if (api.canScrollNext()) api.scrollNext(true);
+      else api.scrollTo(0, true); // smooth loop
     }, 3000);
-
     return () => clearInterval(interval);
   }, [api, images]);
 
