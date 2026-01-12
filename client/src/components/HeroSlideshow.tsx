@@ -37,8 +37,8 @@ const HeroSlideshow = () => {
       {/* Radial gradient overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-muted/20 via-background to-background" />
 
-      {/* Slides container */}
-      <div className="absolute inset-x-0 top-0 bottom-0 md:top-20 md:bottom-24 flex items-center justify-center z-10">
+      {/* Slides container with responsive side padding */}
+      <div className="absolute inset-x-0 top-0 bottom-0 md:top-20 md:bottom-24 flex items-center justify-center z-10 px-4 sm:px-8 md:px-16 lg:px-24">
         <div className="relative w-[100%] h-full flex items-center justify-center">
           {slides.map((slide, index) => (
             <motion.div
