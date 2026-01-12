@@ -229,46 +229,31 @@ const collections: ProductItem[] = [
 ];
 
 // ----------------------------
-// ProductImages Component (Fixed)
+// ProductImages Component (Smooth Fixed)
 // ----------------------------
 const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
-  const [loadedImages, setLoadedImages] = useState<string[]>([images[0]]);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Preload images
+  // Preload all images
   useEffect(() => {
-    images.slice(1).forEach((img) => {
-      const image = new Image();
-      image.src = img;
-      image.onload = () => setLoadedImages((prev) => (prev.includes(img) ? prev : [...prev, img]));
-    });
+    images.forEach((img) => new Image().src = img);
   }, [images]);
 
-  // Auto-scroll with smooth looping
+  // Smooth auto-scroll
   useEffect(() => {
-    if (!api || loadedImages.length <= 1) return;
+    if (!api || images.length <= 1) return;
     const interval = setInterval(() => {
-      const nextIndex = (currentIndex + 1) % loadedImages.length;
-      api.scrollTo(nextIndex, true);
+      if (api.canScrollNext()) api.scrollNext(true);
+      else api.scrollTo(0, true); // smooth loop
     }, 3000);
     return () => clearInterval(interval);
-  }, [api, currentIndex, loadedImages]);
-
-  // Track current index
-  useEffect(() => {
-    if (!api) return;
-    const onSelect = () => setCurrentIndex(api.selectedScrollSnap());
-    onSelect();
-    api.on("select", onSelect);
-    return () => api.off("select", onSelect);
-  }, [api]);
+  }, [api, images]);
 
   return (
     <div className="relative w-full flex justify-center">
-      <Carousel opts={{ loop: loadedImages.length > 1, skipSnaps: false }} setApi={setApi}>
+      <Carousel opts={{ loop: true }} setApi={setApi}>
         <CarouselContent className="flex justify-center">
-          {loadedImages.map((src, i) => (
+          {images.map((src, i) => (
             <CarouselItem key={i} className="flex justify-center w-full">
               <div
                 className={`flex justify-center items-center bg-white p-0 rounded-xl ${
@@ -310,6 +295,8 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
     if (item.multiColorImages) currentImages.push(...item.multiColorImages);
   }
 
+  const isWide = item.name === "Jumbo Clock";
+
   return (
     <motion.div
       id={item.name.toLowerCase().replace(/\s+/g, "-")}
@@ -320,7 +307,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       className="group cursor-pointer flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
     >
       <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
-        <ProductImages images={currentImages} isWide={item.name === "Jumbo Clock"} />
+        <ProductImages images={currentImages} isWide={isWide} />
       </div>
 
       <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
