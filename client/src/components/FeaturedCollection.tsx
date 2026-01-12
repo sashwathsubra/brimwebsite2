@@ -5,8 +5,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 import dot_single_red from "@/assets/new_dot_single.jpeg";
@@ -32,9 +30,6 @@ import jumbolednew from "@/assets/jumbolednew.jpeg";
 type ProductColor = "red" | "green" | "multicolor";
 type ProductDensity = "Thin" | "Thick";
 
-// ------------------------
-// Place words
-// ------------------------
 const placeWordList = [
   "home","office","executive","cabin","mosque","temple","church","hospital",
   "clinic","school","college","showroom","shop","restaurant","hotel",
@@ -44,9 +39,6 @@ const placeWordList = [
 const placeWordSet = new Set<string>(placeWordList.map(w => w.toLowerCase()));
 const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi");
 
-// ------------------------
-// Render features
-// ------------------------
 function renderFeatureText(feature: string) {
   if (feature.toLowerCase().startsWith("suitable for")) {
     return (
@@ -76,7 +68,7 @@ function renderFeatureText(feature: string) {
 }
 
 // ------------------------
-// Product Item Type
+// ProductItem Type
 // ------------------------
 type ProductItem = {
   images: string[];
@@ -115,7 +107,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 14 cm Height x 6.5 cm Width",
+    size: "Clock size: 14 cm Length x 6.5 cm Width",
   },
   {
     images: [miniled_green],
@@ -133,7 +125,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 14 cm Height x 6.5 cm Width",
+    size: "Clock size: 14 cm Length x 6.5 cm Width",
   },
   {
     images: [dot_single_red, dot_double_red],
@@ -150,7 +142,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 26 cm Height x 8 cm Width",
+    size: "Clock size: 26 cm Length x 8 cm Width",
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
       red: { Thin: [dot_single_red], Thick: [dot_double_red] },
@@ -173,7 +165,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 26 cm Height x 8 cm Width",
+    size: "Clock size: 26 cm Length x 8 cm Width",
     greenImages: [dot_single_green, dot_double_green],
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
@@ -195,7 +187,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 26 cm Height x 8 cm Width",
+    size: "Clock size: 26 cm Length x 8 cm Width",
   },
   {
     images: [multicolor_red, multicolor_red_2],
@@ -217,7 +209,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 65 cm Height x 8 cm Width",
+    size: "Clock size: 65 cm Length x 8 cm Width",
   },
   {
     images: [jumbolednew],
@@ -232,27 +224,28 @@ const collections: ProductItem[] = [
       "12v power supply included",
       "More than 7 years durable without maintenance",
     ],
-    size: "Clock size: 90 cm Height x 30 cm Width",
+    size: "Clock size: 90 cm Length x 30 cm Width",
   },
 ];
 
 // ----------------------------
-// ProductImages Component (Preload & Fixed)
+// ProductImages Component (Embla + Preload + Smooth Slideshow)
 // ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [loadedImages, setLoadedImages] = useState<string[]>([images[0]]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Preload images in background
+  // Preload all images
   useEffect(() => {
     images.slice(1).forEach((img) => {
       const image = new Image();
       image.src = img;
-      image.onload = () => setLoadedImages((prev) => prev.includes(img) ? prev : [...prev, img]);
+      image.onload = () => setLoadedImages((prev) => (prev.includes(img) ? prev : [...prev, img]));
     });
   }, [images]);
 
+  // Auto-scroll Embla
   useEffect(() => {
     if (!api || loadedImages.length <= 1) return;
     const interval = setInterval(() => {
@@ -271,7 +264,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
   }, [api]);
 
   return (
-    <div className="relative w-full -mx-4 md:mx-0 flex justify-center">
+    <div className="relative w-full flex justify-center">
       <Carousel opts={{ loop: loadedImages.length > 1 }} setApi={setApi}>
         <CarouselContent className="flex justify-center md:justify-start">
           {loadedImages.map((src, i) => (
@@ -281,30 +274,19 @@ const ProductImages = ({ images }: { images: string[] }) => {
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="lazy"
-                  className="max-h-[340px] md:max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-105 mx-auto"
+                  className="max-h-[340px] md:max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 mx-auto"
                 />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-
-        {loadedImages.length > 1 && (
-          <>
-            <CarouselPrevious className="absolute top-1/2 left-2 md:left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 flex items-center justify-center hover:bg-black/50">
-              {null}
-            </CarouselPrevious>
-            <CarouselNext className="absolute top-1/2 right-2 md:right-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 flex items-center justify-center hover:bg-black/50">
-              {null}
-            </CarouselNext>
-          </>
-        )}
       </Carousel>
     </div>
   );
 };
 
 // ----------------------------
-// ProductCard Component (Fixed merge)
+// ProductCard Component
 // ----------------------------
 const ProductCard = ({ item }: { item: ProductItem }) => {
   const phone = "919445887243";
@@ -314,11 +296,9 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
     )}`;
 
   let currentImages = item.images ?? [];
-
   if (item.name === "Dual Colour Matrix Clock" && item.greenImages) {
     currentImages = [...item.images, ...item.greenImages];
   }
-
   if (item.name === "Multi Colour Calender Clock") {
     currentImages = [...item.images];
     if (item.greenImages) currentImages.push(...item.greenImages);
@@ -332,30 +312,16 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5 -mt-4 md:mt-0"
+      className="group cursor-pointer flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
     >
-      <motion.div
-        className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center"
-        whileHover={{ scale: 1.02, y: -5 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <ProductImages images={currentImages} />
-        </motion.div>
-      </motion.div>
+      <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
+        <ProductImages images={currentImages} />
+      </div>
 
       <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
-        <motion.h3
-          layout
-          className="mb-3 font-body font-semibold text-3xl text-gray-100 transition-colors group-hover:text-amber-400 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg"
-        >
+        <h3 className="mb-3 font-body font-semibold text-3xl text-gray-100 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg group-hover:text-amber-400">
           {item.name}
-        </motion.h3>
+        </h3>
 
         {item.size && (
           <div className="inline-block max-w-full break-words rounded-lg bg-white/10 border border-white/10 px-4 py-2 text-sm sm:text-base font-semibold text-gray-100 text-center md:text-left tracking-wide leading-relaxed backdrop-blur-sm shadow-sm mb-6">
@@ -363,32 +329,20 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           </div>
         )}
 
-        <ul className="hidden md:block mt-2 list-none space-y-2 text-left text-gray-300 mb-6">
+        <ul className="mt-2 list-none space-y-2 text-left text-gray-300 mb-6 hidden md:block">
           {item.features?.map((feature, i) => (
-            <motion.li
-              key={i}
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="relative pl-5 font-body text-[1.05em] leading-tight"
-            >
+            <li key={i} className="relative pl-5 font-body text-[1.05em] leading-tight">
               <span className="absolute left-0 top-1 font-bold text-amber-400">•</span>
               {renderFeatureText(feature)}
-            </motion.li>
+            </li>
           ))}
         </ul>
 
-        <ul className="block md:hidden mt-4 space-y-3 text-gray-300 mb-6">
+        <ul className="mt-4 space-y-3 text-gray-300 mb-6 block md:hidden">
           {item.features?.map((feature, i) => (
-            <motion.li
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
-              className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 font-body text-[1em] leading-snug"
-            >
+            <li key={i} className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 font-body text-[1em] leading-snug">
               {renderFeatureText(feature)}
-            </motion.li>
+            </li>
           ))}
         </ul>
 
