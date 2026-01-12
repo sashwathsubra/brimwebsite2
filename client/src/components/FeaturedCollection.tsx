@@ -229,7 +229,7 @@ const collections: ProductItem[] = [
 ];
 
 // ----------------------------
-// ProductImages Component (Embla + Preload + Smooth Slideshow)
+// ProductImages Component (Fixed)
 // ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
@@ -241,7 +241,8 @@ const ProductImages = ({ images }: { images: string[] }) => {
     images.slice(1).forEach((img) => {
       const image = new Image();
       image.src = img;
-      image.onload = () => setLoadedImages((prev) => (prev.includes(img) ? prev : [...prev, img]));
+      image.onload = () =>
+        setLoadedImages((prev) => (prev.includes(img) ? prev : [...prev, img]));
     });
   }, [images]);
 
@@ -266,15 +267,15 @@ const ProductImages = ({ images }: { images: string[] }) => {
   return (
     <div className="relative w-full flex justify-center">
       <Carousel opts={{ loop: loadedImages.length > 1 }} setApi={setApi}>
-        <CarouselContent className="flex justify-center md:justify-start">
+        <CarouselContent className="flex justify-center">
           {loadedImages.map((src, i) => (
-            <CarouselItem key={i} className="w-auto">
-              <div className="relative flex justify-center items-center bg-white p-0 md:p-4 rounded-xl">
+            <CarouselItem key={i} className="w-full">
+              <div className="relative flex justify-center items-center bg-white p-0 rounded-xl">
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="lazy"
-                  className="max-h-[340px] md:max-h-[320px] w-auto object-contain rounded-xl transition-transform duration-500 mx-auto"
+                  className="w-auto max-h-[400px] object-contain rounded-xl"
                 />
               </div>
             </CarouselItem>
