@@ -157,7 +157,7 @@ const collections: ProductItem[] = [
     },
   },
   {
-    images: [dot_single_red, dot_double_red, dot_single_green, dot_double_green],
+    images: [dot_single_red, dot_double_red],
     name: "Dual Colour Matrix Clock",
     price: "",
     category: "",
@@ -237,13 +237,14 @@ const collections: ProductItem[] = [
 ];
 
 // ----------------------------
-// ProductImages Component (Lazy load & fast)
+// ProductImages Component (Lazy load & smooth slideshow)
 // ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
-  const [loadedImages, setLoadedImages] = useState<string[]>([images[0]]);
-  const [selected, setSelected] = useState(0);
+  const [loadedImages, setLoadedImages] = useState<string[]>([images[0]]); // first image
+  const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Preload remaining images in background
   useEffect(() => {
     images.slice(1).forEach((img) => {
       const image = new Image();
@@ -252,18 +253,20 @@ const ProductImages = ({ images }: { images: string[] }) => {
     });
   }, [images]);
 
+  // Auto-scroll only loaded images
   useEffect(() => {
     if (!api || loadedImages.length <= 1) return;
     const interval = setInterval(() => {
-      const nextIndex = (api.selectedScrollSnap() + 1) % loadedImages.length;
+      const nextIndex = (currentIndex + 1) % loadedImages.length;
       api.scrollTo(nextIndex);
     }, 3000);
     return () => clearInterval(interval);
-  }, [api, loadedImages.length]);
+  }, [api, currentIndex, loadedImages]);
 
+  // Update selected index
   useEffect(() => {
     if (!api) return;
-    const onSelect = () => setSelected(api.selectedScrollSnap());
+    const onSelect = () => setCurrentIndex(api.selectedScrollSnap());
     onSelect();
     api.on("select", onSelect);
     return () => api.off("select", onSelect);
