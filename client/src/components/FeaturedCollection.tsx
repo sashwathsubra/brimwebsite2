@@ -237,23 +237,22 @@ const collections: ProductItem[] = [
 ];
 
 // ----------------------------
-// ProductImages Component (Lazy load & smooth slideshow)
+// ProductImages Component (Preload & Fixed)
 // ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
-  const [loadedImages, setLoadedImages] = useState<string[]>([images[0]]); // first image
+  const [loadedImages, setLoadedImages] = useState<string[]>([images[0]]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Preload remaining images in background
+  // Preload images in background
   useEffect(() => {
     images.slice(1).forEach((img) => {
       const image = new Image();
       image.src = img;
-      image.onload = () => setLoadedImages((prev) => [...prev, img]);
+      image.onload = () => setLoadedImages((prev) => prev.includes(img) ? prev : [...prev, img]);
     });
   }, [images]);
 
-  // Auto-scroll only loaded images
   useEffect(() => {
     if (!api || loadedImages.length <= 1) return;
     const interval = setInterval(() => {
@@ -263,7 +262,6 @@ const ProductImages = ({ images }: { images: string[] }) => {
     return () => clearInterval(interval);
   }, [api, currentIndex, loadedImages]);
 
-  // Update selected index
   useEffect(() => {
     if (!api) return;
     const onSelect = () => setCurrentIndex(api.selectedScrollSnap());
@@ -306,7 +304,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
 };
 
 // ----------------------------
-// ProductCard Component
+// ProductCard Component (Fixed merge)
 // ----------------------------
 const ProductCard = ({ item }: { item: ProductItem }) => {
   const phone = "919445887243";
@@ -315,12 +313,17 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       `Hello! I'm interested in ordering the ${product}. Please provide more details.`
     )}`;
 
-  // Merge images only inside carousel to avoid heavy initial DOM
-  const currentImages = [
-    ...(item.images ?? []),
-    ...(item.greenImages ?? []),
-    ...(item.multiColorImages ?? []),
-  ];
+  let currentImages = item.images ?? [];
+
+  if (item.name === "Dual Colour Matrix Clock" && item.greenImages) {
+    currentImages = [...item.images, ...item.greenImages];
+  }
+
+  if (item.name === "Multi Colour Calender Clock") {
+    currentImages = [...item.images];
+    if (item.greenImages) currentImages.push(...item.greenImages);
+    if (item.multiColorImages) currentImages.push(...item.multiColorImages);
+  }
 
   return (
     <motion.div
