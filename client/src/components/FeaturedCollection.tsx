@@ -1,4 +1,14 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import {
+  type CarouselApi,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 import dot_single_red from "@/assets/new_dot_single.jpeg";
 import dot_single_green from "@/assets/new_dot_single_green.jpeg";
 import dot_double_red from "@/assets/new_dot_double.jpeg";
@@ -15,16 +25,6 @@ import multicolor_dual_4 from "@/assets/new_multicolour_dual4.png";
 import miniled_red from "@/assets/miniled_red.jpeg";
 import miniled_green from "@/assets/minled_green.jpeg";
 import jumbolednew from "@/assets/jumbolednew.jpeg";
-
-import { useEffect, useState } from "react";
-import {
-  type CarouselApi,
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 // ------------------------
 // Types
@@ -237,20 +237,29 @@ const collections: ProductItem[] = [
 ];
 
 // ----------------------------
-// ProductImages Component
+// ProductImages Component (Lazy load & fast)
 // ----------------------------
 const ProductImages = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
+  const [loadedImages, setLoadedImages] = useState<string[]>([images[0]]);
   const [selected, setSelected] = useState(0);
 
   useEffect(() => {
-    if (!api || images.length <= 1) return;
+    images.slice(1).forEach((img) => {
+      const image = new Image();
+      image.src = img;
+      image.onload = () => setLoadedImages((prev) => [...prev, img]);
+    });
+  }, [images]);
+
+  useEffect(() => {
+    if (!api || loadedImages.length <= 1) return;
     const interval = setInterval(() => {
-      const nextIndex = (api.selectedScrollSnap() + 1) % images.length;
+      const nextIndex = (api.selectedScrollSnap() + 1) % loadedImages.length;
       api.scrollTo(nextIndex);
     }, 3000);
     return () => clearInterval(interval);
-  }, [api, images.length]);
+  }, [api, loadedImages.length]);
 
   useEffect(() => {
     if (!api) return;
@@ -262,9 +271,9 @@ const ProductImages = ({ images }: { images: string[] }) => {
 
   return (
     <div className="relative w-full -mx-4 md:mx-0 flex justify-center">
-      <Carousel opts={{ loop: images.length > 1 }} setApi={setApi}>
+      <Carousel opts={{ loop: loadedImages.length > 1 }} setApi={setApi}>
         <CarouselContent className="flex justify-center md:justify-start">
-          {images.map((src, i) => (
+          {loadedImages.map((src, i) => (
             <CarouselItem key={i} className="w-auto">
               <div className="relative flex justify-center items-center bg-white p-0 md:p-4 rounded-xl">
                 <img
@@ -278,7 +287,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
           ))}
         </CarouselContent>
 
-        {images.length > 1 && (
+        {loadedImages.length > 1 && (
           <>
             <CarouselPrevious className="absolute top-1/2 left-2 md:left-3 -translate-y-1/2 h-10 w-10 rounded-full bg-black/30 flex items-center justify-center hover:bg-black/50">
               {null}
@@ -303,9 +312,12 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       `Hello! I'm interested in ordering the ${product}. Please provide more details.`
     )}`;
 
-  let currentImages = item.images ?? [];
-  if (item.greenImages) currentImages = [...currentImages, ...item.greenImages];
-  if (item.multiColorImages) currentImages = [...currentImages, ...item.multiColorImages];
+  // Merge images only inside carousel to avoid heavy initial DOM
+  const currentImages = [
+    ...(item.images ?? []),
+    ...(item.greenImages ?? []),
+    ...(item.multiColorImages ?? []),
+  ];
 
   return (
     <motion.div
