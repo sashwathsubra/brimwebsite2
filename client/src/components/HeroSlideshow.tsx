@@ -33,7 +33,7 @@ const HeroSlideshow = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[75svh] md:min-h-[100svh] w-full overflow-hidden bg-background pt-0 md:pt-24">
+    <section className="relative min-h-[55svh] md:min-h-[100svh] w-full overflow-hidden bg-background pt-0 md:pt-24">
       {/* Radial gradient overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-muted/20 via-background to-background" />
 
@@ -43,7 +43,7 @@ const HeroSlideshow = () => {
           {slides.map((slide, index) => (
             <motion.div
               key={index}
-              className={`absolute inset-0 mx-auto w-full h-full max-h-[60svh] md:max-h-none flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              className={`absolute inset-0 mx-auto w-full h-full max-h-[50svh] md:max-h-none flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
                 index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
             >
