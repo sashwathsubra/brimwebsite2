@@ -48,7 +48,6 @@ const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi
 // Render features
 // ------------------------
 function renderFeatureText(feature: string) {
-  // Highlight entire string if it starts with "Suitable for"
   if (feature.toLowerCase().startsWith("suitable for")) {
     return (
       <span className="font-semibold text-teal-400 whitespace-normal break-words">
@@ -56,8 +55,6 @@ function renderFeatureText(feature: string) {
       </span>
     );
   }
-
-  // Otherwise, highlight only place words
   return feature.split(placeWordSplitRegex).map((part, index) => {
     const cleanPart = part.replace(/[,.:;!?]/g, "").toLowerCase();
     if (placeWordSet.has(cleanPart)) {
@@ -317,7 +314,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5 -mt-8 md:mt-0"
+      className="group cursor-pointer h-full w-full flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5 -mt-4 md:mt-0"
     >
       <motion.div
         className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center"
