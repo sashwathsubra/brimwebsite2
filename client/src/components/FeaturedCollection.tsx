@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
   type CarouselApi,
@@ -9,8 +9,8 @@ import {
 
 import dot_single_red from "@/assets/new_dot_single.jpeg";
 import dot_single_green from "@/assets/new_dot_single_green.jpeg";
-import dot_double_red from "@/assets/new_multicolour_red.jpeg";
-import dot_double_green from "@/assets/new_multicolour_green.jpeg";
+import dot_double_red from "@/assets/new_dot_double.jpeg";
+import dot_double_green from "@/assets/new_dot_double_green.jpeg";
 import new_calender_red_1 from "@/assets/new_calender_red_1.jpeg";
 import multicolor_red from "@/assets/new_multi_colour_red.jpeg";
 import multicolor_red_2 from "@/assets/new_multicolour_red2.png";
@@ -27,99 +27,341 @@ import jumbolednew from "@/assets/jumbolednew.jpeg";
 // ------------------------
 // Types
 // ------------------------
+type ProductColor = "red" | "green" | "multicolor";
+type ProductDensity = "Thin" | "Thick";
+
+const placeWordList = [
+  "home","office","executive","cabin","mosque","temple","church","hospital",
+  "clinic","school","college","showroom","shop","restaurant","hotel",
+  "factory","warehouse","hall","halls","reception","auditorium",
+] as const;
+
+const placeWordSet = new Set<string>(placeWordList.map(w => w.toLowerCase()));
+const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi");
+
+function renderFeatureText(feature: string) {
+  if (feature.toLowerCase().startsWith("suitable for")) {
+    return (
+      <span className="font-semibold text-teal-400 whitespace-normal break-words">
+        {feature}
+      </span>
+    );
+  }
+  return feature.split(placeWordSplitRegex).map((part, index) => {
+    const cleanPart = part.replace(/[,.:;!?]/g, "").toLowerCase();
+    if (placeWordSet.has(cleanPart)) {
+      return (
+        <span
+          key={`${index}-${part}`}
+          className="font-semibold text-teal-400 whitespace-normal break-words"
+        >
+          {part.charAt(0).toUpperCase() + part.slice(1)}
+        </span>
+      );
+    }
+    return (
+      <span key={`${index}-${part}`} className="whitespace-normal break-words">
+        {part}
+      </span>
+    );
+  });
+}
+
+// ------------------------
+// ProductItem Type
+// ------------------------
 type ProductItem = {
   images: string[];
   name: string;
-  size?: string;
+  price: string;
+  category: string;
   features?: string[];
+  size?: string;
+  hasDualColor?: boolean;
+  hasTriColor?: boolean;
   greenImages?: string[];
   multiColorImages?: string[];
+  densityOptions?: ProductDensity[];
+  colorDensityImages?: Partial<
+    Record<Exclude<ProductColor, "multicolor">, Record<ProductDensity, string[]>>
+  >;
 };
 
 // ------------------------
 // Products Array
 // ------------------------
 const collections: ProductItem[] = [
-  { name: "Mini Clock Red", images: [miniled_red], size: "14 x 6.5 cm", features: ["Suitable for home, office, executive cabin, etc..."] },
-  { name: "Mini Clock Green", images: [miniled_green], size: "14 x 6.5 cm", features: ["Suitable for home, office, executive cabin, etc..."] },
-  { name: "Red Dot Matrix Clock", images: [dot_single_red, dot_double_red], size: "26 x 8 cm", features: ["Suitable for home, office, executive cabin, etc..."] },
-  { name: "Dual Colour Matrix Clock", images: [dot_single_red, dot_double_red], greenImages: [dot_single_green, dot_double_green], size: "26 x 8 cm", features: ["Suitable for home, office, executive cabin, etc..."] },
-  { name: "Calendar Clock", images: [new_calender_red_1], size: "26 x 8 cm", features: ["Suitable for executive cabin, home halls, office reception, etc..."] },
-  { name: "Multi Colour Calender Clock", images: [multicolor_red, multicolor_red_2], greenImages: [multicolor_green, multicolor_green_2], multiColorImages: [multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4], size: "65 x 8 cm", features: ["Suitable for executive cabin, home halls, office reception, etc..."] },
-  { name: "Jumbo Clock", images: [jumbolednew], size: "90 x 30 cm", features: ["Suitable for factory, temple, church, mosque, auditorium, etc..."] },
+  {
+    images: [miniled_red],
+    name: "Mini Clock Red",
+    price: "",
+    category: "",
+    features: [
+      "Suitable for home, office, executive cabin, etc...",
+      "Glassy finish ABS plastic case",
+      "1 inch seven segment LED display",
+      "Epson RTC and Nuvoton microcontroller",
+      "Built in battery memory backup for 5 years & above",
+      "User can select seconds blinking option",
+      "Wall mountable/table top",
+      "5V power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 14 cm Length x 6.5 cm Width",
+  },
+  {
+    images: [miniled_green],
+    name: "Mini Clock Green",
+    price: "",
+    category: "",
+    features: [
+      "Suitable for home, office, executive cabin, etc...",
+      "Glassy finish ABS plastic case",
+      "1 inch seven segment LED display",
+      "Epson RTC and Nuvoton microcontroller",
+      "Built in battery memory backup for 5 years & above",
+      "User can select seconds blinking option",
+      "Wall mountable/table top",
+      "5V power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 14 cm Length x 6.5 cm Width",
+  },
+  {
+    images: [dot_single_red, dot_double_red],
+    name: "Red Dot Matrix Clock",
+    price: "",
+    category: "",
+    features: [
+      "Suitable for home, office, executive cabin, etc...",
+      "7x30 LED dot matrix",
+      "Epson RTC and Nuvoton microcontroller",
+      "User can select font",
+      "Built-in battery backup for 7 years and above",
+      "Wall mountable / table top",
+      "5V power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 26 cm Length x 8 cm Width",
+    densityOptions: ["Thin", "Thick"],
+    colorDensityImages: {
+      red: { Thin: [dot_single_red], Thick: [dot_double_red] },
+    },
+  },
+  {
+    images: [dot_single_red, dot_double_red],
+    name: "Dual Colour Matrix Clock",
+    price: "",
+    category: "",
+    hasDualColor: true,
+    features: [
+      "Suitable for home, office, executive cabin, etc...",
+      "7x30 LED dot matrix",
+      "Epson RTC and Nuvoton microcontroller",
+      "User can select font",
+      "User can select colour",
+      "Built-in battery backup for 7 years and above",
+      "Wall mountable / table top",
+      "5V power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 26 cm Length x 8 cm Width",
+    greenImages: [dot_single_green, dot_double_green],
+    densityOptions: ["Thin", "Thick"],
+    colorDensityImages: {
+      red: { Thin: [dot_single_red], Thick: [dot_double_red] },
+      green: { Thin: [dot_single_green], Thick: [dot_double_green] },
+    },
+  },
+  {
+    images: [new_calender_red_1],
+    name: "Calendar Clock",
+    price: "",
+    category: "",
+    features: [
+      "Suitable for executive cabin, home halls, office reception, etc...",
+      "14x56 3mm dot matrix calendar clock",
+      "Epson RTC and Nuvoton microcontroller",
+      "Built-in battery backup for 7 years and above",
+      "Wall mountable / table top",
+      "5V power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 26 cm Length x 8 cm Width",
+  },
+  {
+    images: [multicolor_red, multicolor_red_2],
+    name: "Multi Colour Calender Clock",
+    price: "",
+    category: "",
+    hasDualColor: true,
+    hasTriColor: true,
+    greenImages: [multicolor_green, multicolor_green_2],
+    multiColorImages: [
+      multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4,
+    ],
+    features: [
+      "Suitable for executive cabin, home halls, office reception, etc...",
+      "14x56 3mm dot matrix calendar clock",
+      "Epson RTC and Nuvoton microcontroller",
+      "Built-in battery backup for 7 years and above",
+      "Wall mountable / table top",
+      "5V power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 65 cm Length x 8 cm Width",
+  },
+  {
+    images: [jumbolednew],
+    name: "Jumbo Clock",
+    price: "",
+    category: "",
+    features: [
+      "Suitable for factory, temple, church, mosque, auditorium, etc...",
+      "Epson RTC and Nuvoton microcontroller",
+      "Built-in battery backup for 7 years and above",
+      "Wall mountable / hanging",
+      "12v power supply included",
+      "More than 7 years durable without maintenance",
+    ],
+    size: "Clock size: 90 cm Length x 30 cm Width",
+  },
 ];
 
 // ----------------------------
-// Smooth Hero-Style Carousel Component
+// ProductImages Component (Smooth Fixed)
 // ----------------------------
 const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean }) => {
-  const [index, setIndex] = useState(0);
+  const [api, setApi] = useState<CarouselApi | null>(null);
 
+  // Preload all images
   useEffect(() => {
-    const interval = setInterval(() => setIndex((prev) => (prev + 1) % images.length), 3000);
+    images.forEach((img) => new Image().src = img);
+  }, [images]);
+
+  // Smooth auto-scroll
+  useEffect(() => {
+    if (!api || images.length <= 1) return;
+    const interval = setInterval(() => {
+      if (api.canScrollNext()) api.scrollNext(true);
+      else api.scrollTo(0, true); // smooth loop
+    }, 3000);
     return () => clearInterval(interval);
-  }, [images.length]);
+  }, [api, images]);
 
   return (
-    <div className="relative w-full flex justify-center overflow-hidden bg-white rounded-xl" style={{ height: isWide ? 320 : 250 }}>
-      <AnimatePresence initial={false}>
-        <motion.img
-          key={index}
-          src={images[index]}
-          alt={`product-${index}`}
-          initial={{ x: 300, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ x: -300, opacity: 0 }}
-          transition={{ x: { type: "spring", stiffness: 120, damping: 25 }, opacity: { duration: 0.3 } }}
-          className={`absolute top-0 left-1/2 -translate-x-1/2 h-full object-contain rounded-xl ${isWide ? "px-20 md:px-32" : "px-4"}`}
-        />
-      </AnimatePresence>
+    <div className="relative w-full flex justify-center">
+      <Carousel opts={{ loop: true }} setApi={setApi}>
+        <CarouselContent className="flex justify-center">
+          {images.map((src, i) => (
+            <CarouselItem key={i} className="flex justify-center w-full">
+              <div
+                className={`flex justify-center items-center bg-white p-0 rounded-xl ${
+                  isWide ? "px-20 md:px-32" : "px-4"
+                }`}
+              >
+                <img
+                  src={src}
+                  alt={`product-${i + 1}`}
+                  loading="lazy"
+                  className="w-auto max-h-[320px] md:max-h-[340px] object-contain rounded-xl"
+                />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
     </div>
   );
 };
 
 // ----------------------------
-// Product Card Component
+// ProductCard Component
 // ----------------------------
 const ProductCard = ({ item }: { item: ProductItem }) => {
-  let images = [...item.images];
-  if (item.greenImages) images.push(...item.greenImages);
-  if (item.multiColorImages) images.push(...item.multiColorImages);
+  const phone = "919445887243";
+  const buildWhatsAppUrl = (product: string) =>
+    `https://wa.me/${phone}?text=${encodeURIComponent(
+      `Hello! I'm interested in ordering the ${product}. Please provide more details.`
+    )}`;
+
+  let currentImages = item.images ?? [];
+  if (item.name === "Dual Colour Matrix Clock" && item.greenImages) {
+    currentImages = [...item.images, ...item.greenImages];
+  }
+  if (item.name === "Multi Colour Calender Clock") {
+    currentImages = [...item.images];
+    if (item.greenImages) currentImages.push(...item.greenImages);
+    if (item.multiColorImages) currentImages.push(...item.multiColorImages);
+  }
+
   const isWide = item.name === "Jumbo Clock";
 
   return (
     <motion.div
-      key={item.name}
+      id={item.name.toLowerCase().replace(/\s+/g, "-")}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="group flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
+      className="group cursor-pointer flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
     >
-      <div className="relative w-full md:w-1/2 flex justify-center">
-        <ProductImages images={images} isWide={isWide} />
+      <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
+        <ProductImages images={currentImages} isWide={isWide} />
       </div>
 
       <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
         <h3 className="mb-3 font-body font-semibold text-3xl text-gray-100 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg group-hover:text-amber-400">
           {item.name}
         </h3>
-        {item.size && <div className="mb-4 inline-block bg-white/10 px-4 py-2 rounded-lg text-gray-100 font-semibold">{item.size}</div>}
-        {item.features?.map((f, i) => (
-          <p key={i} className="text-gray-300 mb-1">{f}</p>
-        ))}
+
+        {item.size && (
+          <div className="inline-block max-w-full break-words rounded-lg bg-white/10 border border-white/10 px-4 py-2 text-sm sm:text-base font-semibold text-gray-100 text-center md:text-left tracking-wide leading-relaxed backdrop-blur-sm shadow-sm mb-6">
+            {item.size}
+          </div>
+        )}
+
+        <ul className="mt-2 list-none space-y-2 text-left text-gray-300 mb-6 hidden md:block">
+          {item.features?.map((feature, i) => (
+            <li key={i} className="relative pl-5 font-body text-[1.05em] leading-tight">
+              <span className="absolute left-0 top-1 font-bold text-amber-400">•</span>
+              {renderFeatureText(feature)}
+            </li>
+          ))}
+        </ul>
+
+        <ul className="mt-4 space-y-3 text-gray-300 mb-6 block md:hidden">
+          {item.features?.map((feature, i) => (
+            <li key={i} className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 font-body text-[1em] leading-snug">
+              {renderFeatureText(feature)}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-auto flex justify-center md:justify-start">
+          <a
+            href={buildWhatsAppUrl(item.name)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-green-500/70 hover:bg-green-500/90 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition-colors text-lg"
+          >
+            Contact on WhatsApp
+          </a>
+        </div>
       </div>
     </motion.div>
   );
 };
 
 // ----------------------------
-// Featured Collection Component
+// Products Page
 // ----------------------------
-export default function FeaturedCollection() {
+export default function Products() {
   return (
-    <div className="space-y-12 px-4 md:px-12 lg:px-24">
-      {collections.map((item) => <ProductCard key={item.name} item={item} />)}
+    <div className="space-y-8 md:space-y-16 px-4 md:px-12 lg:px-24">
+      {collections.map((item, i) => (
+        <ProductCard key={i} item={item} />
+      ))}
     </div>
   );
 }
