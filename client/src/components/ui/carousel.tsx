@@ -25,7 +25,7 @@ type CarouselContextProps = {
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
 
-function useCarousel() {
+export function useCarousel() {
   const context = React.useContext(CarouselContext);
   if (!context) throw new Error("useCarousel must be used within a <Carousel />");
   return context;
@@ -34,7 +34,7 @@ function useCarousel() {
 export const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & CarouselProps>(
   ({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }, ref) => {
     const [carouselRef, api] = useEmblaCarousel(
-      { ...opts, axis: orientation === "horizontal" ? "x" : "y" },
+      { ...opts, axis: orientation === "horizontal" ? "x" : "y", loop: false },
       plugins
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
@@ -47,7 +47,15 @@ export const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
     }, []);
 
     const scrollPrev = React.useCallback(() => api?.scrollPrev(), [api]);
-    const scrollNext = React.useCallback(() => api?.scrollNext(), [api]);
+    const scrollNext = React.useCallback(() => {
+      if (!api) return;
+      if (api.selectedScrollSnap() === api.scrollSnapList().length - 1) {
+        // Last image → go to first manually
+        api.scrollTo(0);
+      } else {
+        api.scrollNext();
+      }
+    }, [api]);
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -67,26 +75,8 @@ export const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
     }, [api, onSelect]);
 
     return (
-      <CarouselContext.Provider
-        value={{
-          carouselRef,
-          api,
-          opts,
-          orientation,
-          scrollPrev,
-          scrollNext,
-          canScrollPrev,
-          canScrollNext,
-        }}
-      >
-        <div
-          ref={ref}
-          onKeyDownCapture={handleKeyDown}
-          className={cn("relative", className)}
-          role="region"
-          aria-roledescription="carousel"
-          {...props}
-        >
+      <CarouselContext.Provider value={{ carouselRef, api, scrollPrev, scrollNext, canScrollPrev, canScrollNext, opts, orientation }}>
+        <div ref={ref} onKeyDownCapture={handleKeyDown} className={cn("relative", className)} role="region" aria-roledescription="carousel" {...props}>
           {children}
         </div>
       </CarouselContext.Provider>
@@ -102,7 +92,11 @@ export const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttrib
       <div ref={carouselRef} className="overflow-hidden">
         <div
           ref={ref}
-          className={cn("flex gap-4", orientation === "horizontal" ? "" : "flex-col", className)}
+          className={cn(
+            "flex",
+            orientation === "horizontal" ? "" : "flex-col",
+            className
+          )}
           {...props}
         />
       </div>
@@ -120,7 +114,7 @@ export const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttribute
         role="group"
         aria-roledescription="slide"
         className={cn(
-          "flex-[0_0_auto]",
+          "flex-[0_0_100%]", // full width slide
           orientation === "horizontal" ? "" : "pt-4",
           className
         )}
