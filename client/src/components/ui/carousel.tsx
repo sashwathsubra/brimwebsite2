@@ -1,3 +1,6 @@
+// ------------------------
+// carousel.tsx
+// ------------------------
 import * as React from "react";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { cn } from "@/lib/utils";
@@ -33,7 +36,6 @@ export function useCarousel() {
 
 export const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & CarouselProps>(
   ({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }, ref) => {
-    // ✅ Enable loop for smooth infinite scrolling
     const [carouselRef, api] = useEmblaCarousel(
       { ...opts, axis: orientation === "horizontal" ? "x" : "y", loop: true, speed: 10 },
       plugins
@@ -47,8 +49,8 @@ export const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
       setCanScrollNext(api.canScrollNext());
     }, []);
 
-    const scrollPrev = React.useCallback(() => api?.scrollPrev(true), [api]); // smooth
-    const scrollNext = React.useCallback(() => api?.scrollNext(true), [api]); // smooth
+    const scrollPrev = React.useCallback(() => api?.scrollPrev(true), [api]);
+    const scrollNext = React.useCallback(() => api?.scrollNext(true), [api]);
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -107,7 +109,7 @@ export const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttribute
         role="group"
         aria-roledescription="slide"
         className={cn(
-          "flex-[0_0_100%]", // full width slide
+          "flex-[0_0_100%]",
           orientation === "horizontal" ? "" : "pt-4",
           className
         )}
