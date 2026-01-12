@@ -33,8 +33,9 @@ export function useCarousel() {
 
 export const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & CarouselProps>(
   ({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }, ref) => {
+    // ✅ Enable loop for smooth infinite scrolling
     const [carouselRef, api] = useEmblaCarousel(
-      { ...opts, axis: orientation === "horizontal" ? "x" : "y", loop: false },
+      { ...opts, axis: orientation === "horizontal" ? "x" : "y", loop: true, speed: 10 },
       plugins
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
@@ -46,16 +47,8 @@ export const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
       setCanScrollNext(api.canScrollNext());
     }, []);
 
-    const scrollPrev = React.useCallback(() => api?.scrollPrev(), [api]);
-    const scrollNext = React.useCallback(() => {
-      if (!api) return;
-      if (api.selectedScrollSnap() === api.scrollSnapList().length - 1) {
-        // Last image → go to first manually
-        api.scrollTo(0);
-      } else {
-        api.scrollNext();
-      }
-    }, [api]);
+    const scrollPrev = React.useCallback(() => api?.scrollPrev(true), [api]); // smooth
+    const scrollNext = React.useCallback(() => api?.scrollNext(true), [api]); // smooth
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
