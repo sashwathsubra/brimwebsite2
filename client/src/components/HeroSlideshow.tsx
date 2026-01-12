@@ -46,8 +46,6 @@ const HeroSlideshow = () => {
               className={`absolute inset-0 mx-auto w-full h-full max-h-[60svh] md:max-h-none flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
                 index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
-              animate={index === currentSlide ? { y: [0, -15, 0] } : {}}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
               <img
                 src={slide.src}
