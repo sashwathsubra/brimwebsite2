@@ -237,45 +237,81 @@ const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean 
 
   // Preload images
   useEffect(() => {
-    images.forEach((img) => new Image().src = img);
+    images.forEach((img) => {
+      const i = new Image();
+      i.src = img;
+    });
   }, [images]);
 
-  // Auto-scroll
+  // Sync Carousel State & Auto-scroll
   useEffect(() => {
-    if (!api || images.length <= 1) return;
+    if (!api) return;
 
-    const interval = setInterval(() => {
-      const nextIndex = (currentIndex + 1) % images.length;
-      setCurrentIndex(nextIndex);
-      api.scrollTo(nextIndex, true);
-    }, 3000);
+    // Update state when user swipes
+    const onSelect = () => {
+      setCurrentIndex(api.selectedScrollSnap());
+    };
+    api.on("select", onSelect);
 
-    return () => clearInterval(interval);
-  }, [api, currentIndex, images]);
+    // Auto-scroll loop
+    let interval: NodeJS.Timeout;
+    if (images.length > 1) {
+      interval = setInterval(() => {
+        api.scrollNext();
+      }, 3000);
+    }
+
+    return () => {
+      api.off("select", onSelect);
+      clearInterval(interval);
+    };
+  }, [api, images.length]);
 
   return (
-    <div className="relative w-full flex justify-center">
-      <Carousel opts={{ loop: false }} setApi={setApi}>
-        <CarouselContent className="flex justify-center">
+    <div className="relative w-full max-w-lg flex flex-col items-center">
+      <Carousel 
+        setApi={setApi} 
+        opts={{ 
+          loop: true, 
+          align: "center" 
+        }} 
+        className="w-full"
+      >
+        <CarouselContent>
           {images.map((src, i) => (
-            <CarouselItem key={i} className="flex justify-center w-full">
+            <CarouselItem key={i} className="basis-full">
               <div
-                className={`flex justify-center items-center bg-white p-0 rounded-xl ${
-                  isWide ? "px-20 md:px-32" : "px-4"
+                className={`flex justify-center items-center bg-white rounded-xl overflow-hidden ${
+                  isWide ? "px-8 py-4" : "p-2"
                 }`}
               >
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
                   loading="eager"
-                  className="w-auto max-h-[320px] md:max-h-[340px] object-contain rounded-xl transition-opacity duration-500"
-                  style={{ opacity: currentIndex === i ? 1 : 0 }}
+                  className="w-full h-auto max-h-[320px] md:max-h-[340px] object-contain rounded-xl"
                 />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
       </Carousel>
+
+      {/* Dot Indicators */}
+      {images.length > 1 && (
+        <div className="flex justify-center gap-2 mt-4">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => api?.scrollTo(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                currentIndex === i ? "w-6 bg-amber-400" : "w-2 bg-white/20"
+              }`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
