@@ -1,6 +1,3 @@
-// ------------------------
-// carousel.tsx
-// ------------------------
 import * as React from "react";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { cn } from "@/lib/utils";
@@ -19,7 +16,7 @@ type CarouselProps = {
 
 type CarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0];
-  api: ReturnType<typeof useEmblaCarousel>[1];
+  api: CarouselApi;
   scrollPrev: () => void;
   scrollNext: () => void;
   canScrollPrev: boolean;
@@ -70,7 +67,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
     }, [api, onSelect]);
 
     return (
-      <CarouselContext.Provider value={{ carouselRef, api, scrollPrev, scrollNext, canScrollPrev, canScrollNext, opts, orientation }}>
+      <CarouselContext.Provider value={{ carouselRef, api: api!, scrollPrev, scrollNext, canScrollPrev, canScrollNext, opts, orientation }}>
         <div ref={ref} onKeyDownCapture={handleKeyDown} className={cn("relative", className)} role="region" aria-roledescription="carousel" {...props}>
           {children}
         </div>
@@ -88,7 +85,7 @@ export const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttrib
         <div
           ref={ref}
           className={cn(
-            "flex",
+            "flex select-none touch-pan-x",
             orientation === "horizontal" ? "" : "flex-col",
             className
           )}
@@ -109,7 +106,7 @@ export const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttribute
         role="group"
         aria-roledescription="slide"
         className={cn(
-          "flex-[0_0_100%]",
+          "flex-[0_0_100%] flex justify-center",
           orientation === "horizontal" ? "" : "pt-4",
           className
         )}
