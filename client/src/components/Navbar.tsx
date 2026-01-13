@@ -70,38 +70,29 @@ const Navbar = () => {
     >
       <div className="w-[80%] mx-auto">
         <div className="flex items-center justify-between h-20">
-          
-          {/* -------------------------------------------------- */}
-          {/* LOGO SECTION (No Image File Needed)               */}
-          {/* -------------------------------------------------- */}
+
+          {/* Logo */}
           <button
             onClick={() => handleNavClick("home")}
-            className="flex items-center gap-3 select-none group hover:opacity-90 transition-opacity"
+            className="flex flex-col items-center select-none group hover:opacity-80"
           >
-            {/* The "B" Icon: Black Box + Yellow Text */}
-            <div className="flex h-11 w-11 items-center justify-center rounded-md bg-black border border-amber-400/30 shadow-sm shadow-amber-400/10">
-              <span
-                className="text-3xl font-bold text-amber-400 leading-none pt-1"
-                style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
-              >
-                B
-              </span>
-            </div>
-
-            {/* The Text: BRIM */}
-            <div className="flex flex-col items-start leading-none">
-              <h1
-                className="text-2xl font-bold text-amber-400 tracking-wide"
-                style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
-              >
-                BRIM
-              </h1>
-              <span className="text-[0.6rem] font-bold tracking-[0.2em] text-amber-400/80 uppercase">
-                LED Clocks
-              </span>
+            <h1
+              className="text-2xl sm:text-3xl font-bold text-amber-400"
+              style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+            >
+              BRIM
+            </h1>
+            <div className="flex justify-between w-full">
+              {"LED CLOCKS".split("").map((c, i) => (
+                <span
+                  key={i}
+                  className="text-[0.6rem] sm:text-[0.7rem] font-bold text-amber-400/90"
+                >
+                  {c === " " ? "\u00A0" : c}
+                </span>
+              ))}
             </div>
           </button>
-          {/* -------------------------------------------------- */}
 
           {/* Desktop Nav */}
           <ul className="hidden md:flex gap-10">
@@ -132,7 +123,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <button aria-label="Open menu" className="p-2 text-white">
+                <button aria-label="Open menu" className="p-2">
                   <Menu size={24} />
                 </button>
               </SheetTrigger>
