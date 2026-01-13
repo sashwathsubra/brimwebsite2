@@ -229,18 +229,15 @@ const collections: ProductItem[] = [
 ];
 
 // ----------------------------
-// ProductImages Component
+// ProductImages Component (FIXED)
 // ----------------------------
 const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Preload all images
+  // Preload images
   useEffect(() => {
-    images.forEach((img) => {
-      const pre = new Image();
-      pre.src = img;
-    });
+    images.forEach((img) => new Image().src = img);
   }, [images]);
 
   // Auto-scroll
@@ -293,10 +290,11 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       `Hello! I'm interested in ordering the ${product}. Please provide more details.`
     )}`;
 
-  // Combine all images for the product
-  let currentImages = [...(item.images ?? [])];
-  if (item.greenImages) currentImages.push(...item.greenImages);
-  if (item.multiColorImages) currentImages.push(...item.multiColorImages);
+  const currentImages = [
+    ...(item.images ?? []),
+    ...(item.greenImages ?? []),
+    ...(item.multiColorImages ?? []),
+  ];
 
   const isWide = item.name === "Jumbo Clock";
 
@@ -359,7 +357,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
 // ----------------------------
 // Products Page
 // ----------------------------
-export default function Products() {
+export default function FeaturedCollection() {
   return (
     <div className="space-y-8 md:space-y-16 px-4 md:px-12 lg:px-24">
       {collections.map((item, i) => (
