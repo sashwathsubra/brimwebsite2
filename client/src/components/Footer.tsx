@@ -5,6 +5,7 @@ const Footer = () => {
     <footer id="footer" className="mt-auto bg-card px-4 py-12 sm:px-6 sm:py-16">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 md:grid-cols-2">
+          {/* Company Section */}
           <div className="space-y-6">
             <h4 className="font-body text-xs uppercase tracking-widest text-foreground">
               Our Company
@@ -65,11 +66,13 @@ const Footer = () => {
             </div>
           </div>
 
+          {/* Products Section */}
           <div className="space-y-6">
             <h4 className="font-body text-xs uppercase tracking-widest text-foreground">
               Products
             </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            {/* FIX: Changed gap-8 to gap-3 sm:gap-8 to reduce mobile spacing */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-8">
               <ul className="space-y-3">
                 <li>
                   <a
