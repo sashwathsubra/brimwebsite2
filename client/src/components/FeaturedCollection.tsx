@@ -229,29 +229,36 @@ const collections: ProductItem[] = [
 ];
 
 // ----------------------------
-// ProductImages Component (Smooth Fixed)
+// ProductImages Component
 // ----------------------------
 const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   // Preload all images
   useEffect(() => {
-    images.forEach((img) => new Image().src = img);
+    images.forEach((img) => {
+      const pre = new Image();
+      pre.src = img;
+    });
   }, [images]);
 
-  // Smooth auto-scroll
+  // Auto-scroll
   useEffect(() => {
     if (!api || images.length <= 1) return;
+
     const interval = setInterval(() => {
-      if (api.canScrollNext()) api.scrollNext(true);
-      else api.scrollTo(0, true); // smooth loop
+      const nextIndex = (currentIndex + 1) % images.length;
+      setCurrentIndex(nextIndex);
+      api.scrollTo(nextIndex, true);
     }, 3000);
+
     return () => clearInterval(interval);
-  }, [api, images]);
+  }, [api, currentIndex, images]);
 
   return (
     <div className="relative w-full flex justify-center">
-      <Carousel opts={{ loop: true }} setApi={setApi}>
+      <Carousel opts={{ loop: false }} setApi={setApi}>
         <CarouselContent className="flex justify-center">
           {images.map((src, i) => (
             <CarouselItem key={i} className="flex justify-center w-full">
@@ -263,8 +270,9 @@ const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean 
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
-                  loading="lazy"
-                  className="w-auto max-h-[320px] md:max-h-[340px] object-contain rounded-xl"
+                  loading="eager"
+                  className="w-auto max-h-[320px] md:max-h-[340px] object-contain rounded-xl transition-opacity duration-500"
+                  style={{ opacity: currentIndex === i ? 1 : 0 }}
                 />
               </div>
             </CarouselItem>
@@ -285,15 +293,10 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       `Hello! I'm interested in ordering the ${product}. Please provide more details.`
     )}`;
 
-  let currentImages = item.images ?? [];
-  if (item.name === "Dual Colour Matrix Clock" && item.greenImages) {
-    currentImages = [...item.images, ...item.greenImages];
-  }
-  if (item.name === "Multi Colour Calender Clock") {
-    currentImages = [...item.images];
-    if (item.greenImages) currentImages.push(...item.greenImages);
-    if (item.multiColorImages) currentImages.push(...item.multiColorImages);
-  }
+  // Combine all images for the product
+  let currentImages = [...(item.images ?? [])];
+  if (item.greenImages) currentImages.push(...item.greenImages);
+  if (item.multiColorImages) currentImages.push(...item.multiColorImages);
 
   const isWide = item.name === "Jumbo Clock";
 
