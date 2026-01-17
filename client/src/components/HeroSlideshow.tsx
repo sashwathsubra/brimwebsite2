@@ -8,14 +8,13 @@ import mini from "@/assets/slideminigreen-694d12aeada25.webp";
 import dotMatrixRed from "@/assets/slidedotmatrixred-694d1258ad727.webp";
 import calendarRed from "@/assets/slidecalendarred-694d1256bfe67.webp";
 
-// 1. We define exactly what a Slide looks like to make Vercel happy
+// --- TYPESCRIPT FIX (Keeps Vercel Happy) ---
 type Slide = {
   id: number;
   alt: string;
   src: string;
 };
 
-// 2. All slides now follow the exact same structure (No width/height needed)
 const slides: Slide[] = [
   {
     id: 1,
@@ -46,20 +45,22 @@ const HeroSlideshow = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[50svh] md:min-h-[85svh] w-full overflow-hidden bg-background pt-8 md:pt-0">
+    <section className="relative min-h-[50svh] md:min-h-[85svh] w-full overflow-hidden bg-background pt-0">
       
-      {/* --- HEADER (Non-Intrusive) --- */}
-      {/* This is the small "Pill" badge you wanted instead of the big text */}
-      <div className="absolute top-6 left-0 right-0 z-20 flex justify-center pointer-events-none px-4">
-        <div className="bg-background/80 backdrop-blur-md px-6 py-2 rounded-full border border-border/50 shadow-sm">
-          <h2 className="text-sm md:text-lg font-medium tracking-widest text-foreground uppercase">
+      {/* --- THE BLACK BAR / TOP GRADIENT --- */}
+      {/* This adds the dark fade at the top that you wanted back */}
+      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black/90 via-black/50 to-transparent z-10 pointer-events-none" />
+
+      {/* --- HEADER --- */}
+      <div className="absolute top-8 left-0 right-0 z-20 flex justify-center pointer-events-none px-4">
+        <div className="bg-black/40 backdrop-blur-md px-8 py-2 rounded-full border border-white/10 shadow-lg">
+          <h2 className="text-sm md:text-lg font-medium tracking-widest text-white uppercase drop-shadow-md">
             Premium LED Clocks
           </h2>
         </div>
       </div>
-      {/* ----------------------------- */}
 
-      {/* Slides container */}
+      {/* --- SLIDES CONTAINER --- */}
       <div className="absolute inset-x-0 top-0 bottom-0 flex items-center justify-center z-0 px-4 sm:px-8 md:px-16 lg:px-24 pt-12 md:pt-0">
         <div className="relative w-[100%] h-full flex items-center justify-center">
           {slides.map((slide, index) => (
@@ -72,7 +73,6 @@ const HeroSlideshow = () => {
               <img
                 src={slide.src}
                 alt={slide.alt}
-                // We rely on CSS for sizing now, which fixes the build error
                 className="h-full w-full object-contain md:object-contain drop-shadow-2xl"
                 loading={index === 0 ? "eager" : "lazy"}
               />
@@ -81,7 +81,7 @@ const HeroSlideshow = () => {
         </div>
       </div>
 
-      {/* Slide indicators */}
+      {/* --- INDICATORS --- */}
       <div className="absolute bottom-8 right-4 z-30 hidden gap-2 sm:bottom-12 sm:right-12 sm:flex sm:gap-3">
         {slides.map((_, index) => (
           <button
