@@ -49,19 +49,30 @@ const AboutSection = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
+            {/* SEO TAG 1: Descriptive Subheading */}
             <p className="mb-3 font-body text-sm uppercase tracking-[0.3em] text-primary">
-              Who We Are
+              Premium Clock Manufacturer
             </p>
+            
             <h2 className="mb-8 font-body text-3xl text-foreground sm:text-4xl md:text-5xl">
               <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}>BRIM</span>
               <br />
-              <span className="text-primary">LED Clocks</span>
+              {/* SEO TAG 2: Specific Keyword in Title */}
+              <span className="text-primary">LED Clocks Chennai</span>
             </h2>
+
+            {/* SEO TAG 3: "Manufacturer in Chennai" + "Digital Clocks" injected here */}
             <p className="mb-6 font-body text-base leading-relaxed text-muted-foreground sm:text-lg">
-              <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}>BRIM</span> is a leading manufacturer of professional-grade LED timekeeping solutions engineered for longevity and precision. Trusted by financial institutions, corporate offices, and large-scale enterprises, we deliver high-performance displays where durability and superior visibility are paramount.
+              <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}>BRIM</span> is a leading 
+              <strong className="font-medium text-foreground"> manufacturer of digital and LED clocks in Chennai</strong>. 
+              We engineer professional-grade timekeeping solutions designed for longevity and precision. 
+              Trusted by financial institutions, corporate offices, and factories across <strong className="font-medium text-foreground">Tamil Nadu</strong>.
             </p>
+
             <p className="mb-10 font-body text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Our clocks feature a refined, high-gloss finish and integrated battery backup systems, ensuring seamless reliability and aesthetic elegance. Designed to meet the rigorous demands of professional environments, <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}>BRIM</span> combines functional excellence with a sophisticated design language.
+              Our clocks feature a refined, high-gloss finish and integrated battery backup systems, ensuring seamless reliability. 
+              Whether you need <strong className="font-medium text-foreground">industrial digital clocks</strong> or elegant office displays, 
+              <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}> BRIM</span> combines functional excellence with sophisticated design.
             </p>
           </motion.div>
 
@@ -75,7 +86,7 @@ const AboutSection = () => {
           >
             {[
               { number: "35", label: "Years of Experience" },
-              { number: "100", label: "Organizations Served" },
+              { number: "100", label: "Clients in Chennai" }, // SEO Tweak
               { number: "7", label: "Years of Lifespan" },
               { number: "100%", label: "Made in India", showPlus: false },
             ].map((stat, index) => (
