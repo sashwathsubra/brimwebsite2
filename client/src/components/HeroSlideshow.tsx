@@ -33,26 +33,22 @@ const HeroSlideshow = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[60svh] md:min-h-[90svh] w-full overflow-hidden bg-background pt-0 md:pt-0">
+    <section className="relative min-h-[50svh] md:min-h-[85svh] w-full overflow-hidden bg-background pt-8 md:pt-0">
       
-      {/* --- SEO HEADER (NEW) --- */}
-      {/* This text is visible to users and Google, forcing the "Chennai" ranking */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-start pt-24 md:pt-32 text-center px-4 pointer-events-none">
-        <h1 className="text-4xl md:text-7xl font-bold tracking-tight text-foreground drop-shadow-sm mb-3">
-          Digital Clock Manufacturer <br className="md:hidden" />
-          <span className="text-primary">Chennai</span>
-        </h1>
-        <p className="text-lg md:text-2xl text-muted-foreground bg-background/60 backdrop-blur-sm px-6 py-2 rounded-full">
-          Premium LED Matrix & Wall Clocks
-        </p>
+      {/* --- HEADER (Non-Intrusive) --- */}
+      <div className="absolute top-6 left-0 right-0 z-20 flex justify-center pointer-events-none px-4">
+        <div className="bg-background/80 backdrop-blur-md px-6 py-2 rounded-full border border-border/50 shadow-sm">
+          <h2 className="text-sm md:text-lg font-medium tracking-widest text-foreground uppercase">
+            Premium LED Clocks
+          </h2>
+        </div>
       </div>
-      {/* ------------------------- */}
+      {/* ----------------------------- */}
 
-      {/* Radial gradient overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-muted/20 via-background to-background z-10 pointer-events-none" />
+      {/* Note: Radial Gradient (Vignette) has been removed as requested */}
 
       {/* Slides container */}
-      <div className="absolute inset-x-0 top-0 bottom-0 flex items-center justify-center z-0 px-4 sm:px-8 md:px-16 lg:px-24 pt-20">
+      <div className="absolute inset-x-0 top-0 bottom-0 flex items-center justify-center z-0 px-4 sm:px-8 md:px-16 lg:px-24 pt-12 md:pt-0">
         <div className="relative w-[100%] h-full flex items-center justify-center">
           {slides.map((slide, index) => (
             <motion.div
@@ -63,7 +59,7 @@ const HeroSlideshow = () => {
             >
               <img
                 src={slide.src}
-                alt={slide.alt} // Updated alt tags for SEO
+                alt={slide.alt}
                 width={slide.width}
                 height={slide.height}
                 className={`h-full w-full object-contain md:object-contain drop-shadow-2xl`}
@@ -84,7 +80,7 @@ const HeroSlideshow = () => {
             className={`h-0.5 transition-all duration-300 ${
               index === currentSlide
                 ? "w-10 bg-primary"
-                : "w-6 bg-muted-foreground/50 hover:bg-muted-foreground"
+                : "w-6 bg-muted-foreground/30 hover:bg-muted-foreground"
             }`}
           />
         ))}

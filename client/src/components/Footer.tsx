@@ -5,6 +5,7 @@ const Footer = () => {
     <footer id="footer" className="mt-auto bg-card px-4 py-12 sm:px-6 sm:py-16">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 md:grid-cols-2">
+<<<<<<< HEAD
           
           {/* COLUMN 1: Company Info + Address + Socials */}
           <div className="space-y-8">
@@ -50,6 +51,37 @@ const Footer = () => {
 
             {/* Social Links */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+=======
+          {/* Company Section */}
+          <div className="space-y-6">
+            <h4 className="font-body text-xs uppercase tracking-widest text-foreground">
+              Our Company
+            </h4>
+            <ul className="space-y-3">
+              <li>
+                <a href="/" className="font-body text-sm text-muted-foreground transition-colors hover:text-primary">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#products"
+                  className="font-body text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Products
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#contact"
+                  className="font-body text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Contact Us
+                </a>
+              </li>
+            </ul>
+            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+>>>>>>> 5d0fde49c0d87318dfba3d77b6b050bc30471c34
               <a
                 href="https://wa.me/919445887243"
                 target="_blank"
@@ -82,12 +114,17 @@ const Footer = () => {
             </div>
           </div>
 
+<<<<<<< HEAD
           {/* COLUMN 2: Product Links (Keywords) */}
+=======
+          {/* Products Section */}
+>>>>>>> 5d0fde49c0d87318dfba3d77b6b050bc30471c34
           <div className="space-y-6">
             <h4 className="font-body text-xs uppercase tracking-widest text-foreground">
               Our Products
             </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            {/* FIX: Changed gap-8 to gap-3 sm:gap-8 to reduce mobile spacing */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-8">
               <ul className="space-y-3">
                 <li><a href="/#mini-clock-red" className="font-body text-sm text-muted-foreground hover:text-primary">Mini Clock Red</a></li>
                 <li><a href="/#mini-clock-green" className="font-body text-sm text-muted-foreground hover:text-primary">Mini Clock Green</a></li>

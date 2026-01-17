@@ -231,48 +231,89 @@ const collections: ProductItem[] = [
 ];
 
 // ----------------------------
-// ProductImages Component (Smooth Fixed)
+// ProductImages Component (FIXED)
 // ----------------------------
 const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Preload all images
+  // Preload images
   useEffect(() => {
-    images.forEach((img) => new Image().src = img);
+    images.forEach((img) => {
+      const i = new Image();
+      i.src = img;
+    });
   }, [images]);
 
-  // Smooth auto-scroll
+  // Sync Carousel State & Auto-scroll
   useEffect(() => {
-    if (!api || images.length <= 1) return;
-    const interval = setInterval(() => {
-      if (api.canScrollNext()) api.scrollNext(true);
-      else api.scrollTo(0, true); // smooth loop
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [api, images]);
+    if (!api) return;
+
+    // Update state when user swipes
+    const onSelect = () => {
+      setCurrentIndex(api.selectedScrollSnap());
+    };
+    api.on("select", onSelect);
+
+    // Auto-scroll loop
+    let interval: NodeJS.Timeout;
+    if (images.length > 1) {
+      interval = setInterval(() => {
+        api.scrollNext();
+      }, 3000);
+    }
+
+    return () => {
+      api.off("select", onSelect);
+      clearInterval(interval);
+    };
+  }, [api, images.length]);
 
   return (
-    <div className="relative w-full flex justify-center">
-      <Carousel opts={{ loop: true }} setApi={setApi}>
-        <CarouselContent className="flex justify-center">
+    <div className="relative w-full max-w-lg flex flex-col items-center">
+      <Carousel 
+        setApi={setApi} 
+        opts={{ 
+          loop: true, 
+          align: "center" 
+        }} 
+        className="w-full"
+      >
+        <CarouselContent>
           {images.map((src, i) => (
-            <CarouselItem key={i} className="flex justify-center w-full">
+            <CarouselItem key={i} className="basis-full">
               <div
-                className={`flex justify-center items-center bg-white p-0 rounded-xl ${
-                  isWide ? "px-20 md:px-32" : "px-4"
+                className={`flex justify-center items-center bg-white rounded-xl overflow-hidden ${
+                  isWide ? "px-8 py-4" : "p-2"
                 }`}
               >
                 <img
                   src={src}
                   alt={`product-${i + 1}`}
-                  loading="lazy"
-                  className="w-auto max-h-[320px] md:max-h-[340px] object-contain rounded-xl"
+                  loading="eager"
+                  className="w-full h-auto max-h-[320px] md:max-h-[340px] object-contain rounded-xl"
                 />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
       </Carousel>
+
+      {/* Dot Indicators */}
+      {images.length > 1 && (
+        <div className="flex justify-center gap-2 mt-4">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => api?.scrollTo(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                currentIndex === i ? "w-6 bg-amber-400" : "w-2 bg-white/20"
+              }`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
@@ -287,15 +328,11 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       `Hello! I'm interested in ordering the ${product}. Please provide more details.`
     )}`;
 
-  let currentImages = item.images ?? [];
-  if (item.name === "Dual Colour Matrix Clock" && item.greenImages) {
-    currentImages = [...item.images, ...item.greenImages];
-  }
-  if (item.name === "Multi Colour Calender Clock") {
-    currentImages = [...item.images];
-    if (item.greenImages) currentImages.push(...item.greenImages);
-    if (item.multiColorImages) currentImages.push(...item.multiColorImages);
-  }
+  const currentImages = [
+    ...(item.images ?? []),
+    ...(item.greenImages ?? []),
+    ...(item.multiColorImages ?? []),
+  ];
 
   const isWide = item.name === "Jumbo Clock";
 
@@ -360,7 +397,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
 // ----------------------------
 // Products Page Export
 // ----------------------------
-export default function Products() {
+export default function FeaturedCollection() {
   return (
     <div className="space-y-8 md:space-y-16 px-4 md:px-12 lg:px-24">
       {collections.map((item, i) => (
