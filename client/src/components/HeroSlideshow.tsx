@@ -1,32 +1,25 @@
-"use client"; // <--- Vital for Next.js to allow useState/useEffect
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+
+// Images
 import mini from "@/assets/slideminigreen-694d12aeada25.webp";
 import dotMatrixRed from "@/assets/slidedotmatrixred-694d1258ad727.webp";
 import calendarRed from "@/assets/slidecalendarred-694d1256bfe67.webp";
 
-// Define the type to prevent Build Errors
-type Slide = {
-  alt: string;
-  src: string;
-  width?: number;
-  height?: number;
-};
-
-const slides: Slide[] = [
+// 1. Simplified data structure to prevent TypeScript errors
+const slides = [
   {
+    id: 1,
     alt: "Mini LED Clock (Green) - Digital Clock Chennai",
     src: mini,
-    width: 577,
-    height: 325,
   },
   {
+    id: 2,
     alt: "Dot Matrix Clock (Red) - LED Clock Manufacturer Chennai",
     src: dotMatrixRed,
-    // Width/Height are optional now, so no build error if missing
   },
   {
+    id: 3,
     alt: "Calendar Clock (Red) - Brim Clocks",
     src: calendarRed,
   },
@@ -61,7 +54,7 @@ const HeroSlideshow = () => {
         <div className="relative w-[100%] h-full flex items-center justify-center">
           {slides.map((slide, index) => (
             <motion.div
-              key={index}
+              key={slide.id}
               className={`absolute inset-0 mx-auto w-full h-full flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
                 index === currentSlide ? "opacity-100" : "opacity-0"
               }`}
@@ -69,10 +62,7 @@ const HeroSlideshow = () => {
               <img
                 src={slide.src}
                 alt={slide.alt}
-                // Only apply width/height if they exist, otherwise undefined (which React ignores)
-                width={slide.width} 
-                height={slide.height}
-                className={`h-full w-full object-contain md:object-contain drop-shadow-2xl`}
+                className="h-full w-full object-contain md:object-contain drop-shadow-2xl"
                 loading={index === 0 ? "eager" : "lazy"}
               />
             </motion.div>
