@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
@@ -6,8 +8,14 @@ import mini from "@/assets/slideminigreen-694d12aeada25.webp";
 import dotMatrixRed from "@/assets/slidedotmatrixred-694d1258ad727.webp";
 import calendarRed from "@/assets/slidecalendarred-694d1256bfe67.webp";
 
-// 1. Simplified data structure to prevent TypeScript errors
-const slides = [
+// Define the slide structure to prevent TypeScript errors
+type Slide = {
+  id: number;
+  alt: string;
+  src: string;
+};
+
+const slides: Slide[] = [
   {
     id: 1,
     alt: "Mini LED Clock (Green) - Digital Clock Chennai",
