@@ -9,7 +9,7 @@ const Footer = () => {
           {/* COLUMN 1: Company Info */}
           <div className="space-y-4">
             <h3 className="text-xl font-bold tracking-tight text-primary">
-              Brim Clocks
+              B.R.Electronics
             </h3>
             <p className="text-muted-foreground max-w-sm">
               Premium digital, LED, and matrix clocks manufactured in Chennai. 
@@ -24,9 +24,9 @@ const Footer = () => {
               <li className="flex items-start gap-2">
                 <MapPin className="h-5 w-5 text-primary shrink-0" />
                 <span>
-                  Plot No. 4, Door No. 8, <br />
-                  Saraswathi Nagar,<br />
-                  Adambakkam, Chennai - 600088
+                  14/20 Ranganathan Street,<br />
+                  Ganesh Nagar, Velachery,<br />
+                  Chennai 600042
                 </span>
               </li>
               <li className="flex items-center gap-2">
@@ -37,8 +37,8 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-primary" />
-                <a href="mailto:brimclocks@gmail.com" className="hover:text-foreground transition-colors">
-                  brimclocks@gmail.com
+                <a href="mailto:brimdisplay@gmail.com" className="hover:text-foreground transition-colors">
+                  brimdisplay@gmail.com
                 </a>
               </li>
             </ul>
@@ -50,7 +50,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-primary" />
-                <span>Mon - Sat: 9:00 AM - 6:00 PM</span>
+                <span>Mon - Sat: 10:00 AM - 05:00 PM</span>
               </li>
               <li className="pl-6">Sunday: Closed</li>
             </ul>
@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border/50 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Brim Clocks. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} B.R.Electronics (Brim Clocks). All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,8 +15,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Send, CheckCircle } from "lucide-react";
+import { Send, CheckCircle, Phone, Mail, MapPin, Clock } from "lucide-react";
 
+// --- VALIDATION SCHEMA ---
 const contactSchema = z.object({
   name: z
     .string()
@@ -67,6 +69,7 @@ const ContactSection = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  // Note: It's best practice to use environment variables for keys, but keeping it here as requested
   const web3formsAccessKey = "458466eb-81ec-43aa-803b-cf9e3ad82341";
 
   const {
@@ -146,175 +149,257 @@ const ContactSection = () => {
     }
   };
 
-  if (isSubmitted) {
-    return (
-      <section id="contact" className="bg-secondary/50 px-4 py-20 sm:py-24 scroll-mt-20 md:scroll-mt-24">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="animate-fade-slide">
-            <CheckCircle className="w-20 h-20 text-primary mx-auto mb-6" />
-            <h2 className="text-4xl font-body text-foreground mb-4">Thank You!</h2>
-            <p className="text-muted-foreground text-lg">
-              Your inquiry has been received. Our team will contact you within 24 hours.
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section id="contact" className="bg-secondary/50 px-4 py-20 sm:py-24 scroll-mt-20 md:scroll-mt-24">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
+      <div className="max-w-7xl mx-auto">
+        
+        {/* --- HEADER --- */}
         <div className="text-center mb-16">
-          <span className="font-body text-primary tracking-[0.18em] text-base font-medium">
+          <span className="font-body text-primary tracking-[0.18em] text-base font-medium uppercase">
             Get In Touch
           </span>
-          <h2 className="mt-4 mb-6 font-body text-3xl text-foreground sm:text-4xl md:text-5xl">
-            Contact Us
+          <h2 className="mt-4 mb-6 font-body text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
+            Contact B.R.Electronics
           </h2>
           <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Have questions about our clocks? We'd love to hear from you. 
-            Fill out the form below and our team will respond promptly.
+            We are based in Velachery, Chennai. Reach out for bulk orders, custom requirements, or service inquiries.
           </p>
         </div>
 
-        {/* Form */}
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="bg-card border border-border rounded-lg p-6 shadow-[var(--shadow-elegant)] sm:p-8 md:p-12"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Name */}
-            <div className="space-y-2">
-              <Label htmlFor="name" className="text-foreground">
-                Name <span className="text-primary">*</span>
-              </Label>
-              <Input
-                id="name"
-                placeholder="Your full name"
-                {...register("name")}
-                className="bg-input border-border focus:border-primary"
-              />
-              {errors.name && (
-                <p className="text-destructive text-sm">{errors.name.message}</p>
-              )}
+        {/* --- CONTACT INFO CARDS (Address, Phone, Hours) --- */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 mb-20">
+          {/* ADDRESS */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm"
+          >
+            <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
+              <MapPin className="h-6 w-6" />
             </div>
+            <h3 className="mb-2 font-body font-semibold text-foreground">Visit Us</h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              <strong>B.R.Electronics</strong><br />
+              14/20 Ranganathan Street,<br />
+              Ganesh Nagar, Velachery,<br />
+              Chennai 600042
+            </p>
+          </motion.div>
 
-            {/* Email */}
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-foreground">
-                Email ID <span className="text-primary">*</span>
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder=""
-                {...register("email")}
-                className="bg-input border-border focus:border-primary"
-              />
-              {errors.email && (
-                <p className="text-destructive text-sm">{errors.email.message}</p>
-              )}
+          {/* PHONE */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm"
+          >
+            <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
+              <Phone className="h-6 w-6" />
             </div>
+            <h3 className="mb-2 font-body font-semibold text-foreground">Call Us</h3>
+            <p className="text-sm text-muted-foreground">
+              <a href="tel:+919445887243" className="hover:text-primary transition-colors font-medium">
+                +91 94458 87243
+              </a>
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Available Mon-Sat, 10am - 5pm
+            </p>
+          </motion.div>
 
-            {/* Enquiry For */}
-            <div className="space-y-2">
-              <Label htmlFor="enquiryFor" className="text-foreground">
-                Enquiry For <span className="text-primary">*</span>
-              </Label>
-              <Select onValueChange={(value) => setValue("enquiryFor", value, { shouldDirty: true, shouldValidate: true })}>
-                <SelectTrigger className="bg-input border-border focus:border-primary">
-                  <SelectValue placeholder="Select enquiry type" />
-                </SelectTrigger>
-                <SelectContent className="bg-card border-border">
-                  {enquiryTypes.map((type) => (
-                    <SelectItem key={type} value={type} className="hover:bg-secondary">
-                      {type}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.enquiryFor && (
-                <p className="text-destructive text-sm">{errors.enquiryFor.message}</p>
-              )}
+          {/* EMAIL */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm"
+          >
+            <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
+              <Mail className="h-6 w-6" />
             </div>
+            <h3 className="mb-2 font-body font-semibold text-foreground">Email Us</h3>
+            <p className="text-sm text-muted-foreground break-all">
+              <a href="mailto:brimdisplay@gmail.com" className="hover:text-primary transition-colors font-medium">
+                brimdisplay@gmail.com
+              </a>
+            </p>
+          </motion.div>
 
-            {/* Phone */}
-            <div className="space-y-2">
-              <Label htmlFor="phone" className="text-foreground">
-                Phone Number <span className="text-primary">*</span>
-              </Label>
-              <Input
-                id="phone"
-                type="tel"
-                placeholder="+91"
-                {...register("phone")}
-                className="bg-input border-border focus:border-primary"
-              />
-              {errors.phone && (
-                <p className="text-destructive text-sm">{errors.phone.message}</p>
-              )}
+          {/* HOURS */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm"
+          >
+            <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
+              <Clock className="h-6 w-6" />
             </div>
+            <h3 className="mb-2 font-body font-semibold text-foreground">Working Hours</h3>
+            <p className="text-sm text-muted-foreground">
+              Monday - Saturday<br />
+              <span className="font-medium">10:00 AM - 05:00 PM</span>
+            </p>
+          </motion.div>
+        </div>
 
-            {/* Location */}
-            <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="location" className="text-foreground">
-                Location <span className="text-primary">*</span>
-              </Label>
-              <Input
-                id="location"
-                placeholder=""
-                {...register("location")}
-                className="bg-input border-border focus:border-primary"
-              />
-              {errors.location && (
-                <p className="text-destructive text-sm">{errors.location.message}</p>
-              )}
-            </div>
-
-            {/* Message */}
-            <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="message" className="text-foreground">
-                Message <span className="text-muted-foreground text-sm">(Optional)</span>
-              </Label>
-              <Textarea
-                id="message"
-                placeholder="Tell us more about your inquiry..."
-                rows={4}
-                {...register("message")}
-                className="bg-input border-border focus:border-primary resize-none"
-              />
-              {errors.message && (
-                <p className="text-destructive text-sm">{errors.message.message}</p>
-              )}
+        {/* --- FORM SECTION --- */}
+        {isSubmitted ? (
+          <div className="max-w-2xl mx-auto text-center py-10 bg-card border border-border rounded-lg shadow-sm">
+            <div className="animate-fade-slide">
+              <CheckCircle className="w-16 h-16 text-primary mx-auto mb-6" />
+              <h2 className="text-3xl font-body text-foreground mb-4">Message Sent!</h2>
+              <p className="text-muted-foreground text-lg px-4">
+                Thank you for contacting B.R.Electronics. We will check your inquiry and get back to you shortly.
+              </p>
             </div>
           </div>
+        ) : (
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <h3 className="text-2xl font-body font-bold text-foreground">Send us a Message</h3>
+              <p className="text-muted-foreground mt-2">Fill out the form below for quotes or product details.</p>
+            </div>
 
-          {/* Submit Button */}
-          <div className="mt-8 text-center">
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="bg-primary text-primary-foreground hover:bg-[hsl(var(--gold-light))] w-full px-8 py-5 text-base font-medium transition-all duration-300 disabled:opacity-50 sm:w-auto sm:px-12 sm:py-6 sm:text-lg"
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="bg-card border border-border rounded-xl p-6 shadow-[var(--shadow-elegant)] sm:p-8 md:p-12"
             >
-              {isSubmitting ? (
-                <span className="animate-pulse">Sending...</span>
-              ) : (
-                <>
-                  <Send className="w-5 h-5 mr-2" />
-                  Send Message
-                </>
-              )}
-            </Button>
-          </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Name */}
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-foreground">
+                    Name <span className="text-primary">*</span>
+                  </Label>
+                  <Input
+                    id="name"
+                    placeholder="Your full name"
+                    {...register("name")}
+                    className="bg-input border-border focus:border-primary"
+                  />
+                  {errors.name && (
+                    <p className="text-destructive text-sm">{errors.name.message}</p>
+                  )}
+                </div>
 
-          {/* Privacy Note */}
-          <p className="text-muted-foreground text-sm text-center mt-6">
-            By submitting this form, you agree to our privacy policy. 
-            We'll never share your information with third parties.
-          </p>
-        </form>
+                {/* Email */}
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-foreground">
+                    Email ID <span className="text-primary">*</span>
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    {...register("email")}
+                    className="bg-input border-border focus:border-primary"
+                  />
+                  {errors.email && (
+                    <p className="text-destructive text-sm">{errors.email.message}</p>
+                  )}
+                </div>
+
+                {/* Enquiry For */}
+                <div className="space-y-2">
+                  <Label htmlFor="enquiryFor" className="text-foreground">
+                    Enquiry For <span className="text-primary">*</span>
+                  </Label>
+                  <Select onValueChange={(value) => setValue("enquiryFor", value, { shouldDirty: true, shouldValidate: true })}>
+                    <SelectTrigger className="bg-input border-border focus:border-primary">
+                      <SelectValue placeholder="Select type..." />
+                    </SelectTrigger>
+                    <SelectContent className="bg-card border-border">
+                      {enquiryTypes.map((type) => (
+                        <SelectItem key={type} value={type} className="hover:bg-secondary">
+                          {type}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {errors.enquiryFor && (
+                    <p className="text-destructive text-sm">{errors.enquiryFor.message}</p>
+                  )}
+                </div>
+
+                {/* Phone */}
+                <div className="space-y-2">
+                  <Label htmlFor="phone" className="text-foreground">
+                    Phone Number <span className="text-primary">*</span>
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="+91"
+                    {...register("phone")}
+                    className="bg-input border-border focus:border-primary"
+                  />
+                  {errors.phone && (
+                    <p className="text-destructive text-sm">{errors.phone.message}</p>
+                  )}
+                </div>
+
+                {/* Location */}
+                <div className="space-y-2 md:col-span-2">
+                  <Label htmlFor="location" className="text-foreground">
+                    Location <span className="text-primary">*</span>
+                  </Label>
+                  <Input
+                    id="location"
+                    placeholder="Where do you need the delivery?"
+                    {...register("location")}
+                    className="bg-input border-border focus:border-primary"
+                  />
+                  {errors.location && (
+                    <p className="text-destructive text-sm">{errors.location.message}</p>
+                  )}
+                </div>
+
+                {/* Message */}
+                <div className="space-y-2 md:col-span-2">
+                  <Label htmlFor="message" className="text-foreground">
+                    Message <span className="text-muted-foreground text-sm">(Optional)</span>
+                  </Label>
+                  <Textarea
+                    id="message"
+                    placeholder="Tell us more about your inquiry..."
+                    rows={4}
+                    {...register("message")}
+                    className="bg-input border-border focus:border-primary resize-none"
+                  />
+                  {errors.message && (
+                    <p className="text-destructive text-sm">{errors.message.message}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="mt-8 text-center">
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-primary text-primary-foreground hover:bg-[hsl(var(--gold-light))] w-full px-8 py-5 text-base font-medium transition-all duration-300 disabled:opacity-50 sm:w-auto sm:px-12 sm:py-6 sm:text-lg"
+                >
+                  {isSubmitting ? (
+                    <span className="animate-pulse">Sending...</span>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5 mr-2" />
+                      Send Message
+                    </>
+                  )}
+                </Button>
+              </div>
+
+              <p className="text-muted-foreground text-sm text-center mt-6">
+                By submitting this form, you agree to share your contact details with B.R.Electronics.
+              </p>
+            </form>
+          </div>
+        )}
       </div>
     </section>
   );
