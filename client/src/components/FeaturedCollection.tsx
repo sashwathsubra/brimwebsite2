@@ -30,12 +30,12 @@ import jumbolednew from "@/assets/jumbolednew.jpeg";
 type ProductColor = "red" | "green" | "multicolor";
 type ProductDensity = "Thin" | "Thick";
 
-// SEO: Added "Chennai", "India", "Tamil Nadu" to be highlighted
+// SEO: Highlighting keywords for Google & Users
 const placeWordList = [
   "home","office","executive","cabin","mosque","temple","church","hospital",
   "clinic","school","college","showroom","shop","restaurant","hotel",
   "factory","warehouse","hall","halls","reception","auditorium",
-  "chennai", "india", "tamil nadu", "banks"
+  "chennai", "india", "tamil nadu", "banks", "industrial", "digital"
 ] as const;
 
 const placeWordSet = new Set<string>(placeWordList.map(w => w.toLowerCase()));
@@ -90,14 +90,14 @@ type ProductItem = {
 };
 
 // ------------------------
-// Products Array (OPTIMIZED FOR CHENNAI SEO)
+// Products Array (SEO OPTIMIZED)
 // ------------------------
 const collections: ProductItem[] = [
   {
     images: [miniled_red],
-    name: "Mini Clock Red",
+    name: "Mini LED Digital Clock (Red)", // SEO: Added 'Digital'
     price: "",
-    category: "",
+    category: "Digital Wall Clocks",
     features: [
       "Ideal for home, office, and executive cabins in Chennai",
       "Glassy finish ABS plastic case",
@@ -113,9 +113,9 @@ const collections: ProductItem[] = [
   },
   {
     images: [miniled_green],
-    name: "Mini Clock Green",
+    name: "Mini LED Digital Clock (Green)", // SEO: Added 'Digital'
     price: "",
-    category: "",
+    category: "Digital Wall Clocks",
     features: [
       "Ideal for home, office, and executive cabins in Chennai",
       "Glassy finish ABS plastic case",
@@ -131,9 +131,9 @@ const collections: ProductItem[] = [
   },
   {
     images: [dot_single_red, dot_double_red],
-    name: "Red Dot Matrix Clock",
+    name: "Red Dot Matrix LED Clock", // SEO: Added 'LED'
     price: "",
-    category: "",
+    category: "Industrial Clocks",
     features: [
       "Best seller for corporate offices and banks in Chennai",
       "7x30 LED dot matrix (High Visibility)",
@@ -152,9 +152,9 @@ const collections: ProductItem[] = [
   },
   {
     images: [dot_single_red, dot_double_red],
-    name: "Dual Colour Matrix Clock",
+    name: "Dual Colour Dot Matrix Clock",
     price: "",
-    category: "",
+    category: "Executive Clocks",
     features: [
       "Premium choice for executive cabins and showrooms",
       "7x30 LED dot matrix",
@@ -175,9 +175,9 @@ const collections: ProductItem[] = [
   },
   {
     images: [new_calender_red_1],
-    name: "Calendar Clock",
+    name: "Digital Calendar LED Clock", // SEO: Added 'Digital' and 'LED'
     price: "",
-    category: "",
+    category: "Calendar Clocks",
     features: [
       "Perfect for office reception, hospitals, and halls",
       "14x56 3mm dot matrix digital display",
@@ -192,9 +192,9 @@ const collections: ProductItem[] = [
   },
   {
     images: [multicolor_red, multicolor_red_2],
-    name: "Multi Colour Calender Clock",
+    name: "Multicolor Digital Calendar Clock", // SEO: Changed spelling to 'Multicolor' for search
     price: "",
-    category: "",
+    category: "Premium Clocks",
     hasDualColor: true,
     hasTriColor: true,
     greenImages: [multicolor_green, multicolor_green_2],
@@ -214,9 +214,9 @@ const collections: ProductItem[] = [
   },
   {
     images: [jumbolednew],
-    name: "Jumbo Clock",
+    name: "Jumbo Industrial LED Clock", // SEO: Added 'Industrial' and 'LED'
     price: "",
-    category: "",
+    category: "Industrial Clocks",
     features: [
       "Heavy duty for factories, temples, churches, and auditorium",
       "Long-distance visibility for large halls",
@@ -231,7 +231,7 @@ const collections: ProductItem[] = [
 ];
 
 // ----------------------------
-// ProductImages Component (FIXED)
+// ProductImages Component
 // ----------------------------
 const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
@@ -334,7 +334,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
     ...(item.multiColorImages ?? []),
   ];
 
-  const isWide = item.name === "Jumbo Clock";
+  const isWide = item.name.includes("Jumbo");
 
   return (
     <motion.div
@@ -350,6 +350,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       </div>
 
       <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
+        {/* SEO: H3 is good here as it's a sub-topic of the page */}
         <h3 className="mb-3 font-body font-semibold text-3xl text-gray-100 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg group-hover:text-amber-400">
           {item.name}
         </h3>
