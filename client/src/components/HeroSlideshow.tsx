@@ -1,10 +1,20 @@
+"use client"; // <--- Vital for Next.js to allow useState/useEffect
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import mini from "@/assets/slideminigreen-694d12aeada25.webp";
 import dotMatrixRed from "@/assets/slidedotmatrixred-694d1258ad727.webp";
 import calendarRed from "@/assets/slidecalendarred-694d1256bfe67.webp";
 
-const slides = [
+// Define the type to prevent Build Errors
+type Slide = {
+  alt: string;
+  src: string;
+  width?: number;
+  height?: number;
+};
+
+const slides: Slide[] = [
   {
     alt: "Mini LED Clock (Green) - Digital Clock Chennai",
     src: mini,
@@ -14,6 +24,7 @@ const slides = [
   {
     alt: "Dot Matrix Clock (Red) - LED Clock Manufacturer Chennai",
     src: dotMatrixRed,
+    // Width/Height are optional now, so no build error if missing
   },
   {
     alt: "Calendar Clock (Red) - Brim Clocks",
@@ -45,8 +56,6 @@ const HeroSlideshow = () => {
       </div>
       {/* ----------------------------- */}
 
-      {/* Note: Radial Gradient (Vignette) has been removed as requested */}
-
       {/* Slides container */}
       <div className="absolute inset-x-0 top-0 bottom-0 flex items-center justify-center z-0 px-4 sm:px-8 md:px-16 lg:px-24 pt-12 md:pt-0">
         <div className="relative w-[100%] h-full flex items-center justify-center">
@@ -60,7 +69,8 @@ const HeroSlideshow = () => {
               <img
                 src={slide.src}
                 alt={slide.alt}
-                width={slide.width}
+                // Only apply width/height if they exist, otherwise undefined (which React ignores)
+                width={slide.width} 
                 height={slide.height}
                 className={`h-full w-full object-contain md:object-contain drop-shadow-2xl`}
                 loading={index === 0 ? "eager" : "lazy"}
