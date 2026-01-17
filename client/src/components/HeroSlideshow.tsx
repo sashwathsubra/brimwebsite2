@@ -8,7 +8,7 @@ import mini from "@/assets/slideminigreen-694d12aeada25.webp";
 import dotMatrixRed from "@/assets/slidedotmatrixred-694d1258ad727.webp";
 import calendarRed from "@/assets/slidecalendarred-694d1256bfe67.webp";
 
-// --- TYPESCRIPT FIX (Keeps Vercel Happy) ---
+// Type definition to prevent Build Errors
 type Slide = {
   id: number;
   alt: string;
@@ -45,24 +45,19 @@ const HeroSlideshow = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[50svh] md:min-h-[85svh] w-full overflow-hidden bg-background pt-0">
+    // Flex-col ensures the Black Bar sits ON TOP of the Slideshow, not over it
+    <section className="flex flex-col w-full min-h-[50svh] md:min-h-[85svh] bg-background">
       
-      {/* --- THE BLACK BAR / TOP GRADIENT --- */}
-      {/* This adds the dark fade at the top that you wanted back */}
-      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black/90 via-black/50 to-transparent z-10 pointer-events-none" />
-
-      {/* --- HEADER --- */}
-      <div className="absolute top-8 left-0 right-0 z-20 flex justify-center pointer-events-none px-4">
-        <div className="bg-black/40 backdrop-blur-md px-8 py-2 rounded-full border border-white/10 shadow-lg">
-          <h2 className="text-sm md:text-lg font-medium tracking-widest text-white uppercase drop-shadow-md">
-            Premium LED Clocks
-          </h2>
-        </div>
+      {/* --- 1. THE SOLID BLACK BAR --- */}
+      <div className="w-full bg-black py-4 z-20 shadow-md flex justify-center items-center shrink-0">
+        <h2 className="text-sm md:text-lg font-medium tracking-widest text-white uppercase">
+          Premium LED Clocks
+        </h2>
       </div>
 
-      {/* --- SLIDES CONTAINER --- */}
-      <div className="absolute inset-x-0 top-0 bottom-0 flex items-center justify-center z-0 px-4 sm:px-8 md:px-16 lg:px-24 pt-12 md:pt-0">
-        <div className="relative w-[100%] h-full flex items-center justify-center">
+      {/* --- 2. SLIDESHOW CONTAINER (Sits below the bar) --- */}
+      <div className="relative flex-1 w-full overflow-hidden bg-white/5">
+        <div className="absolute inset-0 w-full h-full flex items-center justify-center">
           {slides.map((slide, index) => (
             <motion.div
               key={slide.id}
@@ -73,29 +68,30 @@ const HeroSlideshow = () => {
               <img
                 src={slide.src}
                 alt={slide.alt}
-                className="h-full w-full object-contain md:object-contain drop-shadow-2xl"
+                className="h-full w-full object-contain drop-shadow-2xl p-4" // Added p-4 so image doesn't touch edges
                 loading={index === 0 ? "eager" : "lazy"}
               />
             </motion.div>
           ))}
         </div>
-      </div>
 
-      {/* --- INDICATORS --- */}
-      <div className="absolute bottom-8 right-4 z-30 hidden gap-2 sm:bottom-12 sm:right-12 sm:flex sm:gap-3">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            aria-label={`Go to slide ${index + 1}`}
-            className={`h-0.5 transition-all duration-300 ${
-              index === currentSlide
-                ? "w-10 bg-primary"
-                : "w-6 bg-muted-foreground/30 hover:bg-muted-foreground"
-            }`}
-          />
-        ))}
+        {/* Slide indicators (Inside the slideshow area) */}
+        <div className="absolute bottom-6 right-0 left-0 flex justify-center gap-3 z-30">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                index === currentSlide
+                  ? "w-8 bg-primary"
+                  : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground"
+              }`}
+            />
+          ))}
+        </div>
       </div>
+      
     </section>
   );
 };
