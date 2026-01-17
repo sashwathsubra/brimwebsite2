@@ -30,17 +30,19 @@ import jumbolednew from "@/assets/jumbolednew.jpeg";
 type ProductColor = "red" | "green" | "multicolor";
 type ProductDensity = "Thin" | "Thick";
 
+// SEO: Added "Chennai", "India", "Tamil Nadu" to be highlighted
 const placeWordList = [
   "home","office","executive","cabin","mosque","temple","church","hospital",
   "clinic","school","college","showroom","shop","restaurant","hotel",
   "factory","warehouse","hall","halls","reception","auditorium",
+  "chennai", "india", "tamil nadu", "banks"
 ] as const;
 
 const placeWordSet = new Set<string>(placeWordList.map(w => w.toLowerCase()));
 const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi");
 
 function renderFeatureText(feature: string) {
-  if (feature.toLowerCase().startsWith("suitable for")) {
+  if (feature.toLowerCase().startsWith("suitable for") || feature.toLowerCase().startsWith("ideal for")) {
     return (
       <span className="font-semibold text-teal-400 whitespace-normal break-words">
         {feature}
@@ -88,7 +90,7 @@ type ProductItem = {
 };
 
 // ------------------------
-// Products Array
+// Products Array (OPTIMIZED FOR CHENNAI SEO)
 // ------------------------
 const collections: ProductItem[] = [
   {
@@ -97,15 +99,15 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin, etc...",
+      "Ideal for home, office, and executive cabins in Chennai",
       "Glassy finish ABS plastic case",
       "1 inch seven segment LED display",
       "Epson RTC and Nuvoton microcontroller",
       "Built in battery memory backup for 5 years & above",
       "User can select seconds blinking option",
-      "Wall mountable/table top",
+      "Wall mountable / table top",
       "5V power supply included",
-      "More than 7 years durable without maintenance",
+      "Local service support in Chennai",
     ],
     size: "Clock size: 14 cm Length x 6.5 cm Width",
   },
@@ -115,15 +117,15 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin, etc...",
+      "Ideal for home, office, and executive cabins in Chennai",
       "Glassy finish ABS plastic case",
       "1 inch seven segment LED display",
       "Epson RTC and Nuvoton microcontroller",
       "Built in battery memory backup for 5 years & above",
       "User can select seconds blinking option",
-      "Wall mountable/table top",
+      "Wall mountable / table top",
       "5V power supply included",
-      "More than 7 years durable without maintenance",
+      "Proven durability for Indian power conditions",
     ],
     size: "Clock size: 14 cm Length x 6.5 cm Width",
   },
@@ -133,14 +135,14 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for home, office, executive cabin, etc...",
-      "7x30 LED dot matrix",
+      "Best seller for corporate offices and banks in Chennai",
+      "7x30 LED dot matrix (High Visibility)",
       "Epson RTC and Nuvoton microcontroller",
-      "User can select font",
+      "User can select font style",
       "Built-in battery backup for 7 years and above",
       "Wall mountable / table top",
       "5V power supply included",
-      "More than 7 years durable without maintenance",
+      "Manufactured in Chennai with 7+ years life",
     ],
     size: "Clock size: 26 cm Length x 8 cm Width",
     densityOptions: ["Thin", "Thick"],
@@ -153,17 +155,15 @@ const collections: ProductItem[] = [
     name: "Dual Colour Matrix Clock",
     price: "",
     category: "",
-    hasDualColor: true,
     features: [
-      "Suitable for home, office, executive cabin, etc...",
+      "Premium choice for executive cabins and showrooms",
       "7x30 LED dot matrix",
       "Epson RTC and Nuvoton microcontroller",
-      "User can select font",
-      "User can select colour",
+      "User can select font and colour (Red/Green)",
       "Built-in battery backup for 7 years and above",
       "Wall mountable / table top",
       "5V power supply included",
-      "More than 7 years durable without maintenance",
+      "Direct manufacturer support in Tamil Nadu",
     ],
     size: "Clock size: 26 cm Length x 8 cm Width",
     greenImages: [dot_single_green, dot_double_green],
@@ -179,13 +179,14 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for executive cabin, home halls, office reception, etc...",
-      "14x56 3mm dot matrix calendar clock",
+      "Perfect for office reception, hospitals, and halls",
+      "14x56 3mm dot matrix digital display",
+      "Shows Date, Day, and Time clearly",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
       "Wall mountable / table top",
       "5V power supply included",
-      "More than 7 years durable without maintenance",
+      "Reliable service across Chennai & India",
     ],
     size: "Clock size: 26 cm Length x 8 cm Width",
   },
@@ -201,13 +202,13 @@ const collections: ProductItem[] = [
       multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4,
     ],
     features: [
-      "Suitable for executive cabin, home halls, office reception, etc...",
-      "14x56 3mm dot matrix calendar clock",
+      "Suitable for luxury hotels, receptions, and cabins",
+      "14x56 3mm dot matrix vibrant display",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
       "Wall mountable / table top",
       "5V power supply included",
-      "More than 7 years durable without maintenance",
+      "High-quality finish made in Chennai",
     ],
     size: "Clock size: 65 cm Length x 8 cm Width",
   },
@@ -217,12 +218,13 @@ const collections: ProductItem[] = [
     price: "",
     category: "",
     features: [
-      "Suitable for factory, temple, church, mosque, auditorium, etc...",
+      "Heavy duty for factories, temples, churches, and auditorium",
+      "Long-distance visibility for large halls",
       "Epson RTC and Nuvoton microcontroller",
       "Built-in battery backup for 7 years and above",
-      "Wall mountable / hanging",
+      "Wall mountable / hanging support",
       "12v power supply included",
-      "More than 7 years durable without maintenance",
+      "Trusted by industries across Chennai & Tamil Nadu",
     ],
     size: "Clock size: 90 cm Length x 30 cm Width",
   },
@@ -321,6 +323,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           </div>
         )}
 
+        {/* Desktop List */}
         <ul className="mt-2 list-none space-y-2 text-left text-gray-300 mb-6 hidden md:block">
           {item.features?.map((feature, i) => (
             <li key={i} className="relative pl-5 font-body text-[1.05em] leading-tight">
@@ -330,6 +333,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
+        {/* Mobile List */}
         <ul className="mt-4 space-y-3 text-gray-300 mb-6 block md:hidden">
           {item.features?.map((feature, i) => (
             <li key={i} className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 font-body text-[1em] leading-snug">
@@ -354,7 +358,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
 };
 
 // ----------------------------
-// Products Page
+// Products Page Export
 // ----------------------------
 export default function Products() {
   return (
