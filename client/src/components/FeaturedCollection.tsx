@@ -109,7 +109,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "Local service support in Chennai",
     ],
-    size: "Clock size: 14 cm Length x 6.5 cm Width",
+    size: "Clock size: 14 cm Length x 6.5 cm Height",
   },
   {
     images: [miniled_green],
@@ -127,7 +127,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "Proven durability for Indian power conditions",
     ],
-    size: "Clock size: 14 cm Length x 6.5 cm Width",
+    size: "Clock size: 14 cm Length x 6.5 cm Height",
   },
   {
     images: [dot_single_red, dot_double_red],
@@ -144,7 +144,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "Manufactured in Chennai with 7+ years life",
     ],
-    size: "Clock size: 26 cm Length x 8 cm Width",
+    size: "Clock size: 26 cm Length x 8 cm Height",
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
       red: { Thin: [dot_single_red], Thick: [dot_double_red] },
@@ -165,7 +165,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "Direct manufacturer support in Tamil Nadu",
     ],
-    size: "Clock size: 26 cm Length x 8 cm Width",
+    size: "Clock size: 26 cm Length x 8 cm Height",
     greenImages: [dot_single_green, dot_double_green],
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
@@ -188,7 +188,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "Reliable service across Chennai & India",
     ],
-    size: "Clock size: 26 cm Length x 8 cm Width",
+    size: "Clock size: 26 cm Length x 8 cm Height",
   },
   {
     images: [multicolor_red, multicolor_red_2],
@@ -210,7 +210,7 @@ const collections: ProductItem[] = [
       "5V power supply included",
       "High-quality finish made in Chennai",
     ],
-    size: "Clock size: 65 cm Length x 8 cm Width",
+    size: "Clock size: 65 cm Length x 8 cm Height",
   },
   {
     images: [jumbolednew],
@@ -226,7 +226,7 @@ const collections: ProductItem[] = [
       "12v power supply included",
       "Trusted by industries across Chennai & Tamil Nadu",
     ],
-    size: "Clock size: 90 cm Length x 30 cm Width",
+    size: "Clock size: 90 cm Length x 30 cm Height",
   },
 ];
 
