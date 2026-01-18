@@ -49,7 +49,6 @@ const AboutSection = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            {/* SEO TAG 1: Descriptive Subheading */}
             <p className="mb-3 font-body text-sm uppercase tracking-[0.3em] text-primary">
               Premium Clock Manufacturer
             </p>
@@ -57,14 +56,13 @@ const AboutSection = () => {
             <h2 className="mb-8 font-body text-3xl text-foreground sm:text-4xl md:text-5xl">
               <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}>BRIM</span>
               <br />
-              {/* SEO TAG 2: Specific Keyword in Title */}
               <span className="text-primary">LED Clocks Chennai</span>
             </h2>
 
-            {/* SEO TAG 3: "Manufacturer in Chennai" + "Digital Clocks" injected here */}
+            {/* UPDATED SENTENCE BELOW */}
             <p className="mb-6 font-body text-base leading-relaxed text-muted-foreground sm:text-lg">
               <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}>BRIM</span> is a leading 
-              <strong className="font-medium text-foreground"> manufacturer of digital and LED clocks in Chennai</strong>. 
+              <strong className="font-medium text-foreground"> manufacturer of LED digital clocks in Chennai</strong>. 
               We engineer professional-grade timekeeping solutions designed for longevity and precision. 
               Trusted by financial institutions, corporate offices, and factories across <strong className="font-medium text-foreground">Tamil Nadu</strong>.
             </p>
@@ -86,7 +84,7 @@ const AboutSection = () => {
           >
             {[
               { number: "35", label: "Years of Experience" },
-              { number: "100", label: "Clients in Chennai" }, // SEO Tweak
+              { number: "100", label: "Clients in Chennai" },
               { number: "7", label: "Years of Lifespan" },
               { number: "100%", label: "Made in India", showPlus: false },
             ].map((stat, index) => (
