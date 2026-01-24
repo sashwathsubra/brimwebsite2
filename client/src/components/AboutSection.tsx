@@ -1,34 +1,15 @@
-import { useRef, useEffect, useState } from "react";
-import { motion, useInView, useSpring, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 
+/**
+ * StatCounter Component
+ * Simplified to be static. This ensures Google sees your 
+ * experience and trust signals (35+ years, etc.) immediately.
+ */
 const StatCounter = ({ value, label, showPlus = true }: { value: string; label: string; showPlus?: boolean }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-20px" });
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, { duration: 2500 });
-  const [displayValue, setDisplayValue] = useState(0);
-
-  // Extract number part
-  const numericValue = parseInt(value.replace(/\D/g, '')) || 0;
-  const suffix = value.replace(/[0-9]/g, '');
-
-  useEffect(() => {
-    if (isInView) {
-      motionValue.set(numericValue);
-    }
-  }, [isInView, numericValue, motionValue]);
-
-  useEffect(() => {
-    const unsubscribe = springValue.on("change", (latest) => {
-      setDisplayValue(Math.floor(latest));
-    });
-    return unsubscribe;
-  }, [springValue]);
-
   return (
-    <div ref={ref} className="border-l border-border pl-4 py-3 sm:pl-6 sm:py-4">
+    <div className="border-l border-border pl-4 py-3 sm:pl-6 sm:py-4">
       <p className="mb-2 font-body text-3xl text-primary sm:text-4xl md:text-5xl tabular-nums">
-        {displayValue}{suffix}{showPlus ? <span className="text-primary/50 text-2xl align-top">+</span> : null}
+        {value}{showPlus ? <span className="text-primary/50 text-2xl align-top">+</span> : null}
       </p>
       <p className="font-body text-xs uppercase tracking-wider text-muted-foreground sm:text-sm">
         {label}
@@ -42,7 +23,8 @@ const AboutSection = () => {
     <section id="about" className="relative bg-secondary px-4 py-20 sm:px-6 sm:py-24 md:py-32 scroll-mt-20 md:scroll-mt-24 overflow-hidden">
       <div className="mx-auto max-w-7xl">
         <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
-          {/* Text content */}
+          
+          {/* Left Side: Brand Story */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -59,7 +41,6 @@ const AboutSection = () => {
               <span className="text-primary">LED Clocks Chennai</span>
             </h2>
 
-            {/* UPDATED SENTENCE BELOW */}
             <p className="mb-6 font-body text-base leading-relaxed text-muted-foreground sm:text-lg">
               <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}>BRIM</span> is a leading 
               <strong className="font-medium text-foreground"> manufacturer of LED digital clocks in Chennai</strong>. 
@@ -74,8 +55,8 @@ const AboutSection = () => {
             </p>
           </motion.div>
 
-          {/* Stats */}
-          <motion.div
+          {/* Right Side: Trust Stats (Now Static for SEO) */}
+          <motion.div 
             className="grid grid-cols-2 gap-6 sm:gap-8"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -84,13 +65,19 @@ const AboutSection = () => {
           >
             {[
               { number: "35", label: "Years of Experience" },
-              { number: "100", label: "Clients in Chennai" },
+              { number: "1000", label: "Clients in Chennai" },
               { number: "7", label: "Years of Lifespan" },
               { number: "100%", label: "Made in India", showPlus: false },
             ].map((stat, index) => (
-              <StatCounter key={index} value={stat.number} label={stat.label} showPlus={"showPlus" in stat ? stat.showPlus : undefined} />
+              <StatCounter 
+                key={index} 
+                value={stat.number} 
+                label={stat.label} 
+                showPlus={stat.showPlus !== undefined ? stat.showPlus : true} 
+              />
             ))}
           </motion.div>
+
         </div>
       </div>
     </section>
