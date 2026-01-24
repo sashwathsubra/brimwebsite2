@@ -7,17 +7,17 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 
+// SEO-Optimized Nav Links: Added 'title' for keyword weight
 const navLinks = [
-  { name: "Products", id: "products" },
-  { name: "About Us", id: "about" },
-  { name: "Contact Us", id: "contact" },
+  { name: "Products", id: "products", title: "View our Industrial LED Digital Clocks" },
+  { name: "About Us", id: "about", title: "Leading Digital Clock Manufacturer in Chennai" },
+  { name: "Contact Us", id: "contact", title: "Contact Brim Clocks Chennai for Custom LED Displays" },
 ];
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Scroll handler (optimized)
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY;
     setIsScrolled(scrollY > 10);
@@ -34,7 +34,6 @@ const Navbar = () => {
 
   useEffect(() => {
     let ticking = false;
-
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
@@ -44,10 +43,8 @@ const Navbar = () => {
         ticking = true;
       }
     };
-
     window.addEventListener("scroll", onScroll);
-    handleScroll(); // run once on mount
-
+    handleScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, [handleScroll]);
 
@@ -71,18 +68,19 @@ const Navbar = () => {
       <div className="w-[80%] mx-auto">
         <div className="flex items-center justify-between h-20">
 
-          {/* Logo */}
+          {/* SEO OPTIMIZED LOGO SECTION */}
           <button
             onClick={() => handleNavClick("home")}
-            className="flex flex-col items-center select-none group hover:opacity-80"
+            className="flex flex-col items-center select-none group hover:opacity-80 text-left"
+            aria-label="BRIM LED Digital Clocks Chennai - Home"
           >
-            <h1
-              className="text-2xl sm:text-3xl font-bold text-amber-400"
-              style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
-            >
+            {/* H1 is the most important SEO tag. We've added your city and product here */}
+            <h1 className="text-2xl sm:text-3xl font-bold text-amber-400 leading-none" style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
               BRIM
+              <span className="sr-only"> - LED Digital Clock Manufacturer Chennai</span>
             </h1>
-            <div className="flex justify-between w-full">
+            
+            <div className="flex justify-between w-full" aria-hidden="true">
               {"LED CLOCKS".split("").map((c, i) => (
                 <span
                   key={i}
@@ -92,52 +90,55 @@ const Navbar = () => {
                 </span>
               ))}
             </div>
+            {/* This hidden text tells Google exactly what you do without cluttering the UI */}
+            <span className="hidden">Premium Digital Wall Clocks & Industrial LED Displays in Tamil Nadu</span>
           </button>
 
-          {/* Desktop Nav */}
-          <ul className="hidden md:flex gap-10">
-            {navLinks.map((link) => (
-              <li key={link.id}>
-                <a
-                  href={`#${link.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.id);
-                  }}
-                  className={`relative font-body tracking-[0.18em] transition-colors ${
-                    activeLink === link.id
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {link.name}
-                  {activeLink === link.id && (
-                    <span className="absolute -bottom-1 left-0 w-full h-px bg-primary" />
-                  )}
-                </a>
-              </li>
-            ))}
-          </ul>
+          {/* Desktop Nav with Title Keywords */}
+          <nav aria-label="Main Navigation" className="hidden md:block">
+            <ul className="flex gap-10">
+              {navLinks.map((link) => (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    title={link.title}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.id);
+                    }}
+                    className={`relative font-body tracking-[0.18em] transition-colors ${
+                      activeLink === link.id
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {link.name}
+                    {activeLink === link.id && (
+                      <span className="absolute -bottom-1 left-0 w-full h-px bg-primary" />
+                    )}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           {/* Mobile Nav */}
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <button aria-label="Open menu" className="p-2">
+                <button aria-label="Open menu for LED Clocks Chennai" className="p-2">
                   <Menu size={24} />
                 </button>
               </SheetTrigger>
-
               <SheetContent side="right" className="w-3/4 bg-background p-0">
                 <div className="flex flex-col h-full">
-                  <div className="p-4">
+                  <div className="p-4 flex justify-end">
                     <SheetClose asChild>
                       <button aria-label="Close menu">
                         <X size={20} />
                       </button>
                     </SheetClose>
                   </div>
-
                   <nav className="flex-grow px-6">
                     <ul className="flex flex-col gap-8">
                       {navLinks.map((link) => (
@@ -145,6 +146,7 @@ const Navbar = () => {
                           <SheetClose asChild>
                             <a
                               href={`#${link.id}`}
+                              title={link.title}
                               onClick={() => handleNavClick(link.id)}
                               className={`text-xl transition-colors ${
                                 activeLink === link.id
