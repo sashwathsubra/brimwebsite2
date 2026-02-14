@@ -7,23 +7,6 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 
-import dot_single_red from "@/assets/new_dot_single.jpeg";
-import dot_single_green from "@/assets/new_dot_single_green.jpeg";
-import dot_double_red from "@/assets/new_dot_double.jpeg";
-import dot_double_green from "@/assets/new_dot_double_green.jpeg";
-import new_calender_red_1 from "@/assets/new_calender_red_1.jpeg";
-import multicolor_red from "@/assets/new_multi_colour_red.jpeg";
-import multicolor_red_2 from "@/assets/new_multicolour_red2.png";
-import multicolor_green from "@/assets/new_multicolour_green.jpeg";
-import multicolor_green_2 from "@/assets/new_multicolour_green2.png";
-import multicolor_dual from "@/assets/new_multicolour_dual.jpeg";
-import multicolor_dual_2 from "@/assets/new_multicolour_dual2.png";
-import multicolor_dual_3 from "@/assets/new_multicolour_dual3.png";
-import multicolor_dual_4 from "@/assets/new_multicolour_dual4.png";
-import miniled_red from "@/assets/miniled_red.jpeg";
-import miniled_green from "@/assets/minled_green.jpeg";
-import jumbolednew from "@/assets/jumbolednew.jpeg";
-
 // ------------------------
 // Types
 // ------------------------
@@ -90,12 +73,13 @@ type ProductItem = {
 };
 
 // ------------------------
-// Products Array (SEO OPTIMIZED)
+// Products Array (SEO OPTIMIZED) - IMAGES UPDATED
 // ------------------------
 const collections: ProductItem[] = [
   {
-    images: [miniled_red],
-    name: "Mini LED Digital Clock (Red)", // SEO: Added 'Digital'
+    // Updated: miniled_red -> minired.jpeg
+    images: ["/Products/minired.jpeg"],
+    name: "Mini LED Digital Clock (Red)", 
     price: "",
     category: "Digital Wall Clocks",
     features: [
@@ -112,8 +96,9 @@ const collections: ProductItem[] = [
     size: "Clock size: 14 cm Length x 6.5 cm Height",
   },
   {
-    images: [miniled_green],
-    name: "Mini LED Digital Clock (Green)", // SEO: Added 'Digital'
+    // Updated: miniled_green -> minigreen.jpeg
+    images: ["/Products/minigreen.jpeg"],
+    name: "Mini LED Digital Clock (Green)", 
     price: "",
     category: "Digital Wall Clocks",
     features: [
@@ -130,8 +115,9 @@ const collections: ProductItem[] = [
     size: "Clock size: 14 cm Length x 6.5 cm Height",
   },
   {
-    images: [dot_single_red, dot_double_red],
-    name: "Red Dot Matrix LED Clock", // SEO: Added 'LED'
+    // Updated: dot_single_red -> matrixsingle1.jpeg, dot_double_red -> matrixsingle2.jpeg
+    images: ["/Products/matrixsingle1.jpeg", "/Products/matrixsingle2.jpeg"],
+    name: "Red Dot Matrix LED Clock", 
     price: "",
     category: "Industrial Clocks",
     features: [
@@ -147,11 +133,12 @@ const collections: ProductItem[] = [
     size: "Clock size: 26 cm Length x 8 cm Height",
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
-      red: { Thin: [dot_single_red], Thick: [dot_double_red] },
+      red: { Thin: ["/Products/matrixsingle1.jpeg"], Thick: ["/Products/matrixsingle2.jpeg"] },
     },
   },
   {
-    images: [dot_single_red, dot_double_red],
+    // Updated: Using matrixdual images for this dual color clock
+    images: ["/Products/matrixdual1.jpeg", "/Products/matrixdual2.jpeg"],
     name: "Dual Colour Dot Matrix Clock",
     price: "",
     category: "Executive Clocks",
@@ -166,16 +153,18 @@ const collections: ProductItem[] = [
       "Direct manufacturer support in Tamil Nadu",
     ],
     size: "Clock size: 26 cm Length x 8 cm Height",
-    greenImages: [dot_single_green, dot_double_green],
+    // Note: Assuming matrixdual3/4 serve as green variants or alternates for now
+    greenImages: ["/Products/matrixdual3.jpeg", "/Products/matrixdual4.jpeg"],
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
-      red: { Thin: [dot_single_red], Thick: [dot_double_red] },
-      green: { Thin: [dot_single_green], Thick: [dot_double_green] },
+      red: { Thin: ["/Products/matrixdual1.jpeg"], Thick: ["/Products/matrixdual2.jpeg"] },
+      green: { Thin: ["/Products/matrixdual3.jpeg"], Thick: ["/Products/matrixdual4.jpeg"] },
     },
   },
   {
-    images: [new_calender_red_1],
-    name: "Digital Calendar LED Clock", // SEO: Added 'Digital' and 'LED'
+    // Updated: new_calender_red_1 -> lcalendar1.jpeg
+    images: ["/Products/lcalendar1.jpeg"],
+    name: "Digital Calendar LED Clock", 
     price: "",
     category: "Calendar Clocks",
     features: [
@@ -191,15 +180,17 @@ const collections: ProductItem[] = [
     size: "Clock size: 26 cm Length x 8 cm Height",
   },
   {
-    images: [multicolor_red, multicolor_red_2],
-    name: "Multicolor Digital Calendar Clock", // SEO: Changed spelling to 'Multicolor' for search
+    // Updated: multicolor_red -> matrixcalendar.jpeg
+    images: ["/Products/matrixcalendar.jpeg"],
+    name: "Multicolor Digital Calendar Clock", 
     price: "",
     category: "Premium Clocks",
     hasDualColor: true,
     hasTriColor: true,
-    greenImages: [multicolor_green, multicolor_green_2],
+    // Using other calendar variants for color options
+    greenImages: ["/Products/lcalendar2.jpeg"], 
     multiColorImages: [
-      multicolor_dual, multicolor_dual_2, multicolor_dual_3, multicolor_dual_4,
+      "/Products/lcalendar3.jpeg", "/Products/lcalendar4.jpeg", "/Products/lcalendar5.jpeg", "/Products/lcalendar6.jpeg",
     ],
     features: [
       "Suitable for luxury hotels, receptions, and cabins",
@@ -213,8 +204,9 @@ const collections: ProductItem[] = [
     size: "Clock size: 65 cm Length x 8 cm Height",
   },
   {
-    images: [jumbolednew],
-    name: "Jumbo Industrial LED Clock", // SEO: Added 'Industrial' and 'LED'
+    // Updated: jumbolednew -> jumbored.jpeg
+    images: ["/Products/jumbored.jpeg"],
+    name: "Jumbo Industrial LED Clock", 
     price: "",
     category: "Industrial Clocks",
     features: [
