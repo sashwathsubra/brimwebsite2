@@ -73,11 +73,10 @@ type ProductItem = {
 };
 
 // ------------------------
-// Products Array (SEO OPTIMIZED) - IMAGES UPDATED
+// Products Array (FIXED IMAGE MAPPING)
 // ------------------------
 const collections: ProductItem[] = [
   {
-    // Updated: miniled_red -> minired.jpeg
     images: ["/Products/minired.jpeg"],
     name: "Mini LED Digital Clock (Red)", 
     price: "",
@@ -87,7 +86,7 @@ const collections: ProductItem[] = [
       "Glassy finish ABS plastic case",
       "1 inch seven segment LED display",
       "Epson RTC and Nuvoton microcontroller",
-      "Built in battery memory backup for 5 years & above",
+      "Built in battery memory backup for 7 years & above",
       "User can select seconds blinking option",
       "Wall mountable / table top",
       "5V power supply included",
@@ -96,7 +95,6 @@ const collections: ProductItem[] = [
     size: "Clock size: 14 cm Length x 6.5 cm Height",
   },
   {
-    // Updated: miniled_green -> minigreen.jpeg
     images: ["/Products/minigreen.jpeg"],
     name: "Mini LED Digital Clock (Green)", 
     price: "",
@@ -106,7 +104,7 @@ const collections: ProductItem[] = [
       "Glassy finish ABS plastic case",
       "1 inch seven segment LED display",
       "Epson RTC and Nuvoton microcontroller",
-      "Built in battery memory backup for 5 years & above",
+      "Built in battery memory backup for 7 years & above",
       "User can select seconds blinking option",
       "Wall mountable / table top",
       "5V power supply included",
@@ -115,7 +113,6 @@ const collections: ProductItem[] = [
     size: "Clock size: 14 cm Length x 6.5 cm Height",
   },
   {
-    // Updated: dot_single_red -> matrixsingle1.jpeg, dot_double_red -> matrixsingle2.jpeg
     images: ["/Products/matrixsingle1.jpeg", "/Products/matrixsingle2.jpeg"],
     name: "Red Dot Matrix LED Clock", 
     price: "",
@@ -137,7 +134,6 @@ const collections: ProductItem[] = [
     },
   },
   {
-    // Updated: Using matrixdual images for this dual color clock
     images: ["/Products/matrixdual1.jpeg", "/Products/matrixdual2.jpeg"],
     name: "Dual Colour Dot Matrix Clock",
     price: "",
@@ -153,7 +149,6 @@ const collections: ProductItem[] = [
       "Direct manufacturer support in Tamil Nadu",
     ],
     size: "Clock size: 26 cm Length x 8 cm Height",
-    // Note: Assuming matrixdual3/4 serve as green variants or alternates for now
     greenImages: ["/Products/matrixdual3.jpeg", "/Products/matrixdual4.jpeg"],
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
@@ -162,8 +157,8 @@ const collections: ProductItem[] = [
     },
   },
   {
-    // Updated: new_calender_red_1 -> lcalendar1.jpeg
-    images: ["/Products/lcalendar1.jpeg"],
+    // ✅ FIXED: Now using the Matrix Calendar image
+    images: ["/Products/matrixcalendar.jpeg"],
     name: "Digital Calendar LED Clock", 
     price: "",
     category: "Calendar Clocks",
@@ -180,18 +175,21 @@ const collections: ProductItem[] = [
     size: "Clock size: 26 cm Length x 8 cm Height",
   },
   {
-    // Updated: multicolor_red -> matrixcalendar.jpeg
-    images: ["/Products/matrixcalendar.jpeg"],
+    // ✅ FIXED: Now using all 7 L-Calendar images
+    images: [
+      "/Products/lcalendar1.jpeg",
+      "/Products/lcalendar2.jpeg",
+      "/Products/lcalendar3.jpeg",
+      "/Products/lcalendar4.jpeg",
+      "/Products/lcalendar5.jpeg",
+      "/Products/lcalendar6.jpeg",
+      "/Products/lcalendar7.jpeg"
+    ],
     name: "Multicolor Digital Calendar Clock", 
     price: "",
     category: "Premium Clocks",
     hasDualColor: true,
     hasTriColor: true,
-    // Using other calendar variants for color options
-    greenImages: ["/Products/lcalendar2.jpeg"], 
-    multiColorImages: [
-      "/Products/lcalendar3.jpeg", "/Products/lcalendar4.jpeg", "/Products/lcalendar5.jpeg", "/Products/lcalendar6.jpeg",
-    ],
     features: [
       "Suitable for luxury hotels, receptions, and cabins",
       "14x56 3mm dot matrix vibrant display",
@@ -204,7 +202,6 @@ const collections: ProductItem[] = [
     size: "Clock size: 65 cm Length x 8 cm Height",
   },
   {
-    // Updated: jumbolednew -> jumbored.jpeg
     images: ["/Products/jumbored.jpeg"],
     name: "Jumbo Industrial LED Clock", 
     price: "",
@@ -231,6 +228,7 @@ const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean 
 
   // Preload images
   useEffect(() => {
+    if (!images) return;
     images.forEach((img) => {
       const i = new Image();
       i.src = img;
@@ -259,7 +257,9 @@ const ProductImages = ({ images, isWide }: { images: string[]; isWide?: boolean 
       api.off("select", onSelect);
       clearInterval(interval);
     };
-  }, [api, images.length]);
+  }, [api, images?.length]);
+
+  if (!images || images.length === 0) return null;
 
   return (
     <div className="relative w-full max-w-lg flex flex-col items-center">
@@ -342,7 +342,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       </div>
 
       <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
-        {/* SEO: H3 is good here as it's a sub-topic of the page */}
         <h3 className="mb-3 font-body font-semibold text-3xl text-gray-100 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg group-hover:text-amber-400">
           {item.name}
         </h3>
