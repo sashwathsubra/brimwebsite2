@@ -15,16 +15,19 @@ const Index = () => {
       <main className="flex-grow">
         <HeroSlideshow />
 
-        {/* --- SEO VISIBLE TEXT: Targeting "Buy Online" & "Wall Clock" Keywords --- */}
+        {/* --- SEO VISIBLE TEXT: PERFECTED --- */}
         <div className="container mx-auto px-4 pt-10 pb-2 text-center">
+          {/* Main Title: Clear & Direct for Google */}
           <h1 className="text-3xl md:text-5xl font-bold mb-6 text-amber-500 drop-shadow-md">
             Buy Premium LED Digital Clocks in Chennai
           </h1>
           
-          <p className="max-w-3xl mx-auto text-gray-300 text-lg md:text-xl leading-relaxed mb-8">
-            Looking for a <span className="text-white font-semibold">digital clock online</span> or a custom <span className="text-white font-semibold">LED digital clock wall</span> display? 
-            Brim Clocks is your top choice for <span className="text-teal-400 font-medium">LED clock Chennai</span> manufacturing. 
-            We supply high-quality industrial timers, bank displays, and digital wall clocks across Tamil Nadu.
+          {/* Description: Catchy, Neat, & Keyword Rich */}
+          <p className="max-w-4xl mx-auto text-gray-300 text-lg md:text-xl leading-relaxed mb-8">
+            Elevate your space with a high-visibility <span className="text-white font-semibold">LED digital clock wall</span> display. 
+            As the trusted experts in <span className="text-teal-400 font-medium">LED clock Chennai</span> manufacturing, we combine precision with durability. 
+            Whether you want to <span className="text-teal-400 font-medium">buy clock Chennai</span> locally or order a <span className="text-white font-semibold">digital clock online</span>, 
+            Brim Clocks delivers superior industrial and home solutions across Tamil Nadu.
           </p>
         </div>
         {/* --- END SEO --- */}

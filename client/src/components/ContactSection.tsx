@@ -156,17 +156,20 @@ const ContactSection = () => {
         {/* --- HEADER --- */}
         <div className="text-center mb-16">
           <span className="font-body text-primary tracking-[0.18em] text-base font-medium uppercase">
-            Get In Touch
+            Expert Assistance
           </span>
           <h2 className="mt-4 mb-6 font-body text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
-            Contact B.R.Electronics
+            Partner with <span className="text-primary">BRIM</span>
           </h2>
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            We are based in Velachery, Chennai. Reach out for bulk orders, custom requirements, or service inquiries.
+          {/* SEO Optimized Description */}
+          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg leading-relaxed">
+            Ready to upgrade your infrastructure? As the premier <strong className="font-medium text-foreground">LED clock manufacturer in Chennai</strong>, 
+            we provide tailored solutions for banks, hospitals, and industries. 
+            Contact us to <strong className="font-medium text-foreground">buy digital clocks online</strong> or visit our Velachery showroom.
           </p>
         </div>
 
-        {/* --- CONTACT INFO CARDS (Address, Phone, Hours) --- */}
+        {/* --- CONTACT INFO CARDS --- */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 mb-20">
           {/* ADDRESS */}
           <motion.div
@@ -174,12 +177,12 @@ const ContactSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm"
+            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm hover:shadow-md transition-shadow"
           >
             <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
               <MapPin className="h-6 w-6" />
             </div>
-            <h3 className="mb-2 font-body font-semibold text-foreground">Visit Us</h3>
+            <h3 className="mb-2 font-body font-semibold text-foreground">Visit Our Factory</h3>
             <p className="text-sm leading-relaxed text-muted-foreground">
               <strong>B.R.Electronics</strong><br />
               14/20 Ranganathan Street,<br />
@@ -194,19 +197,19 @@ const ContactSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm"
+            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm hover:shadow-md transition-shadow"
           >
             <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
               <Phone className="h-6 w-6" />
             </div>
-            <h3 className="mb-2 font-body font-semibold text-foreground">Call Us</h3>
+            <h3 className="mb-2 font-body font-semibold text-foreground">Talk to Sales</h3>
             <p className="text-sm text-muted-foreground">
               <a href="tel:+919445887243" className="hover:text-primary transition-colors font-medium">
                 +91 94458 87243
               </a>
             </p>
             <p className="mt-2 text-xs text-muted-foreground">
-              Available Mon-Sat, 10am - 5pm
+              Support available Mon-Sat
             </p>
           </motion.div>
 
@@ -216,12 +219,12 @@ const ContactSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm"
+            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm hover:shadow-md transition-shadow"
           >
             <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
               <Mail className="h-6 w-6" />
             </div>
-            <h3 className="mb-2 font-body font-semibold text-foreground">Email Us</h3>
+            <h3 className="mb-2 font-body font-semibold text-foreground">Get a Quote</h3>
             <p className="text-sm text-muted-foreground break-all">
               <a href="mailto:brimdisplay@gmail.com" className="hover:text-primary transition-colors font-medium">
                 brimdisplay@gmail.com
@@ -235,7 +238,7 @@ const ContactSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm"
+            className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm hover:shadow-md transition-shadow"
           >
             <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
               <Clock className="h-6 w-6" />
@@ -253,17 +256,20 @@ const ContactSection = () => {
           <div className="max-w-2xl mx-auto text-center py-10 bg-card border border-border rounded-lg shadow-sm">
             <div className="animate-fade-slide">
               <CheckCircle className="w-16 h-16 text-primary mx-auto mb-6" />
-              <h2 className="text-3xl font-body text-foreground mb-4">Message Sent!</h2>
+              <h2 className="text-3xl font-body text-foreground mb-4">Request Received!</h2>
               <p className="text-muted-foreground text-lg px-4">
-                Thank you for contacting B.R.Electronics. We will check your inquiry and get back to you shortly.
+                Thank you for contacting <span className="font-semibold text-foreground">BRIM Electronics</span>. 
+                Our team will review your requirements and send a quote shortly.
               </p>
             </div>
           </div>
         ) : (
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10">
-              <h3 className="text-2xl font-body font-bold text-foreground">Send us a Message</h3>
-              <p className="text-muted-foreground mt-2">Fill out the form below for quotes or product details.</p>
+              <h3 className="text-2xl font-body font-bold text-foreground">Request Your Free Quote</h3>
+              <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+                Fill out the form below to inquire about <span className="text-foreground font-medium">custom LED displays</span> or bulk corporate orders.
+              </p>
             </div>
 
             <form
@@ -280,7 +286,7 @@ const ContactSection = () => {
                     id="name"
                     placeholder="Your full name"
                     {...register("name")}
-                    className="bg-input border-border focus:border-primary"
+                    className="bg-input border-border focus:border-primary transition-all duration-300"
                   />
                   {errors.name && (
                     <p className="text-destructive text-sm">{errors.name.message}</p>
@@ -295,8 +301,9 @@ const ContactSection = () => {
                   <Input
                     id="email"
                     type="email"
+                    placeholder="name@company.com"
                     {...register("email")}
-                    className="bg-input border-border focus:border-primary"
+                    className="bg-input border-border focus:border-primary transition-all duration-300"
                   />
                   {errors.email && (
                     <p className="text-destructive text-sm">{errors.email.message}</p>
@@ -309,12 +316,12 @@ const ContactSection = () => {
                     Enquiry For <span className="text-primary">*</span>
                   </Label>
                   <Select onValueChange={(value) => setValue("enquiryFor", value, { shouldDirty: true, shouldValidate: true })}>
-                    <SelectTrigger className="bg-input border-border focus:border-primary">
-                      <SelectValue placeholder="Select type..." />
+                    <SelectTrigger className="bg-input border-border focus:border-primary transition-all duration-300">
+                      <SelectValue placeholder="Select Product / Service..." />
                     </SelectTrigger>
                     <SelectContent className="bg-card border-border">
                       {enquiryTypes.map((type) => (
-                        <SelectItem key={type} value={type} className="hover:bg-secondary">
+                        <SelectItem key={type} value={type} className="hover:bg-secondary cursor-pointer">
                           {type}
                         </SelectItem>
                       ))}
@@ -333,9 +340,9 @@ const ContactSection = () => {
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="+91"
+                    placeholder="+91 99999 88888"
                     {...register("phone")}
-                    className="bg-input border-border focus:border-primary"
+                    className="bg-input border-border focus:border-primary transition-all duration-300"
                   />
                   {errors.phone && (
                     <p className="text-destructive text-sm">{errors.phone.message}</p>
@@ -345,13 +352,13 @@ const ContactSection = () => {
                 {/* Location */}
                 <div className="space-y-2 md:col-span-2">
                   <Label htmlFor="location" className="text-foreground">
-                    Location <span className="text-primary">*</span>
+                    Location / City <span className="text-primary">*</span>
                   </Label>
                   <Input
                     id="location"
-                    placeholder="Where do you need the delivery?"
+                    placeholder="e.g. Anna Nagar, Chennai (For delivery estimate)"
                     {...register("location")}
-                    className="bg-input border-border focus:border-primary"
+                    className="bg-input border-border focus:border-primary transition-all duration-300"
                   />
                   {errors.location && (
                     <p className="text-destructive text-sm">{errors.location.message}</p>
@@ -361,14 +368,14 @@ const ContactSection = () => {
                 {/* Message */}
                 <div className="space-y-2 md:col-span-2">
                   <Label htmlFor="message" className="text-foreground">
-                    Message <span className="text-muted-foreground text-sm">(Optional)</span>
+                    Specific Requirements <span className="text-muted-foreground text-sm">(Optional)</span>
                   </Label>
                   <Textarea
                     id="message"
-                    placeholder="Tell us more about your inquiry..."
+                    placeholder="Tell us about size requirements, LED color preference, or quantity..."
                     rows={4}
                     {...register("message")}
-                    className="bg-input border-border focus:border-primary resize-none"
+                    className="bg-input border-border focus:border-primary resize-none transition-all duration-300"
                   />
                   {errors.message && (
                     <p className="text-destructive text-sm">{errors.message.message}</p>
@@ -381,21 +388,21 @@ const ContactSection = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-primary text-primary-foreground hover:bg-[hsl(var(--gold-light))] w-full px-8 py-5 text-base font-medium transition-all duration-300 disabled:opacity-50 sm:w-auto sm:px-12 sm:py-6 sm:text-lg"
+                  className="bg-primary text-primary-foreground hover:bg-amber-600 w-full px-8 py-5 text-base font-medium transition-all duration-300 disabled:opacity-50 sm:w-auto sm:px-12 sm:py-6 sm:text-lg shadow-md hover:shadow-lg"
                 >
                   {isSubmitting ? (
-                    <span className="animate-pulse">Sending...</span>
+                    <span className="animate-pulse">Processing...</span>
                   ) : (
                     <>
                       <Send className="w-5 h-5 mr-2" />
-                      Send Message
+                      Send Inquiry
                     </>
                   )}
                 </Button>
               </div>
 
               <p className="text-muted-foreground text-sm text-center mt-6">
-                By submitting this form, you agree to share your contact details with B.R.Electronics.
+                Your details are secure. We typically respond within 24 hours.
               </p>
             </form>
           </div>

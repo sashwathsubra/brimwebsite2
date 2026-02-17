@@ -2,8 +2,7 @@ import { motion } from "framer-motion";
 
 /**
  * StatCounter Component
- * Simplified to be static. This ensures Google sees your 
- * experience and trust signals (35+ years, etc.) immediately.
+ * Static for immediate SEO visibility of trust signals.
  */
 const StatCounter = ({ value, label, showPlus = true }: { value: string; label: string; showPlus?: boolean }) => {
   return (
@@ -24,7 +23,7 @@ const AboutSection = () => {
       <div className="mx-auto max-w-7xl">
         <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
           
-          {/* Left Side: Brand Story */}
+          {/* Left Side: Brand Story (SEO Optimized) */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -41,21 +40,20 @@ const AboutSection = () => {
               <span className="text-primary">LED Clocks Chennai</span>
             </h2>
 
+            {/* Keyword Injection: "LED digital clock wall", "Buy clock Chennai", "Digital clock online" */}
             <p className="mb-6 font-body text-base leading-relaxed text-muted-foreground sm:text-lg">
-              <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}>BRIM</span> is a leading 
-              <strong className="font-medium text-foreground"> manufacturer of LED digital clocks in Chennai</strong>. 
-              We engineer professional-grade timekeeping solutions designed for longevity and precision. 
-              Trusted by financial institutions, corporate offices, and factories across <strong className="font-medium text-foreground">Tamil Nadu</strong>.
+              <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}>BRIM</span> is a leading manufacturer of <strong className="font-medium text-foreground">LED digital clock wall</strong> displays. 
+              We engineer professional-grade solutions designed for longevity. Whether you are looking to <strong className="font-medium text-foreground">buy clock Chennai</strong> verified quality or order a <strong className="font-medium text-foreground">digital clock online</strong>, we represent the gold standard in timekeeping.
             </p>
 
+            {/* Keyword Injection: "LED clock digital" */}
             <p className="mb-10 font-body text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Our clocks feature a refined, high-gloss finish and integrated battery backup systems, ensuring seamless reliability. 
-              Whether you need <strong className="font-medium text-foreground">industrial digital clocks</strong> or elegant office displays, 
-              <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}> BRIM</span> combines functional excellence with sophisticated design.
+              Trusted by financial institutions and factories across <strong className="font-medium text-foreground">Tamil Nadu</strong>, our <strong className="font-medium text-foreground">LED clock digital</strong> systems feature refined high-gloss finishes and 7-year battery backups. 
+              <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontWeight: 700 }}> BRIM</span> combines industrial durability with sophisticated executive design.
             </p>
           </motion.div>
 
-          {/* Right Side: Trust Stats (Now Static for SEO) */}
+          {/* Right Side: Trust Stats */}
           <motion.div 
             className="grid grid-cols-2 gap-6 sm:gap-8"
             initial={{ opacity: 0, x: 50 }}
