@@ -157,7 +157,6 @@ const collections: ProductItem[] = [
     },
   },
   {
-    // ✅ FIXED: Now using the Matrix Calendar image
     images: ["/Products/matrixcalendar.jpeg"],
     name: "Digital Calendar LED Clock", 
     price: "",
@@ -175,7 +174,6 @@ const collections: ProductItem[] = [
     size: "Clock size: 26 cm Length x 8 cm Height",
   },
   {
-    // ✅ FIXED: Now using all 7 L-Calendar images
     images: [
       "/Products/lcalendar1.jpeg",
       "/Products/lcalendar2.jpeg",
@@ -392,10 +390,14 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
 // ----------------------------
 export default function FeaturedCollection() {
   return (
-    <div className="space-y-8 md:space-y-16 px-4 md:px-12 lg:px-24">
+    // ✅ ADDED ID="products" AND SCROLL MARGIN
+    <section 
+      id="products" 
+      className="scroll-mt-24 space-y-8 md:space-y-16 px-4 md:px-12 lg:px-24"
+    >
       {collections.map((item, i) => (
         <ProductCard key={i} item={item} />
       ))}
-    </div>
+    </section>
   );
 }
