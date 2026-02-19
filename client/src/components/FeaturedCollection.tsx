@@ -74,7 +74,7 @@ type ProductItem = {
 };
 
 // ------------------------
-// Products Array (Grammatically Correct & SEO Optimized)
+// Products Array
 // ------------------------
 const collections: ProductItem[] = [
   {
@@ -223,9 +223,18 @@ const ProductImages = ({ images, productName, isWide }: { images: string[]; prod
   if (!images || images.length === 0) return null;
 
   return (
-    <div className="relative w-full max-w-lg flex flex-col items-center">
-      <Carousel setApi={setApi} opts={{ loop: true, align: "center" }} className="w-full">
-        <CarouselContent>
+    // FIX 2: Added `touch-pan-y` to allow vertical scrolling over the image on mobile
+    <div className="relative w-full max-w-sm md:max-w-md flex flex-col items-center touch-pan-y">
+      <Carousel 
+        setApi={setApi} 
+        opts={{ 
+          loop: true, 
+          align: "center",
+          watchDrag: images.length > 1 // FIX 2: Disables swiping entirely if there is only 1 image
+        }} 
+        className="w-full touch-pan-y"
+      >
+        <CarouselContent className="touch-pan-y">
           {images.map((src, i) => (
             <CarouselItem key={i} className="basis-full">
               <div className={`flex justify-center items-center bg-white rounded-xl overflow-hidden ${isWide ? "px-8 py-4" : "p-2"}`}>
@@ -256,7 +265,6 @@ const ProductImages = ({ images, productName, isWide }: { images: string[]; prod
 // ----------------------------
 const ProductCard = ({ item }: { item: ProductItem }) => {
   const phone = "919445887243";
-  // Grammatically corrected WhatsApp message
   const buildWhatsAppUrl = (product: string) =>
     `https://wa.me/${phone}?text=${encodeURIComponent(
       `Hello! I saw your ${product} online. I would like to buy a clock in Chennai. Please provide more details.`
@@ -270,27 +278,28 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
   const isWide = item.name.includes("Jumbo");
 
   return (
+    // FIX 1: Added `max-w-5xl` to prevent stretching, reduced `md:gap-16` to `md:gap-8`
     <motion.div
       id={item.name.toLowerCase().replace(/\s+/g, "-")}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="group cursor-pointer flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
+      className="group flex flex-col md:flex-row md:items-center md:gap-8 max-w-5xl mx-auto glass-effect rounded-2xl p-4 md:p-8 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
     >
       <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
-        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 w-full">
+        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 w-full justify-center">
           <ProductImages images={currentImages} productName={item.name} isWide={isWide} />
         </div>
       </div>
 
-      <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
-        <h2 className="mb-3 font-body font-semibold text-3xl text-gray-100 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg group-hover:text-amber-400">
+      <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-4 select-none">
+        <h2 className="mb-3 font-body font-semibold text-3xl text-gray-100 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg group-hover:text-amber-400 transition-colors duration-300">
           {item.name}
         </h2>
 
         {item.size && (
-          <div className="inline-block max-w-full break-words rounded-lg bg-white/10 border border-white/10 px-4 py-2 text-sm sm:text-base font-semibold text-gray-100 text-center md:text-left tracking-wide leading-relaxed backdrop-blur-sm shadow-sm mb-6">
+          <div className="inline-block max-w-max mx-auto md:mx-0 break-words rounded-lg bg-white/10 border border-white/10 px-4 py-2 text-sm sm:text-base font-semibold text-gray-100 text-center md:text-left tracking-wide leading-relaxed backdrop-blur-sm shadow-sm mb-6">
             {item.size}
           </div>
         )}
@@ -334,18 +343,16 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
 // ----------------------------
 export default function FeaturedCollection() {
   return (
-    <section id="products" className="scroll-mt-24 space-y-8 md:space-y-16 px-4 md:px-12 lg:px-24 pt-12">
+    <section id="products" className="scroll-mt-24 space-y-8 md:space-y-12 px-4 md:px-12 lg:px-24 pt-12">
       
       {/* COMPANY DESCRIPTION HEADER */}
-      <div className="text-center max-w-4xl mx-auto mb-8 md:mb-16">
-        <h1 className="text-3xl md:text-5xl font-bold text-gray-100 mb-6 tracking-tight">
-          Buy Premium LED Digital Clocks in Chennai
-        </h1>
+      <div className="text-center max-w-4xl mx-auto mb-8 md:mb-12">
+        <h2 className="text-3xl md:text-5xl font-bold text-gray-100 mb-6 tracking-tight">
+          Explore Our <span className="text-amber-400">LED Clock Collection</span>
+        </h2>
         <p className="text-gray-300 text-base md:text-lg leading-relaxed">
-          Elevate your space with a high-visibility <strong className="font-semibold text-teal-400">LED digital clock wall</strong> display. 
-          As the trusted experts in <strong className="font-semibold text-teal-400">LED clock manufacturing in Chennai</strong>, we combine 
-          precision with durability. Whether you want to buy a clock locally in Chennai or order a <strong className="font-semibold text-teal-400">digital clock online</strong>, 
-          Brim Clocks delivers superior industrial and home solutions across Tamil Nadu.
+          From compact mini clocks for office cabins to heavy-duty jumbo displays for factories. 
+          Browse our range of <strong className="font-semibold text-teal-400">digital clocks online</strong> and order directly via WhatsApp for delivery across Tamil Nadu.
         </p>
       </div>
 
