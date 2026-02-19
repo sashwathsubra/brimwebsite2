@@ -283,8 +283,8 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      // HARDCODED MARGIN HERE: mb-16 on mobile, mb-24 on desktop
-      className="group flex flex-col md:flex-row md:items-center md:gap-12 max-w-5xl mx-auto mb-16 md:mb-24 glass-effect rounded-2xl p-4 md:p-8 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
+      // Note: Removed the bottom margins here, relying entirely on the parent's flex-gap
+      className="w-full group flex flex-col md:flex-row md:items-center md:gap-12 max-w-5xl mx-auto glass-effect rounded-2xl p-4 md:p-8 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
     >
       <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
         <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 w-full justify-center">
@@ -342,23 +342,15 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
 // ----------------------------
 export default function FeaturedCollection() {
   return (
-    // REMOVED space-y entirely so it doesn't fight the card margins
-    <section id="products" className="scroll-mt-24 px-4 md:px-12 lg:px-24 pt-12 pb-20">
+    <section id="products" className="scroll-mt-24 px-4 md:px-12 lg:px-24 pt-16 pb-20">
       
-      {/* COMPANY DESCRIPTION HEADER */}
-      <div className="text-center max-w-4xl mx-auto mb-16 md:mb-24">
-        <h2 className="text-3xl md:text-5xl font-bold text-gray-100 mb-6 tracking-tight">
-          Explore Our <span className="text-amber-400">LED Clock Collection</span>
-        </h2>
-        <p className="text-gray-300 text-base md:text-lg leading-relaxed">
-          From compact mini clocks for office cabins to heavy-duty jumbo displays for factories. 
-          Browse our range of <strong className="font-semibold text-teal-400">digital clocks online</strong> and order directly via WhatsApp for delivery across Tamil Nadu.
-        </p>
+      {/* BULLETPROOF SPACING: Added flex flex-col with strong gap here */}
+      <div className="flex flex-col gap-16 md:gap-24">
+        {collections.map((item, i) => (
+          <ProductCard key={i} item={item} />
+        ))}
       </div>
 
-      {collections.map((item, i) => (
-        <ProductCard key={i} item={item} />
-      ))}
     </section>
   );
 }
