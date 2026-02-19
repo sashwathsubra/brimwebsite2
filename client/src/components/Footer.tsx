@@ -15,7 +15,7 @@ const Footer = () => {
             </h3>
             <p className="text-sm leading-relaxed text-gray-400 pr-4">
               The trusted <strong className="text-gray-200">LED digital clock manufacturer</strong> in Chennai since 1989. 
-              We engineer industrial-grade matrix displays and precision timing solutions for banks, factories, and offices across <strong className="text-gray-200">Tamil Nadu</strong>.
+              We engineer premium industrial-grade matrix displays and precision timing solutions, available exclusively for <strong className="text-gray-200">online order and direct delivery</strong> across Tamil Nadu.
             </p>
             <div className="flex items-center gap-2 text-amber-500 text-sm font-semibold">
               <ShieldCheck className="h-5 w-5" />
@@ -30,7 +30,7 @@ const Footer = () => {
               <li>
                 <a href="#products" className="group flex items-center gap-2 hover:text-amber-400 transition-colors">
                   <ChevronRight className="h-3 w-3 text-amber-500 group-hover:translate-x-1 transition-transform" />
-                  <span>Digital Clocks Online</span>
+                  <span>Shop Digital Clocks Online</span>
                 </a>
               </li>
               <li>
@@ -42,13 +42,13 @@ const Footer = () => {
               <li>
                 <a href="#contact" className="group flex items-center gap-2 hover:text-amber-400 transition-colors">
                   <ChevronRight className="h-3 w-3 text-amber-500 group-hover:translate-x-1 transition-transform" />
-                  <span>Buy Clock Chennai (Showroom)</span>
+                  <span>Bulk & Custom Orders</span>
                 </a>
               </li>
               <li>
                 <a href="#contact" className="group flex items-center gap-2 hover:text-amber-400 transition-colors">
                   <ChevronRight className="h-3 w-3 text-amber-500 group-hover:translate-x-1 transition-transform" />
-                  <span>Custom Orders</span>
+                  <span>Contact Support</span>
                 </a>
               </li>
             </ul>
@@ -56,14 +56,17 @@ const Footer = () => {
 
           {/* COLUMN 3: Factory Address */}
           <div className="space-y-5">
-            <h3 className="font-semibold text-lg text-white">Factory Address</h3>
+            <h3 className="font-semibold text-lg text-white">Manufacturing Unit</h3>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
                   14/20 Ranganathan Street,<br />
                   Ganesh Nagar, <strong className="text-white">Velachery</strong>,<br />
-                  Chennai - 600042
+                  Chennai - 600042<br />
+                  <span className="text-amber-500/80 text-xs italic mt-1 inline-block">
+                    (Manufacturing & Dispatch Only – No Retail Sales)
+                  </span>
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -88,14 +91,14 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <Clock className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
                 <div>
-                  <span className="block text-white font-medium">Business Hours</span>
+                  <span className="block text-white font-medium">Online Order Support</span>
                   <span className="text-xs">Mon - Sat: 10:00 AM - 05:00 PM</span>
                 </div>
               </li>
               <li>
                 <span className="block text-white font-medium mb-2">Delivery Areas</span>
                 <p className="text-xs leading-relaxed text-gray-500">
-                  Velachery, Guindy, OMR, Ambattur, Sriperumbudur, and all districts in Tamil Nadu.
+                  Direct shipping to Velachery, Guindy, OMR, Ambattur, Sriperumbudur, and all districts across Tamil Nadu.
                 </p>
               </li>
             </ul>
@@ -107,7 +110,7 @@ const Footer = () => {
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
           <p>&copy; {currentYear} B.R. Electronics (Brim Clocks). All rights reserved.</p>
           <p className="hidden md:block">
-            Best <span className="text-gray-400">LED Digital Clock Wall</span> Solutions in India.
+            Premium <span className="text-gray-400">LED Digital Clock Wall</span> Solutions Delivered Across India.
           </p>
         </div>
       </div>

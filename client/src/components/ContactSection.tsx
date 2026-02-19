@@ -165,7 +165,7 @@ const ContactSection = () => {
           <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg leading-relaxed">
             Ready to upgrade your infrastructure? As the premier <strong className="font-medium text-foreground">LED clock manufacturer in Chennai</strong>, 
             we provide tailored solutions for banks, hospitals, and industries. 
-            Contact us to <strong className="font-medium text-foreground">buy digital clocks online</strong> or visit our Velachery showroom.
+            Contact us to <strong className="font-medium text-foreground">buy digital clocks online</strong> for direct delivery across Tamil Nadu.
           </p>
         </div>
 
@@ -182,12 +182,12 @@ const ContactSection = () => {
             <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
               <MapPin className="h-6 w-6" />
             </div>
-            <h3 className="mb-2 font-body font-semibold text-foreground">Visit Our Factory</h3>
+            <h3 className="mb-2 font-body font-semibold text-foreground">Manufacturing Unit</h3>
             <p className="text-sm leading-relaxed text-muted-foreground">
               <strong>B.R.Electronics</strong><br />
               14/20 Ranganathan Street,<br />
-              Ganesh Nagar, Velachery,<br />
-              Chennai 600042
+              Velachery, Chennai 600042<br />
+              <span className="text-xs italic mt-2 block">(Dispatch Only - No Retail Sales)</span>
             </p>
           </motion.div>
 
@@ -243,7 +243,7 @@ const ContactSection = () => {
             <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
               <Clock className="h-6 w-6" />
             </div>
-            <h3 className="mb-2 font-body font-semibold text-foreground">Working Hours</h3>
+            <h3 className="mb-2 font-body font-semibold text-foreground">Online Order Support</h3>
             <p className="text-sm text-muted-foreground">
               Monday - Saturday<br />
               <span className="font-medium">10:00 AM - 05:00 PM</span>

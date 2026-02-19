@@ -13,11 +13,11 @@ import {
 type ProductColor = "red" | "green" | "multicolor";
 type ProductDensity = "Thin" | "Thick";
 
-// SEO: Highlighting keywords for Google & Users
+// SEO: Highlighting keywords naturally for Google & Users
 const placeWordList = [
-  "home","office","executive","cabin","mosque","temple","church","hospital",
-  "clinic","school","college","showroom","shop","restaurant","hotel",
-  "factory","warehouse","hall","halls","reception","auditorium",
+  "home", "office", "executive", "cabin", "mosque", "temple", "church", "hospital",
+  "clinic", "school", "college", "showroom", "shop", "restaurant", "hotel",
+  "factory", "warehouse", "hall", "halls", "reception", "auditorium",
   "chennai", "india", "tamil nadu", "banks", "industrial", "digital",
   "online", "buy", "wall", "clock"
 ] as const;
@@ -74,7 +74,7 @@ type ProductItem = {
 };
 
 // ------------------------
-// Products Array (SEO OPTIMIZED)
+// Products Array (Grammatically Correct & SEO Optimized)
 // ------------------------
 const collections: ProductItem[] = [
   {
@@ -83,10 +83,10 @@ const collections: ProductItem[] = [
     price: "",
     category: "Digital Wall Clocks",
     features: [
-      "Buy digital clock online: Perfect for home & executive cabins.",
-      "High Visibility: 1-inch bright LED clock digital display.",
-      "Reliable: Built-in 7-year battery backup.",
-      "Complete Kit: Includes 5V adapter & wall mount support.",
+      "Order your digital clock online: Perfect for homes and executive cabins.",
+      "High Visibility: Features a bright 1-inch digital LED clock display.",
+      "Reliable: Comes with a built-in 7-year battery backup.",
+      "Complete Kit: Includes a 5V adapter and wall mount support.",
     ],
     size: "Size: 14 cm x 6.5 cm",
   },
@@ -96,10 +96,10 @@ const collections: ProductItem[] = [
     price: "",
     category: "Digital Wall Clocks",
     features: [
-      "Top rated LED clock Chennai: Ideal for offices & shops.",
-      "Durable: Glassy ABS finish with 1-inch LED display.",
-      "Power Safe: Memory backup protects time during power cuts.",
-      "Easy Install: Table-top or wall mount ready.",
+      "Top-rated LED clock in Chennai: Ideal for offices and shops.",
+      "Durable: Designed with a glassy ABS finish and a 1-inch LED display.",
+      "Power Safe: Memory backup protects the time during power cuts.",
+      "Easy Install: Ready for table-top use or wall mounting.",
     ],
     size: "Size: 14 cm x 6.5 cm",
   },
@@ -109,10 +109,10 @@ const collections: ProductItem[] = [
     price: "",
     category: "Industrial Clocks",
     features: [
-      "Best Seller: The preferred digital clock Chennai for banks.",
-      "Industrial Grade: 7x30 Dot Matrix LED for clear reading.",
-      "Long Life: 7+ year battery backup & customizable fonts.",
-      "Buy Clock Chennai: Direct from manufacturer with warranty.",
+      "Best Seller: The preferred digital clock in Chennai for banks.",
+      "Industrial Grade: Uses a 7x30 Dot Matrix LED for clear reading.",
+      "Long Life: Includes a 7+ year battery backup and customizable fonts.",
+      "Buy locally: Order direct from the manufacturer in Chennai with a warranty.",
     ],
     size: "Size: 26 cm x 8 cm",
     densityOptions: ["Thin", "Thick"],
@@ -126,10 +126,10 @@ const collections: ProductItem[] = [
     price: "",
     category: "Executive Clocks",
     features: [
-      "Premium LED digital clock wall display (Red/Green options).",
-      "Smart Design: Customizable fonts for showrooms & cabins.",
-      "Reliable: Heavy-duty build with 7-year memory backup.",
-      "Local Support: Service available across Tamil Nadu.",
+      "Premium LED digital wall clock display (Available in Red and Green).",
+      "Smart Design: Easily customizable fonts for showrooms and cabins.",
+      "Reliable: Heavy-duty build paired with a 7-year memory backup.",
+      "Local Support: Dedicated service available across Tamil Nadu.",
     ],
     size: "Size: 26 cm x 8 cm",
     greenImages: ["/Products/matrixdual3.jpeg", "/Products/matrixdual4.jpeg"],
@@ -145,10 +145,10 @@ const collections: ProductItem[] = [
     price: "",
     category: "Calendar Clocks",
     features: [
-      "Complete Display: Shows Time, Day, and Date clearly.",
-      "Reception Ready: Ideal digital clock online for hospitals/hotels.",
-      "High Tech: 14x56 Dot Matrix with high accuracy.",
-      "Durable: 7-year battery backup included.",
+      "Complete Display: Shows the Time, Day, and Date clearly at a glance.",
+      "Reception Ready: The ideal digital clock to order online for hospitals and hotels.",
+      "High Tech: Utilizes a 14x56 Dot Matrix display for high accuracy.",
+      "Durable: A 7-year battery backup is included as standard.",
     ],
     size: "Size: 26 cm x 8 cm",
   },
@@ -168,10 +168,10 @@ const collections: ProductItem[] = [
     hasDualColor: true,
     hasTriColor: true,
     features: [
-      "Luxury Choice: Vibrant multicolor LED clock digital display.",
-      "Big Screen: 14x56 Matrix, perfect for halls & lobbies.",
-      "Buy Clock Chennai: Best quality finish for corporate gifting.",
-      "Features: Wall mountable with 5V power supply included.",
+      "Luxury Choice: A vibrant, multicolor digital LED clock display.",
+      "Big Screen: The 14x56 Matrix is perfect for large halls and lobbies.",
+      "Corporate Choice: Buy clocks in Chennai with the best quality finish for gifting.",
+      "Features: Wall mountable design with a 5V power supply included.",
     ],
     size: "Size: 65 cm x 8 cm",
   },
@@ -181,10 +181,10 @@ const collections: ProductItem[] = [
     price: "",
     category: "Industrial Clocks",
     features: [
-      "Heavy Duty: Best industrial LED digital clock wall unit.",
-      "Long Distance: Visible from 100+ feet (Factories/Temples).",
-      "Rugged: Built for heat/dust environments with 12V power.",
-      "Reliable: 7-year backup. Trusted by Chennai industries.",
+      "Heavy Duty: The best industrial LED digital wall clock unit available.",
+      "Long Distance: Highly visible from over 100 feet away (Great for factories and temples).",
+      "Rugged: Built for high-heat and dusty environments with a 12V power supply.",
+      "Reliable: 7-year backup. Trusted by major industries across Chennai.",
     ],
     size: "Size: 90 cm x 30 cm",
   },
@@ -231,7 +231,7 @@ const ProductImages = ({ images, productName, isWide }: { images: string[]; prod
               <div className={`flex justify-center items-center bg-white rounded-xl overflow-hidden ${isWide ? "px-8 py-4" : "p-2"}`}>
                 <img 
                   src={src} 
-                  alt={`${productName} Chennai - View ${i + 1}`} 
+                  alt={`${productName} - View ${i + 1}`} 
                   loading="eager" 
                   className="w-full h-auto max-h-[320px] md:max-h-[340px] object-contain rounded-xl" 
                 />
@@ -256,9 +256,10 @@ const ProductImages = ({ images, productName, isWide }: { images: string[]; prod
 // ----------------------------
 const ProductCard = ({ item }: { item: ProductItem }) => {
   const phone = "919445887243";
+  // Grammatically corrected WhatsApp message
   const buildWhatsAppUrl = (product: string) =>
     `https://wa.me/${phone}?text=${encodeURIComponent(
-      `Hello! I saw your ${product} online. I want to buy clock in Chennai. Please give details.`
+      `Hello! I saw your ${product} online. I would like to buy a clock in Chennai. Please provide more details.`
     )}`;
 
   const currentImages = [
@@ -278,7 +279,9 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       className="group cursor-pointer flex flex-col md:flex-row md:items-center md:gap-16 mx-auto glass-effect rounded-2xl p-4 md:p-10 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
     >
       <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
-        <ProductImages images={currentImages} productName={item.name} isWide={isWide} />
+        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 w-full">
+          <ProductImages images={currentImages} productName={item.name} isWide={isWide} />
+        </div>
       </div>
 
       <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-6 select-none">
@@ -292,6 +295,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           </div>
         )}
 
+        {/* Desktop Features */}
         <ul className="mt-2 list-none space-y-2 text-left text-gray-300 mb-6 hidden md:block">
           {item.features?.map((feature, i) => (
             <li key={i} className="relative pl-5 font-body text-[1.05em] leading-tight">
@@ -301,6 +305,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           ))}
         </ul>
 
+        {/* Mobile Features */}
         <ul className="mt-4 space-y-3 text-gray-300 mb-6 block md:hidden">
           {item.features?.map((feature, i) => (
             <li key={i} className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 font-body text-[1em] leading-snug">
@@ -329,7 +334,21 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
 // ----------------------------
 export default function FeaturedCollection() {
   return (
-    <section id="products" className="scroll-mt-24 space-y-8 md:space-y-16 px-4 md:px-12 lg:px-24">
+    <section id="products" className="scroll-mt-24 space-y-8 md:space-y-16 px-4 md:px-12 lg:px-24 pt-12">
+      
+      {/* COMPANY DESCRIPTION HEADER */}
+      <div className="text-center max-w-4xl mx-auto mb-8 md:mb-16">
+        <h1 className="text-3xl md:text-5xl font-bold text-gray-100 mb-6 tracking-tight">
+          Buy Premium LED Digital Clocks in Chennai
+        </h1>
+        <p className="text-gray-300 text-base md:text-lg leading-relaxed">
+          Elevate your space with a high-visibility <strong className="font-semibold text-teal-400">LED digital clock wall</strong> display. 
+          As the trusted experts in <strong className="font-semibold text-teal-400">LED clock manufacturing in Chennai</strong>, we combine 
+          precision with durability. Whether you want to buy a clock locally in Chennai or order a <strong className="font-semibold text-teal-400">digital clock online</strong>, 
+          Brim Clocks delivers superior industrial and home solutions across Tamil Nadu.
+        </p>
+      </div>
+
       {collections.map((item, i) => (
         <ProductCard key={i} item={item} />
       ))}
