@@ -223,14 +223,13 @@ const ProductImages = ({ images, productName, isWide }: { images: string[]; prod
   if (!images || images.length === 0) return null;
 
   return (
-    // FIX 2: Added `touch-pan-y` to allow vertical scrolling over the image on mobile
     <div className="relative w-full max-w-sm md:max-w-md flex flex-col items-center touch-pan-y">
       <Carousel 
         setApi={setApi} 
         opts={{ 
           loop: true, 
           align: "center",
-          watchDrag: images.length > 1 // FIX 2: Disables swiping entirely if there is only 1 image
+          watchDrag: images.length > 1 
         }} 
         className="w-full touch-pan-y"
       >
@@ -278,14 +277,14 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
   const isWide = item.name.includes("Jumbo");
 
   return (
-    // ADJUSTED: Changed md:gap-8 to md:gap-12 for that perfect middle-ground spacing between image and text
     <motion.div
       id={item.name.toLowerCase().replace(/\s+/g, "-")}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="group flex flex-col md:flex-row md:items-center md:gap-12 max-w-5xl mx-auto glass-effect rounded-2xl p-4 md:p-8 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
+      // HARDCODED MARGIN HERE: mb-16 on mobile, mb-24 on desktop
+      className="group flex flex-col md:flex-row md:items-center md:gap-12 max-w-5xl mx-auto mb-16 md:mb-24 glass-effect rounded-2xl p-4 md:p-8 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
     >
       <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
         <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 w-full justify-center">
@@ -343,11 +342,11 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
 // ----------------------------
 export default function FeaturedCollection() {
   return (
-    // ADJUSTED: Changed space-y-8 md:space-y-12 to space-y-12 md:space-y-16 to give the cards a bit more breathing room vertically
-    <section id="products" className="scroll-mt-24 space-y-12 md:space-y-16 px-4 md:px-12 lg:px-24 pt-12 pb-16">
+    // REMOVED space-y entirely so it doesn't fight the card margins
+    <section id="products" className="scroll-mt-24 px-4 md:px-12 lg:px-24 pt-12 pb-20">
       
       {/* COMPANY DESCRIPTION HEADER */}
-      <div className="text-center max-w-4xl mx-auto mb-10 md:mb-16">
+      <div className="text-center max-w-4xl mx-auto mb-16 md:mb-24">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-100 mb-6 tracking-tight">
           Explore Our <span className="text-amber-400">LED Clock Collection</span>
         </h2>
