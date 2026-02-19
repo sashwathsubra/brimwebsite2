@@ -15,7 +15,7 @@ const Index = () => {
       <main className="flex-grow">
         <HeroSlideshow />
 
-        {/* --- SEO VISIBLE TEXT: PERFECTED --- */}
+        {/* --- SEO VISIBLE TEXT: PERFECTED (GOLD VERSION) --- */}
         <div className="container mx-auto px-4 pt-10 pb-2 text-center">
           {/* Main Title: Clear & Direct for Google */}
           <h1 className="text-3xl md:text-5xl font-bold mb-6 text-amber-500 drop-shadow-md">
