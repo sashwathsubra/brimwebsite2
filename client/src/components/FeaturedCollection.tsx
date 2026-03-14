@@ -74,47 +74,50 @@ type ProductItem = {
 };
 
 // ------------------------
-// Products Array
+// Products Array (UPDATED WITH NEW SPECS & SEO INTACT)
 // ------------------------
 const collections: ProductItem[] = [
   {
     images: ["/Products/minired.jpeg"],
     name: "Mini LED Digital Clock (Red)", 
-    price: "",
+    price: "Rs. 990/-",
     category: "Digital Wall Clocks",
     features: [
-      "Order your digital clock online: Perfect for homes and executive cabins.",
-      "High Visibility: Features a bright 1-inch digital LED clock display.",
-      "Reliable: Comes with a built-in 7-year battery backup.",
-      "Complete Kit: Includes a 5V adapter and wall mount support.",
+      "Ideal for homes, offices, and executive cabins (Suits up to 250 sq. ft. rooms).",
+      "High Brightness: Features a 7-segment digital LED clock display that is readable at night.",
+      "Maintenance Free: 8+ years durable lifespan with built-in lithium battery memory backup.",
+      "Complete Kit: Includes a 5V DC power supply, built-in setting buttons, and ABS plastic finish for wall or table-top use.",
+      "Warranty: 1-year guarantee. Order your digital clock online today!",
     ],
-    size: "Size: 14 cm x 6.5 cm",
+    size: "Size: 14 x 6.5 x 3 cm | Weight: 250g",
   },
   {
     images: ["/Products/minigreen.jpeg"],
     name: "Mini LED Digital Clock (Green)", 
-    price: "",
+    price: "Rs. 990/-",
     category: "Digital Wall Clocks",
     features: [
-      "Top-rated LED clock in Chennai: Ideal for offices and shops.",
-      "Durable: Designed with a glassy ABS finish and a 1-inch LED display.",
-      "Power Safe: Memory backup protects the time during power cuts.",
-      "Easy Install: Ready for table-top use or wall mounting.",
+      "Perfect for shops and clinics (Suits up to 250 sq. ft. rooms).",
+      "High Brightness: Features a 7-segment digital LED clock display that is readable at night.",
+      "Maintenance Free: 8+ years durable lifespan with built-in lithium battery memory backup.",
+      "Complete Kit: Includes a 5V DC power supply, built-in setting buttons, and ABS plastic finish for wall or table-top use.",
+      "Warranty: 1-year guarantee. Buy the top-rated LED clock in Chennai.",
     ],
-    size: "Size: 14 cm x 6.5 cm",
+    size: "Size: 14 x 6.5 x 3 cm | Weight: 250g",
   },
   {
     images: ["/Products/matrixsingle1.jpeg", "/Products/matrixsingle2.jpeg"],
     name: "Red Dot Matrix LED Clock", 
-    price: "",
+    price: "Rs. 1,390/-",
     category: "Industrial Clocks",
     features: [
-      "Best Seller: The preferred digital clock in Chennai for banks.",
-      "Industrial Grade: Uses a 7x30 Dot Matrix LED for clear reading.",
-      "Long Life: Includes a 7+ year battery backup and customizable fonts.",
-      "Buy locally: Order direct from the manufacturer in Chennai with a warranty.",
+      "Perfect for banks and showrooms (Suits up to 400 sq. ft. rooms).",
+      "Customizable Display: High-bright 7x30 LED Dot Matrix clock with dual font options and night-time readability.",
+      "Industrial Grade Build: Aluminium powder-coated finish for secure wall or table-top mounting.",
+      "Power Safe: 8+ years lifespan with built-in lithium battery memory backup and 5V DC input.",
+      "Warranty: 1-year guarantee. Buy locally direct from the manufacturer in Chennai.",
     ],
-    size: "Size: 26 cm x 8 cm",
+    size: "Size: 26 x 8 x 4 cm | Weight: 450g",
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
       red: { Thin: ["/Products/matrixsingle1.jpeg"], Thick: ["/Products/matrixsingle2.jpeg"] },
@@ -123,15 +126,16 @@ const collections: ProductItem[] = [
   {
     images: ["/Products/matrixdual1.jpeg", "/Products/matrixdual2.jpeg"],
     name: "Dual Colour Dot Matrix Clock",
-    price: "",
+    price: "Rs. 1,790/-",
     category: "Executive Clocks",
     features: [
-      "Premium LED digital wall clock display (Available in Red and Green).",
-      "Smart Design: Easily customizable fonts for showrooms and cabins.",
-      "Reliable: Heavy-duty build paired with a 7-year memory backup.",
-      "Local Support: Dedicated service available across Tamil Nadu.",
+      "Ideal for hospital receptions and executive cabins (Suits up to 400 sq. ft. rooms).",
+      "Smart Dual-Colour Design: High-bright 7x30 LED Dot Matrix digital wall clock where users can select fonts and colors.",
+      "Premium Durability: Aluminium powder-coat finish, built for 8+ years of maintenance-free operation.",
+      "Reliable: Built-in lithium battery memory backup protects time data during power cuts (5V DC included).",
+      "Support: 1-year guarantee. Dedicated service for digital clocks across Tamil Nadu.",
     ],
-    size: "Size: 26 cm x 8 cm",
+    size: "Size: 26 x 8 x 4 cm | Weight: 450g",
     greenImages: ["/Products/matrixdual3.jpeg", "/Products/matrixdual4.jpeg"],
     densityOptions: ["Thin", "Thick"],
     colorDensityImages: {
@@ -142,15 +146,16 @@ const collections: ProductItem[] = [
   {
     images: ["/Products/matrixcalendar.jpeg"],
     name: "Digital Calendar LED Clock", 
-    price: "",
+    price: "Rs. 2,350/-",
     category: "Calendar Clocks",
     features: [
-      "Complete Display: Shows the Time, Day, and Date clearly at a glance.",
-      "Reception Ready: The ideal digital clock to order online for hospitals and hotels.",
-      "High Tech: Utilizes a 14x56 Dot Matrix display for high accuracy.",
-      "Durable: A 7-year battery backup is included as standard.",
+      "Reception Ready: The ideal digital calendar clock for hotels and schools (Suits up to 300 sq. ft. rooms).",
+      "Complete Display: High-bright 14x56 LED Dot Matrix shows Time, Day, and Date clearly at a glance.",
+      "Robust Construction: Features a premium aluminium powder-coat finish for easy wall or table-top mounting.",
+      "Long-Lasting: Enjoy 8+ years of durable, maintenance-free use with a built-in lithium battery backup.",
+      "Warranty: 1-year guarantee. Order your digital clocks online with a 5V power supply included.",
     ],
-    size: "Size: 26 cm x 8 cm",
+    size: "Size: 26 x 8 x 4 cm | Weight: 450g",
   },
   {
     images: [
@@ -163,30 +168,32 @@ const collections: ProductItem[] = [
       "/Products/lcalendar7.jpeg"
     ],
     name: "Multicolor Digital Calendar Clock", 
-    price: "",
+    price: "Rs. 3,950/-",
     category: "Premium Clocks",
     hasDualColor: true,
     hasTriColor: true,
     features: [
-      "Luxury Choice: A vibrant, multicolor digital LED clock display.",
-      "Big Screen: The 14x56 Matrix is perfect for large halls and lobbies.",
-      "Corporate Choice: Buy clocks in Chennai with the best quality finish for gifting.",
-      "Features: Wall mountable design with a 5V power supply included.",
+      "Luxury Choice: Ideal for large auditoriums, halls, colleges, and mosques (Suits up to 2000 sq. ft. rooms).",
+      "Advanced Customization: High-bright 7x80 LED Dot Matrix digital clock with 6 options for user-selectable fonts, colors, and modes.",
+      "Corporate Quality: Aluminium powder-coat finish provides a premium look for gifting and professional use.",
+      "Reliable Backup: Built-in lithium battery protects memory for 8+ years of maintenance-free operation.",
+      "Complete Package: Includes 5V DC power supply and a 1-year guarantee. Buy the best digital clocks in Chennai.",
     ],
-    size: "Size: 65 cm x 8 cm",
+    size: "Size: 64 x 8 x 4 cm | Weight: 1250g",
   },
   {
     images: ["/Products/jumbored.jpeg"],
     name: "Jumbo Industrial LED Clock", 
-    price: "",
+    price: "Rs. 4,950/-",
     category: "Industrial Clocks",
     features: [
-      "Heavy Duty: The best industrial LED digital wall clock unit available.",
-      "Long Distance: Highly visible from over 100 feet away (Great for factories and temples).",
-      "Rugged: Built for high-heat and dusty environments with a 12V power supply.",
-      "Reliable: 7-year backup. Trusted by major industries across Chennai.",
+      "Heavy Duty: The ultimate industrial LED clock for factories, warehouses, and temples (Suits 5000+ sq. ft. halls).",
+      "Maximum Visibility: Features ultra-bright 5mm 7-segment LEDs, perfectly readable day or night from long distances.",
+      "Rugged Build: Heavy aluminium powder-coat finish designed for wall or ceiling mounting in tough environments.",
+      "Industrial Power: Runs on 12V DC (supply included) with a built-in lithium battery for continuous memory backup.",
+      "Trusted Warranty: 1-year guarantee with 8+ years of maintenance-free durability. Trusted across industrial India.",
     ],
-    size: "Size: 90 cm x 30 cm",
+    size: "Size: 73 x 28 x 4 cm | Weight: 2000g",
   },
 ];
 
@@ -283,7 +290,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      // Note: Removed the bottom margins here, relying entirely on the parent's flex-gap
       className="w-full group flex flex-col md:flex-row md:items-center md:gap-12 max-w-5xl mx-auto glass-effect rounded-2xl p-4 md:p-8 overflow-hidden hover:bg-white/[0.03] transition-colors border border-white/5"
     >
       <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
@@ -293,28 +299,36 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       </div>
 
       <div className="flex flex-col flex-grow w-full md:w-1/2 p-2 md:p-0 md:pl-4 select-none">
-        <h2 className="mb-3 font-body font-semibold text-3xl text-gray-100 text-center md:text-left md:text-4xl md:mb-5 drop-shadow-lg group-hover:text-amber-400 transition-colors duration-300">
+        <h2 className="mb-4 font-body font-semibold text-3xl text-gray-100 text-center md:text-left md:text-4xl drop-shadow-lg group-hover:text-amber-400 transition-colors duration-300">
           {item.name}
         </h2>
 
-        {item.size && (
-          <div className="inline-block max-w-max mx-auto md:mx-0 break-words rounded-lg bg-white/10 border border-white/10 px-4 py-2 text-sm sm:text-base font-semibold text-gray-100 text-center md:text-left tracking-wide leading-relaxed backdrop-blur-sm shadow-sm mb-6">
-            {item.size}
-          </div>
-        )}
+        {/* NEWLY ADDED: Price & Size Badges Side-by-Side */}
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-6">
+          {item.price && (
+            <div className="inline-block rounded-lg bg-amber-400/10 border border-amber-400/20 px-4 py-2 text-sm sm:text-base font-bold text-amber-400 tracking-wide backdrop-blur-sm shadow-sm">
+              {item.price}
+            </div>
+          )}
+          {item.size && (
+            <div className="inline-block rounded-lg bg-white/10 border border-white/10 px-4 py-2 text-sm sm:text-base font-medium text-gray-200 tracking-wide backdrop-blur-sm shadow-sm">
+              {item.size}
+            </div>
+          )}
+        </div>
 
         {/* Desktop Features */}
-        <ul className="mt-2 list-none space-y-2 text-left text-gray-300 mb-6 hidden md:block">
+        <ul className="mt-2 list-none space-y-3 text-left text-gray-300 mb-8 hidden md:block">
           {item.features?.map((feature, i) => (
-            <li key={i} className="relative pl-5 font-body text-[1.05em] leading-tight">
-              <span className="absolute left-0 top-1 font-bold text-amber-400">•</span>
+            <li key={i} className="relative pl-5 font-body text-[1.05em] leading-relaxed">
+              <span className="absolute left-0 top-1.5 font-bold text-amber-400">•</span>
               {renderFeatureText(feature)}
             </li>
           ))}
         </ul>
 
         {/* Mobile Features */}
-        <ul className="mt-4 space-y-3 text-gray-300 mb-6 block md:hidden">
+        <ul className="mt-2 space-y-3 text-gray-300 mb-8 block md:hidden">
           {item.features?.map((feature, i) => (
             <li key={i} className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 font-body text-[1em] leading-snug">
               {renderFeatureText(feature)}
@@ -327,7 +341,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
             href={buildWhatsAppUrl(item.name)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-green-500/70 hover:bg-green-500/90 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition-colors text-lg"
+            className="inline-flex items-center gap-2 bg-green-500/70 hover:bg-green-500/90 text-white font-semibold px-6 py-3.5 rounded-xl shadow-md transition-all duration-300 text-lg hover:scale-[1.02]"
           >
             Buy on WhatsApp
           </a>
@@ -344,7 +358,7 @@ export default function FeaturedCollection() {
   return (
     <section id="products" className="scroll-mt-24 px-4 md:px-12 lg:px-24 pt-16 pb-20">
       
-      {/* BULLETPROOF SPACING: Added flex flex-col with strong gap here */}
+      {/* BULLETPROOF SPACING */}
       <div className="flex flex-col gap-16 md:gap-24">
         {collections.map((item, i) => (
           <ProductCard key={i} item={item} />
