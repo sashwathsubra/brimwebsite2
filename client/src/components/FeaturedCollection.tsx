@@ -19,18 +19,24 @@ type ProductDensity = "Thin" | "Thick";
 // We use full phrases here to ensure uniform bolding instead of disjointed words.
 // Sorted by length descending later so longer phrases match first.
 const seoPhrasesList = [
+  "14x56 led dot matrix display",
+  "7x80 led dot matrix digital clock",
   "7-segment digital led clock",
   "led dot matrix digital wall clock",
   "led dot matrix digital clock",
   "led dot matrix clock",
   "led dot matrix display",
   "digital calendar clock",
+  "jumbo led clock",
   "industrial led clock",
   "digital wall clock",
   "digital clocks",
   "digital clock",
   "led clock",
+  "night time readable",
   "night-time readability",
+  "lithium battery",
+  "aluminium powder-coated finish",
   "executive cabins",
   "hospital receptions",
   "large auditoriums",
@@ -52,7 +58,6 @@ const seoPhrasesList = [
   "tamil nadu",
   "chennai",
   "india",
-  "Night time readable:",
 ];
 
 // Sort by length to prioritize matching longer phrases (e.g., "digital led clock" before "led clock")
@@ -387,7 +392,7 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-green-500/70 hover:bg-green-500/90 text-white font-semibold px-6 py-3.5 rounded-xl shadow-md transition-all duration-300 text-lg hover:scale-[1.02]"
           >
-            Buy on WhatsApp
+            WhatsApp Us
           </a>
         </div>
       </div>
