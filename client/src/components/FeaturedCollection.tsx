@@ -52,7 +52,7 @@ const seoPhrasesList = [
   "tamil nadu",
   "chennai",
   "india",
-  "Night time readable",
+  "Night time readable:",
 ];
 
 // Sort by length to prioritize matching longer phrases (e.g., "digital led clock" before "led clock")
