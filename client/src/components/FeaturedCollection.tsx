@@ -28,7 +28,6 @@ const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi
 function renderFeatureText(feature: string) {
   if (feature.toLowerCase().startsWith("suitable for") || feature.toLowerCase().startsWith("ideal for")) {
     return (
-      // Changed from text-teal-400 to text-white
       <span className="font-semibold text-white whitespace-normal break-words">
         {feature}
       </span>
@@ -38,7 +37,6 @@ function renderFeatureText(feature: string) {
     const cleanPart = part.replace(/[,.:;!?]/g, "").toLowerCase();
     if (placeWordSet.has(cleanPart)) {
       return (
-        // Changed from text-teal-400 to text-white
         <span
           key={`${index}-${part}`}
           className="font-semibold text-white whitespace-normal break-words"
@@ -76,7 +74,7 @@ type ProductItem = {
 };
 
 // ------------------------
-// Products Array (UPDATED WITH ₹ SYMBOL)
+// Products Array
 // ------------------------
 const collections: ProductItem[] = [
   {
@@ -306,10 +304,10 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
         </h2>
 
         {/* PRICE & SIZE BADGES */}
-        <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-6">
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-6">
           {item.price && (
-            // BUMPED UP SIZE: Added text-base sm:text-lg and px-5
-            <div className="inline-block rounded-lg bg-amber-400/10 border border-amber-400/20 px-5 py-2 text-base sm:text-lg font-bold text-amber-400 tracking-wide backdrop-blur-sm shadow-sm">
+            // FIX: Bumped text up to text-xl md:text-2xl so it fills out the box beautifully!
+            <div className="inline-block rounded-xl bg-amber-400/10 border border-amber-400/20 px-6 py-2.5 text-xl md:text-2xl font-bold text-amber-400 tracking-wide backdrop-blur-sm shadow-sm">
               {item.price}
             </div>
           )}
