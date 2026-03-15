@@ -13,38 +13,76 @@ import {
 type ProductColor = "red" | "green" | "multicolor";
 type ProductDensity = "Thin" | "Thick";
 
-// SEO: Highlighting keywords naturally for Google & Users
-const placeWordList = [
-  "home", "office", "executive", "cabin", "mosque", "temple", "church", "hospital",
-  "clinic", "school", "college", "showroom", "shop", "restaurant", "hotel",
-  "factory", "warehouse", "hall", "halls", "reception", "auditorium",
-  "chennai", "india", "tamil nadu", "banks", "industrial", "digital",
-  "online", "buy", "wall", "clock"
-] as const;
+// ------------------------
+// SEO & Highlighting Logic
+// ------------------------
+// We use full phrases here to ensure uniform bolding instead of disjointed words.
+// Sorted by length descending later so longer phrases match first.
+const seoPhrasesList = [
+  "7-segment digital led clock",
+  "led dot matrix digital wall clock",
+  "led dot matrix digital clock",
+  "led dot matrix clock",
+  "led dot matrix display",
+  "digital calendar clock",
+  "industrial led clock",
+  "digital wall clock",
+  "digital clocks",
+  "digital clock",
+  "led clock",
+  "night-time readability",
+  "executive cabins",
+  "hospital receptions",
+  "large auditoriums",
+  "showrooms",
+  "auditoriums",
+  "factories",
+  "warehouses",
+  "colleges",
+  "hospitals",
+  "clinics",
+  "mosques",
+  "temples",
+  "schools",
+  "offices",
+  "homes",
+  "shops",
+  "banks",
+  "halls",
+  "tamil nadu",
+  "chennai",
+  "india",
+];
 
-const placeWordSet = new Set<string>(placeWordList.map(w => w.toLowerCase()));
-const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi");
+// Sort by length to prioritize matching longer phrases (e.g., "digital led clock" before "led clock")
+const seoPhrases = seoPhrasesList.sort((a, b) => b.length - a.length);
+
+function escapeRegExp(string: string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// Dynamically build the regex to split by our exact phrases
+const phraseSplitRegex = new RegExp(
+  `\\b(${seoPhrases.map(escapeRegExp).join("|")})\\b`,
+  "gi"
+);
 
 function renderFeatureText(feature: string) {
-  if (feature.toLowerCase().startsWith("suitable for") || feature.toLowerCase().startsWith("ideal for")) {
-    return (
-      <span className="font-semibold text-white whitespace-normal break-words">
-        {feature}
-      </span>
-    );
-  }
-  return feature.split(placeWordSplitRegex).map((part, index) => {
-    const cleanPart = part.replace(/[,.:;!?]/g, "").toLowerCase();
-    if (placeWordSet.has(cleanPart)) {
+  return feature.split(phraseSplitRegex).map((part, index) => {
+    const cleanPart = part.toLowerCase();
+
+    // If the chunk perfectly matches one of our SEO phrases, bold it nicely
+    if (seoPhrases.includes(cleanPart)) {
       return (
         <span
           key={`${index}-${part}`}
           className="font-semibold text-white whitespace-normal break-words"
         >
-          {part.charAt(0).toUpperCase() + part.slice(1)}
+          {part}
         </span>
       );
     }
+    // Otherwise, render normal text
     return (
       <span key={`${index}-${part}`} className="whitespace-normal break-words">
         {part}
@@ -84,10 +122,10 @@ const collections: ProductItem[] = [
     category: "Digital Wall Clocks",
     features: [
       "Ideal for homes, offices, and executive cabins (Suits up to 250 sq. ft. rooms).",
-      "High Brightness: Features a 7-segment digital LED clock display that is readable at night.",
-      "Maintenance Free: 8+ years durable lifespan with built-in lithium battery memory backup.",
-      "Complete Kit: Includes a 5V DC power supply, built-in setting buttons, and ABS plastic finish for wall or table-top use.",
-      "Warranty: 1-year guarantee. Order your digital clock online today!",
+      "High Brightness: Features a 7-segment digital LED clock display ensuring clear night-time readability.",
+      "Maintenance-Free: Offers an 8+ year durable lifespan with a built-in lithium battery for memory backup.",
+      "Complete Kit: Includes a 5V DC power supply, built-in setting buttons, and an ABS plastic finish for wall or tabletop use.",
+      "Warranty: Backed by a 1-year guarantee. Order your digital clock online today.",
     ],
     size: "Size: 14 x 6.5 x 3 cm | Weight: 250g",
   },
@@ -97,11 +135,11 @@ const collections: ProductItem[] = [
     price: "₹ 990/-",
     category: "Digital Wall Clocks",
     features: [
-      "Perfect for shops and clinics (Suits up to 250 sq. ft. rooms).",
-      "High Brightness: Features a 7-segment digital LED clock display that is readable at night.",
-      "Maintenance Free: 8+ years durable lifespan with built-in lithium battery memory backup.",
-      "Complete Kit: Includes a 5V DC power supply, built-in setting buttons, and ABS plastic finish for wall or table-top use.",
-      "Warranty: 1-year guarantee. Buy the top-rated LED clock in Chennai.",
+      "Ideal for shops and clinics (Suits up to 250 sq. ft. rooms).",
+      "High Brightness: Features a 7-segment digital LED clock display ensuring clear night-time readability.",
+      "Maintenance-Free: Offers an 8+ year durable lifespan with a built-in lithium battery for memory backup.",
+      "Complete Kit: Includes a 5V DC power supply, built-in setting buttons, and an ABS plastic finish for wall or tabletop use.",
+      "Warranty: Backed by a 1-year guarantee. Buy the top-rated LED clock in Chennai.",
     ],
     size: "Size: 14 x 6.5 x 3 cm | Weight: 250g",
   },
@@ -111,11 +149,11 @@ const collections: ProductItem[] = [
     price: "₹ 1,390/-",
     category: "Industrial Clocks",
     features: [
-      "Perfect for banks and showrooms (Suits up to 400 sq. ft. rooms).",
-      "Customizable Display: High-bright 7x30 LED Dot Matrix clock with dual font options and night-time readability.",
-      "Industrial Grade Build: Aluminium powder-coated finish for secure wall or table-top mounting.",
-      "Power Safe: 8+ years lifespan with built-in lithium battery memory backup and 5V DC input.",
-      "Warranty: 1-year guarantee. Buy locally direct from the manufacturer in Chennai.",
+      "Ideal for banks and showrooms (Suits up to 400 sq. ft. rooms).",
+      "Customizable Display: High-bright 7x30 LED dot matrix clock featuring dual font options and excellent night-time readability.",
+      "Industrial-Grade Build: Premium aluminium powder-coated finish for secure wall or tabletop mounting.",
+      "Reliable Power: Delivers an 8+ year lifespan with a built-in lithium battery memory backup (5V DC power supply included).",
+      "Warranty: Backed by a 1-year guarantee. Buy locally direct from the manufacturer in Chennai.",
     ],
     size: "Size: 26 x 8 x 4 cm | Weight: 450g",
     densityOptions: ["Thin", "Thick"],
@@ -130,10 +168,10 @@ const collections: ProductItem[] = [
     category: "Executive Clocks",
     features: [
       "Ideal for hospital receptions and executive cabins (Suits up to 400 sq. ft. rooms).",
-      "Smart Dual-Colour Design: High-bright 7x30 LED Dot Matrix digital wall clock where users can select fonts and colors.",
-      "Premium Durability: Aluminium powder-coat finish, built for 8+ years of maintenance-free operation.",
-      "Reliable: Built-in lithium battery memory backup protects time data during power cuts (5V DC included).",
-      "Support: 1-year guarantee. Dedicated service for digital clocks across Tamil Nadu.",
+      "Smart Dual-Colour Design: High-bright 7x30 LED dot matrix digital wall clock featuring user-selectable fonts, colors, and excellent night-time readability.",
+      "Premium Durability: Constructed with an aluminium powder-coated finish for 8+ years of maintenance-free operation.",
+      "Reliable Backup: A built-in lithium battery protects time data during power cuts (5V DC power supply included).",
+      "Warranty: Backed by a 1-year guarantee. Dedicated service for digital clocks across Tamil Nadu.",
     ],
     size: "Size: 26 x 8 x 4 cm | Weight: 450g",
     greenImages: ["/Products/matrixdual3.jpeg", "/Products/matrixdual4.jpeg"],
@@ -150,10 +188,10 @@ const collections: ProductItem[] = [
     category: "Calendar Clocks",
     features: [
       "Reception Ready: The ideal digital calendar clock for hotels and schools (Suits up to 300 sq. ft. rooms).",
-      "Complete Display: High-bright 14x56 LED Dot Matrix shows Time, Day, and Date clearly at a glance.",
-      "Robust Construction: Features a premium aluminium powder-coat finish for easy wall or table-top mounting.",
-      "Long-Lasting: Enjoy 8+ years of durable, maintenance-free use with a built-in lithium battery backup.",
-      "Warranty: 1-year guarantee. Order your digital clocks online with a 5V power supply included.",
+      "Complete Display: High-bright 14x56 LED dot matrix display shows the time, day, and date clearly, ensuring full night-time readability.",
+      "Robust Construction: Features a premium aluminium powder-coated finish for secure wall or tabletop mounting.",
+      "Long-Lasting: Enjoy 8+ years of durable, maintenance-free operation with a built-in lithium battery memory backup.",
+      "Warranty: Backed by a 1-year guarantee. Order your digital clocks online today (5V DC power supply included).",
     ],
     size: "Size: 26 x 8 x 4 cm | Weight: 450g",
   },
@@ -174,10 +212,10 @@ const collections: ProductItem[] = [
     hasTriColor: true,
     features: [
       "Luxury Choice: Ideal for large auditoriums, halls, colleges, and mosques (Suits up to 2000 sq. ft. rooms).",
-      "Advanced Customization: High-bright 7x80 LED Dot Matrix digital clock with 6 options for user-selectable fonts, colors, and modes.",
-      "Corporate Quality: Aluminium powder-coat finish provides a premium look for gifting and professional use.",
-      "Reliable Backup: Built-in lithium battery protects memory for 8+ years of maintenance-free operation.",
-      "Complete Package: Includes 5V DC power supply and a 1-year guarantee. Buy the best digital clocks in Chennai.",
+      "Advanced Customization: High-bright 7x80 LED dot matrix digital clock featuring 6 user-selectable fonts, colors, modes, and clear night-time readability.",
+      "Corporate Quality: An aluminium powder-coated finish provides a premium look for professional use and gifting.",
+      "Reliable Backup: A built-in lithium battery protects memory data, ensuring 8+ years of maintenance-free operation.",
+      "Warranty: Backed by a 1-year guarantee. Buy the best digital clocks in Chennai (5V DC power supply included).",
     ],
     size: "Size: 64 x 8 x 4 cm | Weight: 1250g",
   },
@@ -188,10 +226,10 @@ const collections: ProductItem[] = [
     category: "Industrial Clocks",
     features: [
       "Heavy Duty: The ultimate industrial LED clock for factories, warehouses, and temples (Suits 5000+ sq. ft. halls).",
-      "Maximum Visibility: Features ultra-bright 5mm 7-segment LEDs, perfectly readable day or night from long distances.",
-      "Rugged Build: Heavy aluminium powder-coat finish designed for wall or ceiling mounting in tough environments.",
-      "Industrial Power: Runs on 12V DC (supply included) with a built-in lithium battery for continuous memory backup.",
-      "Trusted Warranty: 1-year guarantee with 8+ years of maintenance-free durability. Trusted across industrial India.",
+      "Maximum Visibility: Features ultra-bright 5mm 7-segment LEDs, providing perfect night-time readability and long-distance day visibility.",
+      "Rugged Build: Heavy-duty aluminium powder-coated finish designed for wall or ceiling mounting in demanding environments.",
+      "Industrial Power: Operates on 12V DC (power supply included) with a built-in lithium battery for continuous memory backup.",
+      "Warranty: Backed by a 1-year guarantee with 8+ years of maintenance-free durability. Trusted across industrial India.",
     ],
     size: "Size: 73 x 28 x 4 cm | Weight: 2000g",
   },
@@ -306,7 +344,6 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
         {/* PRICE & SIZE BADGES */}
         <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-6">
           {item.price && (
-            // FIX: Bumped text up to text-xl md:text-2xl so it fills out the box beautifully!
             <div className="inline-block rounded-xl bg-amber-400/10 border border-amber-400/20 px-6 py-2.5 text-xl md:text-2xl font-bold text-amber-400 tracking-wide backdrop-blur-sm shadow-sm">
               {item.price}
             </div>
