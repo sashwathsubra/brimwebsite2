@@ -28,7 +28,8 @@ const placeWordSplitRegex = new RegExp(`\\b(${placeWordList.join("|")})\\b`, "gi
 function renderFeatureText(feature: string) {
   if (feature.toLowerCase().startsWith("suitable for") || feature.toLowerCase().startsWith("ideal for")) {
     return (
-      <span className="font-semibold text-teal-400 whitespace-normal break-words">
+      // Changed from text-teal-400 to text-white
+      <span className="font-semibold text-white whitespace-normal break-words">
         {feature}
       </span>
     );
@@ -37,9 +38,10 @@ function renderFeatureText(feature: string) {
     const cleanPart = part.replace(/[,.:;!?]/g, "").toLowerCase();
     if (placeWordSet.has(cleanPart)) {
       return (
+        // Changed from text-teal-400 to text-white
         <span
           key={`${index}-${part}`}
-          className="font-semibold text-teal-400 whitespace-normal break-words"
+          className="font-semibold text-white whitespace-normal break-words"
         >
           {part.charAt(0).toUpperCase() + part.slice(1)}
         </span>
@@ -74,13 +76,13 @@ type ProductItem = {
 };
 
 // ------------------------
-// Products Array (UPDATED WITH NEW SPECS & SEO INTACT)
+// Products Array (UPDATED WITH ₹ SYMBOL)
 // ------------------------
 const collections: ProductItem[] = [
   {
     images: ["/Products/minired.jpeg"],
     name: "Mini LED Digital Clock (Red)", 
-    price: "Rs. 990/-",
+    price: "₹ 990/-",
     category: "Digital Wall Clocks",
     features: [
       "Ideal for homes, offices, and executive cabins (Suits up to 250 sq. ft. rooms).",
@@ -94,7 +96,7 @@ const collections: ProductItem[] = [
   {
     images: ["/Products/minigreen.jpeg"],
     name: "Mini LED Digital Clock (Green)", 
-    price: "Rs. 990/-",
+    price: "₹ 990/-",
     category: "Digital Wall Clocks",
     features: [
       "Perfect for shops and clinics (Suits up to 250 sq. ft. rooms).",
@@ -108,7 +110,7 @@ const collections: ProductItem[] = [
   {
     images: ["/Products/matrixsingle1.jpeg", "/Products/matrixsingle2.jpeg"],
     name: "Red Dot Matrix LED Clock", 
-    price: "Rs. 1,390/-",
+    price: "₹ 1,390/-",
     category: "Industrial Clocks",
     features: [
       "Perfect for banks and showrooms (Suits up to 400 sq. ft. rooms).",
@@ -126,7 +128,7 @@ const collections: ProductItem[] = [
   {
     images: ["/Products/matrixdual1.jpeg", "/Products/matrixdual2.jpeg"],
     name: "Dual Colour Dot Matrix Clock",
-    price: "Rs. 1,790/-",
+    price: "₹ 1,790/-",
     category: "Executive Clocks",
     features: [
       "Ideal for hospital receptions and executive cabins (Suits up to 400 sq. ft. rooms).",
@@ -146,7 +148,7 @@ const collections: ProductItem[] = [
   {
     images: ["/Products/matrixcalendar.jpeg"],
     name: "Digital Calendar LED Clock", 
-    price: "Rs. 2,350/-",
+    price: "₹ 2,350/-",
     category: "Calendar Clocks",
     features: [
       "Reception Ready: The ideal digital calendar clock for hotels and schools (Suits up to 300 sq. ft. rooms).",
@@ -168,7 +170,7 @@ const collections: ProductItem[] = [
       "/Products/lcalendar7.jpeg"
     ],
     name: "Multicolor Digital Calendar Clock", 
-    price: "Rs. 3,950/-",
+    price: "₹ 3,950/-",
     category: "Premium Clocks",
     hasDualColor: true,
     hasTriColor: true,
@@ -184,7 +186,7 @@ const collections: ProductItem[] = [
   {
     images: ["/Products/jumbored.jpeg"],
     name: "Jumbo Industrial LED Clock", 
-    price: "Rs. 4,950/-",
+    price: "₹ 4,950/-",
     category: "Industrial Clocks",
     features: [
       "Heavy Duty: The ultimate industrial LED clock for factories, warehouses, and temples (Suits 5000+ sq. ft. halls).",
@@ -303,10 +305,11 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
           {item.name}
         </h2>
 
-        {/* NEWLY ADDED: Price & Size Badges Side-by-Side */}
+        {/* PRICE & SIZE BADGES */}
         <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-6">
           {item.price && (
-            <div className="inline-block rounded-lg bg-amber-400/10 border border-amber-400/20 px-4 py-2 text-sm sm:text-base font-bold text-amber-400 tracking-wide backdrop-blur-sm shadow-sm">
+            // BUMPED UP SIZE: Added text-base sm:text-lg and px-5
+            <div className="inline-block rounded-lg bg-amber-400/10 border border-amber-400/20 px-5 py-2 text-base sm:text-lg font-bold text-amber-400 tracking-wide backdrop-blur-sm shadow-sm">
               {item.price}
             </div>
           )}
