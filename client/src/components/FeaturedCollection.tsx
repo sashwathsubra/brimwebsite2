@@ -121,7 +121,7 @@ const collections: ProductItem[] = [
     price: "₹ 990/-",
     category: "Digital Wall Clocks",
     features: [
-      "Superior Visibility: Designed for clear night-time readability and effortless daytime viewing.",
+      "Night time readability: Designed for clear visibility in dim and brightly lit environments. ",
       "Perfect Placement: Ideal for homes, offices, and executive cabins (Suits up to 250 sq. ft. rooms).",
       "High Brightness: Features a premium 7-segment digital LED clock display.",
       "Maintenance-Free: Offers an 8+ year durable lifespan with a built-in lithium battery for memory backup.",
@@ -135,7 +135,7 @@ const collections: ProductItem[] = [
     price: "₹ 990/-",
     category: "Digital Wall Clocks",
     features: [
-      "Superior Visibility: Designed for clear night-time readability and effortless daytime viewing.",
+      "Night time readability: Designed for clear visibility in dim and brightly lit environments.",
       "Perfect Placement: Ideal for shops and clinics (Suits up to 250 sq. ft. rooms).",
       "High Brightness: Features a premium 7-segment digital LED clock display.",
       "Maintenance-Free: Offers an 8+ year durable lifespan with a built-in lithium battery for memory backup.",
@@ -149,7 +149,7 @@ const collections: ProductItem[] = [
     price: "₹ 1,390/-",
     category: "Industrial Clocks",
     features: [
-      "Superior Visibility: Designed for clear night-time readability and effortless daytime viewing.",
+      "Night time readability: Designed for clear visibility in dim and brightly lit environments.",
       "Perfect Placement: Ideal for banks and showrooms (Suits up to 400 sq. ft. rooms).",
       "Customizable Display: High-bright 7x30 LED dot matrix clock featuring dual font options.",
       "Reliable Power: Delivers an 8+ year lifespan with a built-in lithium battery memory backup (5V DC power supply included).",
@@ -167,7 +167,7 @@ const collections: ProductItem[] = [
     price: "₹ 1,790/-",
     category: "Executive Clocks",
     features: [
-      "Superior Visibility: Designed for clear night-time readability and effortless daytime viewing.",
+      "Night time readability: Designed for clear visibility in dim and brightly lit environments.",
       "Perfect Placement: Ideal for hospital receptions and executive cabins (Suits up to 400 sq. ft. rooms).",
       "Smart Dual-Colour Design: High-bright 7x30 LED dot matrix digital wall clock featuring user-selectable fonts and colors.",
       "Premium Durability: Constructed with an aluminium powder-coated finish and built-in lithium battery backup (5V DC power supply included).",
@@ -187,7 +187,7 @@ const collections: ProductItem[] = [
     price: "₹ 2,350/-",
     category: "Calendar Clocks",
     features: [
-      "Superior Visibility: Designed for clear night-time readability and effortless daytime viewing.",
+      "Night time readability: Designed for clear visibility in dim and brightly lit environments.",
       "Reception Ready: The ideal digital calendar clock for hotels and schools (Suits up to 300 sq. ft. rooms).",
       "Complete Display: High-bright 14x56 LED dot matrix display shows the time, day, and date clearly at a glance.",
       "Long-Lasting: Enjoy 8+ years of durable, maintenance-free operation with a built-in lithium battery memory backup.",
@@ -211,7 +211,7 @@ const collections: ProductItem[] = [
     hasDualColor: true,
     hasTriColor: true,
     features: [
-      "Superior Visibility: Designed for clear night-time readability and effortless daytime viewing.",
+      "Night time readability: Designed for clear visibility in dim and brightly lit environments.",
       "Luxury Choice: Ideal for large auditoriums, halls, colleges, and mosques (Suits up to 2000 sq. ft. rooms).",
       "Advanced Customization: High-bright 7x80 LED dot matrix digital clock featuring 6 user-selectable fonts, colors, and modes.",
       "Corporate Quality: An aluminium powder-coated finish with a built-in lithium battery for 8+ years of maintenance-free operation.",
