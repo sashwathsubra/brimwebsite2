@@ -81,7 +81,7 @@ const AboutSection = () => {
             {[
               { number: "35", label: "Years of Experience" },
               { number: "1000", label: "Clients in Chennai" },
-              { number: "8", label: "Years Battery Backup", showPlus: false }, // Updated to match your text!
+              { number: "8", label: "Years Battery Backup", showPlus: false },
               { number: "100%", label: "Made in India", showPlus: false },
             ].map((stat, index) => (
               <StatCounter 
@@ -94,22 +94,22 @@ const AboutSection = () => {
           </motion.div>
         </div>
 
-        {/* Bottom Section: Trusted Clients */}
+        {/* Bottom Section: Trusted Clients (Now Fully Centered) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-          className="mt-16 md:mt-24 pt-10 border-t border-border"
+          className="mt-16 md:mt-24 pt-10 border-t border-border flex flex-col items-center"
         >
-          <h3 className="text-sm md:text-base font-body uppercase tracking-widest text-primary mb-6 text-center md:text-left">
+          <h3 className="text-sm md:text-base font-body uppercase tracking-widest text-primary mb-6 text-center">
             Trusted by Respected Organizations
           </h3>
-          <div className="flex flex-wrap justify-center md:justify-start gap-3">
+          <div className="flex flex-wrap justify-center gap-3 max-w-4xl">
             {clients.map((client, index) => (
               <span
                 key={index}
-                className="px-4 py-2 bg-background border border-border rounded-full text-sm font-medium text-foreground hover:bg-muted hover:border-primary/50 transition-colors cursor-default select-none shadow-sm"
+                className="px-4 py-2 bg-background border border-border rounded-full text-sm font-medium text-foreground hover:bg-muted hover:border-primary/50 transition-colors cursor-default select-none shadow-sm text-center"
               >
                 {client}
               </span>
