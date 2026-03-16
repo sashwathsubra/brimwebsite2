@@ -15,34 +15,33 @@ const Index = () => {
       <main className="flex-grow">
         <HeroSlideshow />
 
-        {/* --- SEO VISIBLE TEXT: PERFECTED (GOLD VERSION) --- */}
-        <div className="container mx-auto px-4 pt-10 pb-2 text-center">
-          {/* Main Title: Clear & Direct for Google */}
+        {/* --- SEO VISIBLE TEXT: UPDATED --- */}
+        <div className="container mx-auto px-4 pt-10 pb-6 text-center">
+          {/* Main Title */}
           <h1 className="text-3xl md:text-5xl font-bold mb-6 text-amber-500 drop-shadow-md">
-            Buy Premium LED Digital Clocks in Chennai
+            Buy LED Digital Clocks in Chennai
           </h1>
           
-          {/* Description: Catchy, Neat, & Keyword Rich */}
+          {/* Description */}
           <p className="max-w-4xl mx-auto text-gray-300 text-lg md:text-xl leading-relaxed mb-8">
-            Elevate your space with a high-visibility <span className="text-white font-semibold">LED digital clock wall</span> display. 
-            As the trusted experts in <span className="text-teal-400 font-medium">LED clock Chennai</span> manufacturing, we combine precision with durability. 
-            Whether you want to <span className="text-teal-400 font-medium">buy clock Chennai</span> locally or order a <span className="text-white font-semibold">digital clock online</span>, 
-            Brim Clocks delivers superior industrial and home solutions across Tamil Nadu.
+            High-visibility <span className="text-white font-semibold">LED digital wall clocks</span> designed for banks, factories, hospitals, offices, and public institutions. Built for clear display, reliable performance, and long service life. 
+            <br className="hidden md:block mt-2" />
+            <span className="text-teal-400 font-medium">Available for purchase in Chennai or through our website.</span>
           </p>
         </div>
         {/* --- END SEO --- */}
 
-        <Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-20 text-muted-foreground">Loading products…</div>}>
+        <Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-20 text-muted-foreground flex justify-center">Loading products…</div>}>
           <FeaturedCollection />
         </Suspense>
-        <Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-16 text-muted-foreground">Loading about…</div>}>
+        <Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-16 text-muted-foreground flex justify-center">Loading about…</div>}>
           <AboutSection />
         </Suspense>
-        <Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-16 text-muted-foreground">Loading contact…</div>}>
+        <Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-16 text-muted-foreground flex justify-center">Loading contact…</div>}>
           <ContactSection />
         </Suspense>
       </main>
-      <Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-16 text-muted-foreground">Loading footer…</div>}>
+      <Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-16 text-muted-foreground flex justify-center">Loading footer…</div>}>
         <Footer />
       </Suspense>
     </div>
