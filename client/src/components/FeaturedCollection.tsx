@@ -220,7 +220,7 @@ const collections: ProductItem[] = [
       "/Products/lcalendar6.jpeg",
       "/Products/lcalendar7.jpeg"
     ],
-    name: "7X80 LED Dot Matrix Multicolor Calendar Clock", 
+    name: "7X80 LED Dot Matrix Dual Colour Calendar Clock", 
     price: "₹ 3,950/-",
     category: "Premium Clocks",
     hasDualColor: true,
