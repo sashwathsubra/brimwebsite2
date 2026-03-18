@@ -6,21 +6,21 @@ const Footer = () => {
   return (
     <footer className="w-full bg-black/90 text-gray-400 border-t border-white/10 pt-16 pb-8 font-body">
       <div className="mx-auto max-w-7xl px-6 md:px-12">
-        {/* Changed to a 3-column grid so it fills the space evenly */}
         <div className="grid gap-12 md:grid-cols-3 mb-12">
           
           {/* COLUMN 1: Brand Authority */}
           <div className="space-y-5 flex flex-col items-center text-center">
             <h3 className="text-2xl font-bold tracking-wider text-white">
-              <span className="text-amber-500">BRIM</span> Electronics
+              <span className="text-amber-500">BRIM</span> Clocks
             </h3>
             <p className="text-sm leading-relaxed text-gray-400 max-w-sm">
               The trusted <strong className="text-gray-200">LED digital clock manufacturer</strong> in Chennai since 1989. 
               We engineer premium industrial-grade matrix displays and precision timing solutions, available exclusively for <strong className="text-gray-200">online order and direct delivery</strong> across Tamil Nadu.
             </p>
-            <div className="flex items-center justify-center gap-2 text-amber-500 text-sm font-semibold">
-              <ShieldCheck className="h-5 w-5" />
-              <span>35+ Years of Excellence</span>
+            {/* UPDATED: Bigger and bolder badge */}
+            <div className="flex items-center justify-center gap-2 text-amber-500 text-base md:text-lg font-bold mt-2">
+              <ShieldCheck className="h-6 w-6" />
+              <span className="tracking-wide">35+ Years of Excellence</span>
             </div>
           </div>
 
@@ -57,10 +57,13 @@ const Footer = () => {
 
           {/* COLUMN 3: Factory Address */}
           <div className="space-y-5 flex flex-col items-center text-center">
-            <h3 className="font-semibold text-lg text-white">Location</h3>
+            {/* UPDATED: Moved icon next to the "Location" text */}
+            <h3 className="font-semibold text-lg text-white flex items-center justify-center gap-2">
+              <MapPin className="h-5 w-5 text-amber-500" />
+              Location
+            </h3>
             <ul className="space-y-4 text-sm flex flex-col items-center">
               <li className="flex flex-col items-center gap-2">
-                <MapPin className="h-5 w-5 text-amber-500 shrink-0" />
                 <span className="leading-relaxed">
                   14/20 Ranganathan Street,<br />
                   Ganesh Nagar, <strong className="text-white">Velachery</strong>,<br />
