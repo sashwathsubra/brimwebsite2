@@ -26,7 +26,7 @@ const Index = () => {
           <p className="max-w-4xl mx-auto text-gray-300 text-lg md:text-xl leading-relaxed mb-8">
             High-visibility <span className="text-white font-semibold">LED digital wall clocks</span> designed for banks, factories, hospitals, offices, and public institutions. Built for clear display, reliable performance, and long service life. 
             <br className="hidden md:block mt-2" />
-            <span className="text-teal-400 font-medium">Available for purchase in Chennai or through our website.</span>
+            <span className="text-teal-400 font-medium">Available for purchase in Chennai.</span>
           </p>
         </div>
         {/* --- END SEO --- */}
