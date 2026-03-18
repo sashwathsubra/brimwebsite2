@@ -84,26 +84,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* COLUMN 4: Hours & Delivery */}
-          <div className="space-y-5">
-            <h3 className="font-semibold text-lg text-white">Service Info</h3>
-            <ul className="space-y-4 text-sm">
-              <li className="flex items-start gap-3">
-                <Clock className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
-                <div>
-                  <span className="block text-white font-medium">Online Order Support</span>
-                  <span className="text-xs">Mon - Sat: 10:00 AM - 05:00 PM</span>
-                </div>
-              </li>
-              <li>
-                <span className="block text-white font-medium mb-2">Delivery Areas</span>
-                <p className="text-xs leading-relaxed text-gray-500">
-                  Direct shipping to Velachery, Guindy, OMR, Ambattur, Sriperumbudur, and all districts across Tamil Nadu.
-                </p>
-              </li>
-            </ul>
-          </div>
-
         </div>
 
         {/* BOTTOM BAR: Copyright + SEO Tagline */}
