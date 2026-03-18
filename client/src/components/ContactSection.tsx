@@ -153,22 +153,6 @@ const ContactSection = () => {
     <section id="contact" className="bg-secondary/50 px-4 py-20 sm:py-24 scroll-mt-20 md:scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         
-        {/* --- HEADER --- */}
-        <div className="text-center mb-16">
-          <span className="font-body text-primary tracking-[0.18em] text-base font-medium uppercase">
-            Expert Assistance
-          </span>
-          <h2 className="mt-4 mb-6 font-body text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
-            Partner with <span className="text-primary">BRIM</span>
-          </h2>
-          {/* SEO Optimized Description */}
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg leading-relaxed">
-            Ready to upgrade your infrastructure? As the premier <strong className="font-medium text-foreground">LED clock manufacturer in Chennai</strong>, 
-            we provide tailored solutions for banks, hospitals, and industries. 
-            Contact us to <strong className="font-medium text-foreground">buy digital clocks online</strong> for direct delivery across Tamil Nadu.
-          </p>
-        </div>
-
         {/* --- CONTACT INFO CARDS --- */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 mb-20">
           {/* ADDRESS */}
@@ -182,7 +166,7 @@ const ContactSection = () => {
             <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
               <MapPin className="h-6 w-6" />
             </div>
-            <h3 className="mb-2 font-body font-semibold text-foreground">Manufacturing Unit</h3>
+            <h3 className="mb-2 font-body font-semibold text-foreground">Address</h3>
             <p className="text-sm leading-relaxed text-muted-foreground">
               <strong>B.R.Electronics</strong><br />
               14/20 Ranganathan Street,<br />
@@ -209,7 +193,7 @@ const ContactSection = () => {
               </a>
             </p>
             <p className="mt-2 text-xs text-muted-foreground">
-              Support available Mon-Sat
+              Support available Monday-Saturday
             </p>
           </motion.div>
 
@@ -243,7 +227,7 @@ const ContactSection = () => {
             <div className="mb-4 rounded-full bg-primary/10 p-3 text-primary">
               <Clock className="h-6 w-6" />
             </div>
-            <h3 className="mb-2 font-body font-semibold text-foreground">Online Order Support</h3>
+            <h3 className="mb-2 font-body font-semibold text-foreground">Support</h3>
             <p className="text-sm text-muted-foreground">
               Monday - Saturday<br />
               <span className="font-medium">10:00 AM - 05:00 PM</span>
@@ -266,7 +250,7 @@ const ContactSection = () => {
         ) : (
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10">
-              <h3 className="text-2xl font-body font-bold text-foreground">Request Your Free Quote</h3>
+              <h3 className="text-2xl font-body font-bold text-foreground">Request Your Quote</h3>
               <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
                 Fill out the form below to inquire about <span className="text-foreground font-medium">custom LED displays</span> or bulk corporate orders.
               </p>

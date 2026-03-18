@@ -237,7 +237,7 @@ const collections: ProductItem[] = [
   },
   {
     images: ["/Products/jumbored.jpeg"],
-    name: "Jumbo Industrial LED Clock", 
+    name: "Jumbo LED Clock", 
     price: "₹ 4,950/-",
     category: "Industrial Clocks",
     features: [
