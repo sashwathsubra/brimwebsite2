@@ -176,7 +176,7 @@ const collections: ProductItem[] = [
   },
   {
     images: ["/Products/matrixdual1.jpeg", "/Products/matrixdual2.jpeg"],
-    name: "Dual Colour Dual Font Dot Matrix Clock",
+    name: "Dual Colour Dual Font LED Dot Matrix Clock",
     price: "₹ 1,790/-",
     category: "Executive Clocks",
     features: [
