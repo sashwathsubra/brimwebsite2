@@ -68,9 +68,6 @@ const Footer = () => {
                   14/20 Ranganathan Street,<br />
                   Ganesh Nagar, <strong className="text-white">Velachery</strong>,<br />
                   Chennai - 600042<br />
-                  <span className="text-amber-500/80 text-xs italic mt-1 block">
-                    (Manufacturing & Dispatch Only – No Retail Sales)
-                  </span>
                 </span>
               </li>
               <li className="flex items-center justify-center gap-2">
