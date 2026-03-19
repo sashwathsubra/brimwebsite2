@@ -62,7 +62,7 @@ const AboutSection = () => {
             </p>
 
             <p className="mb-6 font-body text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Our clocks are designed for clear visibility, long life, and consistent performance. Each unit is built with durable components and includes a battery backup of up to 8 years. Customers can <strong className="font-medium text-foreground">buy clocks locally in Chennai</strong> or order a <strong className="font-medium text-foreground">digital clock online</strong> through our website.
+              Our clocks are designed for clear visibility, long life, and consistent performance. Each unit is built with durable components and includes a battery backup of up to 8 years.
             </p>
 
             <p className="mb-10 font-body text-base leading-relaxed text-muted-foreground sm:text-lg">
