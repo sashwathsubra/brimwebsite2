@@ -171,7 +171,6 @@ const ContactSection = () => {
               <strong>B.R.Electronics</strong><br />
               14/20 Ranganathan Street,<br />
               Velachery, Chennai 600042<br />
-              <span className="text-xs italic mt-2 block">(Dispatch Only - No Retail Sales)</span>
             </p>
           </motion.div>
 
