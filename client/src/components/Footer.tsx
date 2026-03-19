@@ -15,7 +15,7 @@ const Footer = () => {
             </h3>
             <p className="text-sm leading-relaxed text-gray-400 max-w-sm">
               The trusted <strong className="text-gray-200">LED digital clock manufacturer</strong> in Chennai since 1989. 
-              We engineer premium industrial-grade matrix displays and precision timing solutions, available exclusively for <strong className="text-gray-200">online order and direct delivery</strong> across Tamil Nadu.
+              We engineer premium industrial-grade matrix displays and precision timing solutions.
             </p>
             {/* UPDATED: Bigger and bolder badge */}
             <div className="flex items-center justify-center gap-2 text-amber-500 text-base md:text-lg font-bold mt-2">
