@@ -33,7 +33,6 @@ const HeroSlideshow = () => {
   }, []);
 
   return (
-    {/* UPDATED: Changed min-h-[55svh] to min-h-[30svh] sm:min-h-[40svh] for mobile spacing */}
     <section className="relative min-h-[30svh] sm:min-h-[40svh] md:min-h-[100svh] w-full overflow-hidden bg-background pt-0 md:pt-24">
       {/* Radial gradient overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-muted/20 via-background to-background" />
@@ -53,7 +52,7 @@ const HeroSlideshow = () => {
                 alt={slide.alt}
                 width={slide.width}
                 height={slide.height}
-                className={`h-full w-full object-contain md:object-cover drop-shadow-2xl`}
+                className="h-full w-full object-contain md:object-cover drop-shadow-2xl"
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={index === 0 ? "high" : "auto"}
