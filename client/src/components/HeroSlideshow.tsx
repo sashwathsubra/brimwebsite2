@@ -33,12 +33,12 @@ const HeroSlideshow = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[30svh] sm:min-h-[40svh] md:min-h-[100svh] w-full overflow-hidden bg-background pt-0 md:pt-24">
+    <section className="relative min-h-[40svh] sm:min-h-[50svh] md:min-h-[100svh] w-full overflow-hidden bg-background">
       {/* Radial gradient overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-muted/20 via-background to-background" />
 
-      {/* Slides container with responsive side padding */}
-      <div className="absolute inset-x-0 top-0 bottom-0 md:top-20 md:bottom-24 flex items-center justify-center z-10 px-4 sm:px-8 md:px-16 lg:px-24">
+      {/* UPDATED: top-20 clears the mobile navbar, bottom-8 gives extra space above the marquee */}
+      <div className="absolute inset-x-0 top-20 bottom-8 md:top-24 md:bottom-24 flex items-center justify-center z-10 px-4 sm:px-8 md:px-16 lg:px-24">
         <div className="relative w-[100%] h-full flex items-center justify-center">
           {slides.map((slide, index) => (
             <motion.div
@@ -63,7 +63,7 @@ const HeroSlideshow = () => {
       </div>
 
       {/* Slide indicators */}
-      <div className="absolute bottom-8 right-4 z-30 hidden gap-2 sm:bottom-12 sm:right-12 sm:flex sm:gap-3">
+      <div className="absolute bottom-4 right-4 z-30 hidden gap-2 sm:bottom-12 sm:right-12 sm:flex sm:gap-3">
         {slides.map((_, index) => (
           <button
             key={index}
