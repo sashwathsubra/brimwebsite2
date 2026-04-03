@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSlideshow from "@/components/HeroSlideshow";
+import GiftMarquee from "@/components/GiftMarquee";
 
 // Lazy-load non-critical sections below the fold
 const FeaturedCollection = lazy(() => import("@/components/FeaturedCollection"));
@@ -14,6 +15,9 @@ const Index = () => {
       <Navbar />
       <main className="flex-grow">
         <HeroSlideshow />
+
+        {/* --- SCROLLING GIFT IDEAS MARQUEE --- */}
+        <GiftMarquee />
 
         {/* --- SEO VISIBLE TEXT: UPDATED --- */}
         <div className="container mx-auto px-4 pt-10 pb-6 text-center">
