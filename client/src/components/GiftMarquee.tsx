@@ -15,7 +15,6 @@ const giftIdeas = [
 
 const GiftMarquee = () => {
   return (
-    {/* UPDATED: py-3 for mobile, md:py-8 for PC */}
     <div className="w-full py-3 md:py-8 font-body">
       <div className="max-w-7xl mx-auto px-4 md:px-12 relative overflow-hidden flex">
         
