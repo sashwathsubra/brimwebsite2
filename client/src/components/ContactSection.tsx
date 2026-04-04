@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Send, CheckCircle, Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Send, CheckCircle, Phone, Mail, MapPin, Clock, ShieldCheck } from "lucide-react";
 
 // --- VALIDATION SCHEMA ---
 const contactSchema = z.object({
@@ -154,7 +154,7 @@ const ContactSection = () => {
       <div className="max-w-7xl mx-auto">
         
         {/* --- CONTACT INFO CARDS --- */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 mb-20">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 mb-8">
           {/* ADDRESS */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -233,6 +233,40 @@ const ContactSection = () => {
             </p>
           </motion.div>
         </div>
+
+        {/* --- REGISTRATION BANNER (MSME & GST) --- */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mx-auto mb-20 flex max-w-3xl flex-col items-center justify-center gap-6 rounded-2xl border border-border bg-card p-6 shadow-sm sm:flex-row sm:gap-12"
+        >
+          {/* MSME details */}
+          <div className="flex items-center gap-4">
+            <div className="rounded-full bg-primary/10 p-2 text-primary">
+              <ShieldCheck className="h-6 w-6" />
+            </div>
+            <div className="text-left">
+              <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">MSME Registered</p>
+              <p className="font-body text-sm font-semibold text-foreground sm:text-base">UDYAM-TN-02-0055038</p>
+            </div>
+          </div>
+
+          {/* Divider visible only on larger screens */}
+          <div className="hidden h-12 w-px bg-border sm:block"></div>
+
+          {/* GST details */}
+          <div className="flex items-center gap-4">
+            <div className="rounded-full bg-primary/10 p-2 text-primary">
+              <ShieldCheck className="h-6 w-6" />
+            </div>
+            <div className="text-left">
+              <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">GSTIN</p>
+              <p className="font-body text-sm font-semibold text-foreground sm:text-base">33AJRPS2172H1ZX</p>
+            </div>
+          </div>
+        </motion.div>
 
         {/* --- FORM SECTION --- */}
         {isSubmitted ? (
