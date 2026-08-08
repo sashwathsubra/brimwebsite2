@@ -2,14 +2,18 @@ import React, { Suspense, lazy } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import GiftMarquee from "@/components/GiftMarquee";
+import SeoContent from "@/components/SeoContent";
+import Footer from "@/components/Footer";
+import { useSeo } from "@/lib/seo";
 
 // Lazy-load non-critical sections below the fold
 const FeaturedCollection = lazy(() => import("@/components/FeaturedCollection"));
 const AboutSection = lazy(() => import("@/components/AboutSection"));
 const ContactSection = lazy(() => import("@/components/ContactSection"));
-const Footer = lazy(() => import("@/components/Footer"));
 
-const Index = () => {
+const Index = ({ routeKey = "home" }: { routeKey?: "home" | "mini-led-clock-red" | "jumbo-led-clock" | "calendar-clock" }) => {
+  useSeo(routeKey);
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Navbar />
@@ -18,6 +22,11 @@ const Index = () => {
 
         {/* --- SCROLLING GIFT IDEAS MARQUEE --- */}
         <GiftMarquee />
+
+        <SeoContent
+          title="Buy LED Digital Clocks in Chennai"
+          keywords="LED digital clock manufacturer Chennai, digital wall clock, industrial clock, calendar clock, jumbo clock"
+        />
 
         {/* --- SEO VISIBLE TEXT: UPDATED --- */}
         <div className="container mx-auto px-4 pt-10 pb-6 text-center">

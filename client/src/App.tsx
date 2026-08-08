@@ -6,7 +6,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import ProductPage from "./pages/ProductPage";
 import NotFound from "./pages/NotFound";
+
+const productRoutes = [
+  { path: "/mini-led-clock-red", key: "mini-led-clock-red" as const },
+  { path: "/jumbo-led-clock", key: "jumbo-led-clock" as const },
+  { path: "/calendar-clock", key: "calendar-clock" as const },
+];
 
 const queryClient = new QueryClient();
 
@@ -39,9 +46,16 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
             <Route path="/" element={<Index />} />
+            {productRoutes.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={<ProductPage routeKey={route.key} />}
+              />
+            ))}
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -55,7 +55,6 @@ const HeroSlideshow = () => {
                 className="h-full w-full object-contain md:object-cover drop-shadow-2xl"
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
-                fetchPriority={index === 0 ? "high" : "auto"}
               />
             </motion.div>
           ))}
