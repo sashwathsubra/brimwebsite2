@@ -37,9 +37,9 @@ const Index = ({ routeKey = "home" }: { routeKey?: "home" | "mini-led-clock-red"
           
           {/* Description */}
           <p className="max-w-4xl mx-auto text-gray-300 text-lg md:text-xl leading-relaxed mb-8">
-            High-visibility <span className="text-white font-semibold">LED digital wall clocks</span> designed for banks, factories, hospitals, offices, and public institutions. Built for clear display, reliable performance, and long service life. 
+            High-visibility <span className="text-white font-semibold">LED digital wall clocks</span> designed for banks, factories, hospitals, offices, schools, and public institutions. Built for clear display, reliable performance, and long service life. 
             <br className="hidden md:block mt-2" />
-            <span className="text-teal-400 font-medium">Available for purchase in Chennai.</span>
+            <span className="text-teal-400 font-medium">Direct from the manufacturer in Velachery, Chennai, with support for bulk orders and custom display projects.</span>
           </p>
         </div>
         {/* --- END SEO --- */}

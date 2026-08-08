@@ -1,0 +1,21 @@
+{
+  "name": "Brim Clocks - LED Digital Clock Manufacturer Chennai",
+  "short_name": "Brim Clocks",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "description": "Brim Clocks manufactures LED digital clocks, wall clocks, digital calendar clocks, and industrial display systems in Chennai.",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

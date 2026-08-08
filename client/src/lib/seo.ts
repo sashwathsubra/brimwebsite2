@@ -15,6 +15,8 @@ type SeoConfig = {
   ogDescription: string;
   ogUrl: string;
   ogType: string;
+  image: string;
+  imageAlt: string;
   jsonLd: Record<string, unknown>;
 };
 
@@ -47,7 +49,42 @@ const seoConfigs: Record<SeoRouteKey, SeoConfig> = {
       "Need 7-segment or matrix displays? Buy direct from the leading manufacturer in Velachery, Chennai.",
     ogUrl: "https://brimclocks.com/",
     ogType: "website",
-    jsonLd: defaultJsonLd,
+    image: "https://brimclocks.com/og-image.png",
+    imageAlt: "Brim Clocks LED digital clocks in Chennai",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@graph": [
+        defaultJsonLd,
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://brimclocks.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://brimclocks.com/#products" }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Where is Brim Clocks located?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Brim Clocks is based in Velachery, Chennai and serves customers across Tamil Nadu and India."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you supply industrial clocks?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, Brim Clocks manufactures industrial LED digital clocks, wall clocks, calendar clocks, and custom display systems."
+              }
+            }
+          ]
+        }
+      ]
+    },
   },
   "mini-led-clock-red": {
     title: "Mini LED Digital Clock (Red) Chennai | Buy LED Wall Clock Online",
@@ -153,8 +190,15 @@ export const useSeo = (routeKey: SeoRouteKey) => {
     setMetaTag("og:description", config.ogDescription, "property");
     setMetaTag("og:url", config.ogUrl, "property");
     setMetaTag("og:type", config.ogType, "property");
+    setMetaTag("og:image", config.image, "property");
+    setMetaTag("og:image:alt", config.imageAlt, "property");
+    setMetaTag("twitter:card", "summary_large_image");
+    setMetaTag("twitter:image", config.image);
+    setMetaTag("twitter:image:alt", config.imageAlt);
     setMetaTag("twitter:title", config.ogTitle);
     setMetaTag("twitter:description", config.ogDescription);
+    setMetaTag("theme-color", "#000000");
+    setMetaTag("author", "B.R. Electronics (Brim Clocks)");
     setCanonicalLink(config.canonical);
 
     const existingScript = document.querySelector('script[data-seo-jsonld="true"]');
